@@ -1,5 +1,7 @@
 <template>
-  <div>Hello World</div>
+  <div class="dark:tw-text-neutral-100 tw-text-neutral-800">
+    <div>Hello World</div>
+  </div>
 </template>
 
 <script>
