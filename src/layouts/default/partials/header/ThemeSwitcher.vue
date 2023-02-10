@@ -26,8 +26,8 @@ export default {
             icons: {
                 // dark: 'mdi-moon-waxing-crescent',
                 // light: 'mdi-white-balance-sunny'
-                dark: 'ph:sun',
-                light: 'ph:moon'
+                dark: 'ph:moon',
+                light: 'ph:sun'
             }
         }
     },
@@ -42,14 +42,21 @@ export default {
             if(html.classList.contains('tw-dark')) {
                 html.classList.remove('tw-dark')
                 this.isDarkMode = false
+                localStorage.setItem('myebag-theme', 'light')
             } else {
                 html.classList.add('tw-dark')
                 this.isDarkMode = true
+                localStorage.setItem('myebag-theme', 'dark')
             }
         }
     },
     mounted() {
-        this.isDarkMode = document.querySelector('html').classList.contains('tw-dark');
+        const currentTheme = localStorage.getItem('myebag-theme');
+        if(currentTheme == 'dark') {
+            document.querySelector('html').classList.add('tw-dark');
+            this.isDarkMode = true;
+        }
+
     }
 }
 </script>

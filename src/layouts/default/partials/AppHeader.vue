@@ -7,15 +7,16 @@
           tw-w-full
           tw-rounded-xl
           tw-border
+          dark:tw-border-neutral-600/70
+          tw-border-neutral-400/60
           tw-shadow-lg
           tw-shadow-neutral-400/10
           dark:tw-shadow-neutral-900/10
-          tw-border-neutral-400/60
-          dark:tw-border-neutral-600/70
-          tw-bg-white
           tw-flex tw-justify-between
           tw-items-center
+          tw-bg-white
           dark:tw-bg-neutral-900
+          tw-relative
           tw-px-3
         "
       >
