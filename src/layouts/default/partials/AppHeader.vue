@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-fixed tw-top-0 tw-left-0 tw-right-0">
+  <div class="tw-fixed tw-top-0 tw-left-0 tw-right-0 tw-z-10">
     <v-container class="md:tw-px-0 tw-py-2 tw-px-2">
       <div
         class="
@@ -7,8 +7,11 @@
           tw-w-full
           tw-rounded-xl
           tw-border
+          tw-shadow-lg
+          tw-shadow-neutral-400/10
+          dark:tw-shadow-neutral-900/10
           tw-border-neutral-400/60
-          dark:tw-border-neutral-500/70
+          dark:tw-border-neutral-600/70
           tw-bg-white
           tw-flex tw-justify-between
           tw-items-center

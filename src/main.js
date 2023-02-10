@@ -5,6 +5,7 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import { loadFonts } from './plugins/webfontloader'
 import globalConfig from './plugins/globalConfig'
+import { Icon } from '@iconify/vue';
 
 import '@/assets/css/main.css'
 
@@ -15,4 +16,7 @@ createApp(App)
   .use(store)
   .use(vuetify)
   .use(globalConfig)
+
+  .component('icon', Icon)
+  
   .mount('#app')
