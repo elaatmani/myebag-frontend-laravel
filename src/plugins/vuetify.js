@@ -7,7 +7,7 @@ import { createVuetify } from 'vuetify'
 
 const customTheme = {
   colors: {
-    primary: '#5b21b6',
+    primary: '#6354a4',
     secondary: '#0ea5e9'
   }
 }

@@ -43,7 +43,7 @@
           <router-link
             v-for="link in links"
             :key="link.id"
-            to="/"
+            :to="link.to"
             class="
               tw-py-2
               md:tw-py-1
@@ -79,6 +79,19 @@
             <icon class="tw-text-xl tw-text-red-600" icon="ph:power" />
             <span class="tw-text-md tw-text-red-600">Logout</span>
           </router-link>
+          <router-link
+            to="/"
+            class="
+              tw-py-2
+              md:tw-py-1
+              tw-flex tw-items-center tw-gap-3 tw-w-full tw-px-3
+              hover:tw-bg-black/5
+              dark:hover:tw-bg-white/5
+            "
+          >
+            <icon class="tw-text-xl tw-text-green-600" icon="fe:login" />
+            <span class="tw-text-md tw-text-green-600">Login</span>
+          </router-link>
         </div>
       </div>
     </transition>
@@ -91,10 +104,10 @@ export default {
     return {
       isActive: false,
       links: [
-        { id: 1, name: "Dashboard", icon: "akar-icons:dashboard" },
-        { id: 2, name: "Profile", icon: "ph:user" },
-        { id: 3, name: "Orders", icon: "ph:package" },
-        { id: 4, name: "Settings", icon: "ph:gear-six" },
+        { id: 1, name: "Dashboard", to: "/login", icon: "akar-icons:dashboard" },
+        { id: 2, name: "Profile", to: "/signup", icon: "ph:user" },
+        { id: 3, name: "Orders", to: "/", icon: "ph:package" },
+        { id: 4, name: "Settings", to: "/", icon: "ph:gear-six" },
       ],
     };
   },

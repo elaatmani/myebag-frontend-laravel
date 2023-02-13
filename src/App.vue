@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="my-application">
     <v-main>
       <router-view/>
     </v-main>
@@ -16,3 +16,21 @@ export default {
   }),
 }
 </script>
+
+<style lang="scss" scoped>
+  @font-face {
+    font-family: "Nunito";
+    src: url("@/assets/font/Nunito-VariableFont_wght.ttf");
+    font-weight: 100 1000;
+  }
+
+  $font-family: 'Nunito', serif;
+  .my-application {
+    .headline,
+    [class*='display-'],
+    [class*='text-'] {
+      font-family: $font-family, sans-serif !important;
+    }
+    font-family: $font-family, sans-serif !important;
+  }
+</style>

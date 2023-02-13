@@ -4,5 +4,22 @@
 
 
 * {
-    transition: all 200ms, color 0ms;
+    transition: all 200ms, color 0ms, width 0ms, height 0ms;
+}
+
+.no-hover .v-btn__overlay {
+    opacity: 0 !important;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    width: 15px;
+    background: #6354a4;
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(0,0,0,.7);
 }

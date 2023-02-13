@@ -53,7 +53,7 @@
 
 <script>
 import ThemeSwitcher from "@/layouts/default/partials/header/ThemeSwitcher";
-import AppLogo from "@/layouts/default/partials/header/AppLogo";
+import AppLogo from "@/components/AppLogo";
 import UserMenu from "@/layouts/default/partials/header/UserMenu";
 import SearchBox from "@/layouts/default/partials/header/SearchBox";
 import ShoppingCart from "@/layouts/default/partials/header/ShoppingCart";

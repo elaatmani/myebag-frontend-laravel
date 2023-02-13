@@ -56,7 +56,6 @@ export default {
             document.querySelector('html').classList.add('tw-dark');
             this.isDarkMode = true;
         }
-
     }
 }
 </script>

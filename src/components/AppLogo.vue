@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="tw-w-fit">
     <router-link :to="{ name: 'home' }">
         <div class="tw-flex tw-items-center tw-gap-2">
             <img class="tw-w-[28px]" :src="$frontend('assets/images/logo.svg')" alt="My Ebag Logo">
