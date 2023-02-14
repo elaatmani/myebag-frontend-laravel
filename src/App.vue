@@ -1,5 +1,5 @@
 <template>
-  <v-app class="my-application">
+  <v-app class="my-application dark:tw-text-neutral-200 tw-text-neutral-800">
     <v-main>
       <router-view/>
     </v-main>

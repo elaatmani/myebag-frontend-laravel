@@ -1,15 +1,21 @@
 <template>
-  <div class="dark:tw-text-neutral-100 tw-text-neutral-800">
-    <div>Hello World</div>
+  <div>
+    <HeroSection />
+
+    <div class="tw-py-5"></div>
+    
+    <WhyChooseSection />
   </div>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import HeroSection from '@/views/home/partials/HeroSection';
+import WhyChooseSection from '@/views/home/partials/WhyChooseSection'
 
 // Components
 
-export default defineComponent({
+export default {
   name: 'HomeView',
-});
+  components: { HeroSection, WhyChooseSection }
+};
 </script>

@@ -9,7 +9,7 @@
     <!-- /Application header -->
 
     <!-- Application main view -->
-    <v-container class="xl:tw-max-w-[1200px] md:tw-px-0 tw-px-5 tw-pt-[70px]">
+    <v-container class="xl:tw-max-w-[1200px] sm:tw-px-3 tw-px-3 tw-pt-[70px]">
         <router-view></router-view>
     </v-container>
     <!-- /Application main view -->

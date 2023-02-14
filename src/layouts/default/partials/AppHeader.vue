@@ -1,6 +1,6 @@
 <template>
   <div class="tw-fixed tw-top-0 tw-left-0 tw-right-0 tw-z-10">
-    <v-container class="md:tw-px-0 tw-py-2 tw-px-2">
+    <v-container class="sm:tw-px-3 tw-py-2 tw-px-2">
       <div
         class="
           tw-h-12
@@ -21,8 +21,17 @@
         "
       >
       <!-- Header Start -->
-      <div>
-        <AppLogo />
+      <div class="tw-flex tw-items-center tw-gap-5">
+        <div  class="md:tw-hidden">
+          <SidebarActivator />
+        </div>
+        <div>
+          <AppLogo :hide-text="true" />
+        </div>
+        <div class="dark:tw-border-r-neutral-600 tw-border-r-neutral-300 tw-border-r tw-h-[25px] tw-border-solid"></div>
+        <div>
+          <HeaderLinks />
+        </div>
       </div>
 
       <!-- Header End -->
@@ -57,9 +66,11 @@ import AppLogo from "@/components/AppLogo";
 import UserMenu from "@/layouts/default/partials/header/UserMenu";
 import SearchBox from "@/layouts/default/partials/header/SearchBox";
 import ShoppingCart from "@/layouts/default/partials/header/ShoppingCart";
+import HeaderLinks from "@/layouts/default/partials/header/HeaderLinks";
+import SidebarActivator from '@/layouts/default/partials/header/SidebarActivator'
 
 export default {
-  components: { ThemeSwitcher, AppLogo, UserMenu, SearchBox, ShoppingCart },
+  components: { ThemeSwitcher, AppLogo, UserMenu, SearchBox, ShoppingCart, HeaderLinks, SidebarActivator },
 };
 </script>
 
