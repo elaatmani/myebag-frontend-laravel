@@ -26,9 +26,9 @@
           <SidebarActivator />
         </div>
         <div>
-          <AppLogo :hide-text="true" />
+          <AppLogo :hide-text-mobile="true" />
         </div>
-        <div class="dark:tw-border-r-neutral-600 tw-border-r-neutral-300 tw-border-r tw-h-[25px] tw-border-solid"></div>
+        <div class="md:tw-block tw-hidden dark:tw-border-r-neutral-600 tw-border-r-neutral-300 tw-border-r tw-h-[25px] tw-border-solid"></div>
         <div>
           <HeaderLinks />
         </div>

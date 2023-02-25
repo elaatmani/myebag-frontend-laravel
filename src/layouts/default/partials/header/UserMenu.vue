@@ -7,14 +7,19 @@
         tw-w-[28px] tw-h-[28px] tw-ring tw-ring-transparent tw-duration-300
         dark:hover:tw-ring-neutral-700
         hover:tw-ring-neutral-100
-        tw-block tw-rounded-full tw-overflow-hidden
+        tw-flex tw-items-center tw-justify-center tw-rounded-full tw-overflow-hidden
       "
     >
-      <img
+      <div v-if="isLoggedIn">
+        <img
         :src="$frontend('assets/images/avatars/2.webp')"
         class="tw-w-full"
         alt="User Prfile"
       />
+      </div>
+      <div v-if="!isLoggedIn">
+        <icon icon="ph:user" class="tw-text-2xl tw-text-neutral-700 dark:tw-text-neutral-100" />
+      </div>
     </button>
 
     <transition name="show">
@@ -39,59 +44,12 @@
         "
       >
         <!-- Content goes here -->
-        <div class="tw-h-full tw-w-full tw-py-2 tw-pb-1 tw-relative tw-z-20">
-          <router-link
-            v-for="link in links"
-            :key="link.id"
-            :to="link.to"
-            class="
-              tw-py-2
-              md:tw-py-1
-              tw-flex tw-items-center tw-gap-3 tw-w-full tw-px-3
-              hover:tw-bg-black/5
-              dark:hover:tw-bg-white/5
-            "
-          >
-            <icon
-              class="tw-text-xl tw-text-neutral-700 dark:tw-text-neutral-100"
-              :icon="link.icon"
-            />
-            <span
-              class="tw-text-md tw-text-neutral-700 dark:tw-text-neutral-100"
-              >{{ link.name }}</span
-            >
-          </router-link>
+        <div v-if="isLoggedIn">
+          <AuthenticatedOptions />
+        </div>
 
-          <v-divider
-            class="tw-border-neutral-700 dark:tw-border-neutral-100 tw-my-1"
-          ></v-divider>
-
-          <router-link
-            to="/"
-            class="
-              tw-py-2
-              md:tw-py-1
-              tw-flex tw-items-center tw-gap-3 tw-w-full tw-px-3
-              hover:tw-bg-black/5
-              dark:hover:tw-bg-white/5
-            "
-          >
-            <icon class="tw-text-xl tw-text-red-600" icon="ph:power" />
-            <span class="tw-text-md tw-text-red-600">Logout</span>
-          </router-link>
-          <router-link
-            to="/"
-            class="
-              tw-py-2
-              md:tw-py-1
-              tw-flex tw-items-center tw-gap-3 tw-w-full tw-px-3
-              hover:tw-bg-black/5
-              dark:hover:tw-bg-white/5
-            "
-          >
-            <icon class="tw-text-xl tw-text-green-600" icon="fe:login" />
-            <span class="tw-text-md tw-text-green-600">Login</span>
-          </router-link>
+        <div v-if="!isLoggedIn">
+          <NotAuthenticatedOptions />
         </div>
       </div>
     </transition>
@@ -99,18 +57,24 @@
 </template>
 
 <script>
+import AuthenticatedOptions from '@/layouts/default/partials/header/AuthenticatedOptions'
+import NotAuthenticatedOptions from '@/layouts/default/partials/header/NotAuthenticatedOptions'
+
 export default {
+  components: { AuthenticatedOptions, NotAuthenticatedOptions },
+
   data() {
     return {
       isActive: false,
-      links: [
-        { id: 1, name: "Dashboard", to: "/login", icon: "akar-icons:dashboard" },
-        { id: 2, name: "Profile", to: "/signup", icon: "ph:user" },
-        { id: 3, name: "Orders", to: "/", icon: "ph:package" },
-        { id: 4, name: "Settings", to: "/", icon: "ph:gear-six" },
-      ],
     };
   },
+
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters['user/isLoggedIn']
+    }
+  },
+
   methods: {
     showMenu() {
       this.isActive = true;

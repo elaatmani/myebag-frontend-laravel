@@ -4,6 +4,7 @@ import DefaultLayout from '@/layouts/default/DefaultLayout'
 import HomeView from '../views/home/HomeView.vue'
 import LoginView from '@/views/login/LoginView'
 import SignupView from '@/views/signup/SignupView'
+import ProfileView from '@/views/profile/ProfileView'
 
 const routes = [
   {
@@ -17,6 +18,11 @@ const routes = [
         component: HomeView,
         meta: {
         }
+      },
+      {
+        path: '/profile',
+        name: 'profile',
+        component: ProfileView
       },
     ]
   },

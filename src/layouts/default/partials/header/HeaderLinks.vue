@@ -3,7 +3,9 @@
     <div>
         Home
     </div>
-    <HeaderLink />
+    <HeaderLink :title="'Categories'" />
+
+    <HeaderLink :title="'Discover'" />
     
     <div class="tw-flex tw-gap-0 tw-items-center">
         <span>About us</span>

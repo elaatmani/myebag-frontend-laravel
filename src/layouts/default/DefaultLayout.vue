@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-bg-neutral-50 dark:tw-bg-neutral-800 tw-min-h-screen">
+  <div class="tw-bg-white dark:tw-bg-neutral-800 tw-min-h-screen">
 
 
     <!-- Application header -->
