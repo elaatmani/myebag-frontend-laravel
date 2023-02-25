@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import beforeEachHandler from './beforeEachHandler'
 
 import DefaultLayout from '@/layouts/default/DefaultLayout'
 import HomeView from '../views/home/HomeView.vue'
@@ -17,25 +18,39 @@ const routes = [
         path: '',
         component: HomeView,
         meta: {
+          requireAuth: false,
+          title: 'Home'
         }
       },
       {
         path: '/profile',
         name: 'profile',
-        component: ProfileView
+        component: ProfileView,
+        meta: {
+          requireAuth: true,
+          title: 'Account'
+        }
       },
     ]
   },
   {
     path: '/login',
     name: 'login',
-    component: LoginView
+    component: LoginView,
+    meta: {
+      requireAuth: false,
+      title: 'Login'
+    }
   },
 
   {
     path: '/signup',
     name: 'signup',
-    component: SignupView
+    component: SignupView,
+    meta: {
+      requireAuth: false,
+      title: 'Signup'
+    }
   },
 ]
 
@@ -43,5 +58,7 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+router.beforeEach(beforeEachHandler)
 
 export default router

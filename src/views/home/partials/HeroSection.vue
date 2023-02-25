@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="tw-grid tw-grid-cols-12 tw-gap-5">
-      <div class="md:tw-h-[380px] sm:tw-h-[300px] tw-h-[230px] md:tw-col-span-8 tw-col-span-12 tw-bg-blue-400 tw-rounded-lg tw-overflow-hidden">
+      <div class="md:tw-h-[380px] sm:tw-h-[300px] tw-h-[230px] md:tw-col-span-8 tw-col-span-12 tw-bg-[#0097dc] tw-rounded-lg tw-overflow-hidden">
         <img :src="$frontend('assets/images/slider-img-1.jpg')" class="tw-w-full tw-h-full tw-object-cover"  alt="hero image">
       </div>
 

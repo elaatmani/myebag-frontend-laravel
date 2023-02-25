@@ -18,15 +18,15 @@
                 <div class="tw-flex tw-flex-col tw-gap-3">
                   <div class="tw-flex tw-flex-col tw-text-neutral-700 dark:tw-text-neutral-200 tw-text-md">
                     <label for="email">Email</label>
-                    <input :class="{ '!tw-border-red-400': !form.email.valid }" class="tw-w-full tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="Enter your email" type="email">
-                    <div ref="error" class="tw-h-1 tw-text-sm tw-text-red-400">
+                    <input v-model="user.email" :class="{ '!tw-border-red-400': !form.email.valid }" class="tw-w-full tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="Enter your email" type="email">
+                    <div ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
                       {{ form.email.message }}
                     </div>
                   </div>
                   <div class="tw-flex tw-flex-col tw-text-neutral-700 dark:tw-text-neutral-200 tw-text-md tw-mt-1">
                     <label for="email">Password</label>
-                    <input class="tw-w-full tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="Enter your password" type="email">
-                    <div ref="error" class="tw-h-1 tw-text-sm tw-text-red-400">
+                    <input v-model="user.password" :class="{ '!tw-border-red-400': !form.password.valid }" class="tw-w-full tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="Enter your password" type="password">
+                    <div ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
                       {{ form.password.message }}
                     </div>
                   </div>
@@ -34,7 +34,7 @@
                     <router-link class="tw-text-md tw-text-primary tw-font-normal" :to="{ name: 'home' }">Forgot password</router-link>
                   </div>
                   <div class="mt-2">
-                    <v-btn :loading="isLoading" class="text-capitalize" :ripple="false" variant="flat" color="primary" block size="large">Sign in</v-btn>
+                    <v-btn @click="login" :loading="isLoading" class="text-capitalize" :ripple="false" variant="flat" color="primary" block size="large">Sign in</v-btn>
                   </div>
                   <div class="mt-2 tw-text-center tw-text-md tw-text-neutral-700 tw-font-normal dark:tw-text-neutral-200">
                     Don't have an account? <router-link class="tw-text-primary tw-font-medium" :to="{ name: 'signup' }">Sign up</router-link>
@@ -58,6 +58,9 @@
 
 <script>
 import AppLogo from '@/components/AppLogo'
+import User from '@/api/User'
+import { required, isStringBetween } from '@/helpers/validators'
+
 export default {
   components: { AppLogo },
 
@@ -99,8 +102,43 @@ export default {
     },
 
     validateForm() {
-      // this.form.email = validateEmail(this.email);
-      // this.form.password = validateRequired(this.password);
+      this.form.email = required(this.user.email, 'Email');
+      this.form.password = isStringBetween(this.user.password, { min: 6, max: 16 }, 'Password');
+
+      console.log('form validated !');
+    },
+
+    login() {
+      this.validateForm();
+
+      if (!this.isFormValid) {
+        return false;
+      }
+
+      this.isLoading = true
+      User.login({
+        email: this.user.email,
+        password: this.user.password
+      })
+      .then((response) => {
+        const data = response.data
+
+        if(data?.status == 200) {
+
+          const user = data.user;
+          this.$store.dispatch('user/setUser', user);
+          this.$store.dispatch('user/setIsLoggedIn', true);
+          this.$router.push('/');
+          
+        }
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      }) 
+      .finally(() => {
+        this.isLoading = false
+      })
     }
   }
 }

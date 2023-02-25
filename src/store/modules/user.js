@@ -1,7 +1,12 @@
 
 
 const initialState = {
-    user: {},
+    user: {
+        fistname: 'Yassine',
+        lastname: 'El Aatmani',
+        email: 'yassine@gmail.com',
+        isAdmin: true
+    },
     isLoggedIn: true
 };
 
