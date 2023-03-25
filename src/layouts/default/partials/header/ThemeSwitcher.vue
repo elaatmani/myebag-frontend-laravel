@@ -42,10 +42,12 @@ export default {
             if(html.classList.contains('tw-dark')) {
                 html.classList.remove('tw-dark')
                 this.isDarkMode = false
+                this.$store.dispatch('theme/setMode', false)
                 localStorage.setItem('myebag-theme', 'light')
             } else {
                 html.classList.add('tw-dark')
                 this.isDarkMode = true
+                this.$store.dispatch('theme/setMode', true)
                 localStorage.setItem('myebag-theme', 'dark')
             }
         }

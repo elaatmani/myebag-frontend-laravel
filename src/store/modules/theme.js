@@ -11,6 +11,17 @@ if(currentTheme == 'dark') {
 export default {
     namespaced: true,
     state: initialState,
-    mutations: {},
-    actions: {}
+    getters: {
+        isDarkMode: state => state.isDarkMode
+    },
+    mutations: {
+        SET_MODE: (state, payload) => {
+            state.isDarkMode = payload
+        }
+    },
+    actions: {
+        setMode: ({commit}, payload) => {
+            commit('SET_MODE', payload)
+        }
+    }
 }

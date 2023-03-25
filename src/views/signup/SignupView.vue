@@ -42,14 +42,14 @@
                   <div class="tw-grid tw-grid-cols-12 tw-gap-5 tw-text-neutral-700 dark:tw-text-neutral-200 tw-text-md">
                     <div class="tw-flex tw-flex-col md:tw-col-span-6 tw-col-span-12 tw-text-neutral-700 dark:tw-text-neutral-200 tw-text-md">
                       <label for="phone">Phone <span class="tw-text-xs">(optionel)</span></label>
-                      <input @keyup="reset('phone')" :class="{ '!tw-border-red-400': !form.phone.valid }" class="tw-w-full tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" type="email">
+                      <input @keyup="reset('phone')" :class="{ '!tw-border-red-400': !form.phone.valid }" class="tw-w-full tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" type="text">
                       <div ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
                         {{ form.phone.message }}
                       </div>
                     </div>
                     <div class="tw-flex tw-flex-col md:tw-col-span-6 tw-col-span-12 tw-text-neutral-700 dark:tw-text-neutral-200 tw-text-md">
                       <label for="email">Email</label>
-                      <input @keyup="reset('email')" v-model="user.email" :class="{ '!tw-border-red-400': !form.email.valid }"  class="tw-w-full tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500"  type="email">
+                      <input @keyup="reset('email')" v-model="user.email" :class="{ '!tw-border-red-400': !form.email.valid }"  class="tw-w-full tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500"  type="text">
                       <div ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
                         {{ form.email.message }}
                       </div>

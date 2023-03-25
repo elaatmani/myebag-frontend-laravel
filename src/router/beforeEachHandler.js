@@ -1,4 +1,5 @@
 import store from "@/store";
+import { appName } from "@/config/app";
 
 export default function (to, from) {
     console.log('from: ', from);
@@ -7,7 +8,7 @@ export default function (to, from) {
     const isLoggedIn = store.getters['user/isLoggedIn'];
 
     // change page title
-    document.title = to.meta.title + ' | My Ebag';
+    document.title = to.meta.title + ' | ' + appName;
 
     // handle login path
     if (isLoggedIn && to.name === 'login') {

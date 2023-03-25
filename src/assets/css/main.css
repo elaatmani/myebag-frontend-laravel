@@ -5,6 +5,7 @@
 
 * {
     /* transition: all 200ms, color 0ms, width 0ms, height 0ms; */
+    /* transition: all 200ms, color 0ms !important; */
 }
 
 .no-hover .v-btn__overlay {
