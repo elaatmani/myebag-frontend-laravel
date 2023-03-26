@@ -70,9 +70,9 @@
 
 <script>
 // Components
-import ProfileTab from '@/views/profile/partials/ProfileTab';
-import SecurityTab from '@/views/profile/partials/SecurityTab';
-import SettingsTab from '@/views/profile/partials/SettingsTab';
+import ProfileTab from '@/components/profile/ProfileTab';
+import SecurityTab from '@/components/profile/SecurityTab';
+import SettingsTab from '@/components/profile/SettingsTab';
 
 
 export default {

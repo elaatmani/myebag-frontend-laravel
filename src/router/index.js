@@ -2,10 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import beforeEachHandler from './beforeEachHandler'
 
 import DefaultLayout from '@/layouts/default/DefaultLayout'
-import HomeView from '../views/home/HomeView.vue'
-import LoginView from '@/views/login/LoginView'
-import SignupView from '@/views/signup/SignupView'
-import ProfileView from '@/views/profile/ProfileView'
+import HomeView from '../views/HomeView.vue'
+import LoginView from '@/views/LoginView'
+import SignupView from '@/views/SignupView'
+import ProfileView from '@/views/ProfileView'
+import ProductView from '@/views/ProductView'
 
 const routes = [
   {
@@ -29,6 +30,15 @@ const routes = [
         meta: {
           requireAuth: true,
           title: 'Account'
+        }
+      },
+      {
+        path: '/products/:id',
+        name: 'products.show',
+        component: ProductView,
+        meta: {
+          requireAuth: false,
+          title: 'Product'
         }
       },
     ]

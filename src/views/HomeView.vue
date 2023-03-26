@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import HeroSection from '@/views/home/partials/HeroSection';
-import WhyChooseSection from '@/views/home/partials/WhyChooseSection'
-import  FeaturedProducts from '@/views/home/partials/FeaturedProducts'
+import HeroSection from '@/components/home/HeroSection';
+import WhyChooseSection from '@/components/home/WhyChooseSection'
+import  FeaturedProducts from '@/components/home/FeaturedProducts'
 
 // Components
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link to="/">
+    <router-link to="/products/1">
       <v-hover v-slot="{ isHovering, props }">
         <div
           v-bind="props"
