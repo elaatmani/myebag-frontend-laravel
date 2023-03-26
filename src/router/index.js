@@ -2,11 +2,17 @@ import { createRouter, createWebHistory } from 'vue-router'
 import beforeEachHandler from './beforeEachHandler'
 
 import DefaultLayout from '@/layouts/default/DefaultLayout'
+import DashboardLayout from '@/layouts/dashboard/DashboardLayout'
+
+// Main
 import HomeView from '../views/HomeView.vue'
 import LoginView from '@/views/LoginView'
 import SignupView from '@/views/SignupView'
 import ProfileView from '@/views/ProfileView'
 import ProductView from '@/views/ProductView'
+
+// Dashboard
+import IndexView from '@/views/dashboard/IndexView'
 
 const routes = [
   {
@@ -39,6 +45,22 @@ const routes = [
         meta: {
           requireAuth: false,
           title: 'Product'
+        }
+      },
+    ]
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: DashboardLayout,
+    children: [
+      {
+        name: 'dashboard/index',
+        path: '',
+        component: IndexView,
+        meta: {
+          requireAuth: true,
+          title: 'Dashboard'
         }
       },
     ]

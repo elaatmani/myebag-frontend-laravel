@@ -49,7 +49,7 @@ export default {
     data() {
         return {
             links: [
-                { id: 1, name: "Dashboard", to: "/login", icon: "akar-icons:dashboard" },
+                { id: 1, name: "Dashboard", to: "/dashboard", icon: "akar-icons:dashboard" },
                 // { id: 2, name: "Profile", to: "/profile", icon: "ph:user" },
                 { id: 3, name: "Orders", to: "/signup", icon: "ph:package" },
                 { id: 4, name: "Settings", to: "/profile", icon: "ph:gear-six" },

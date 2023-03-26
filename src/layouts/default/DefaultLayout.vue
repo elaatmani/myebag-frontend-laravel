@@ -8,6 +8,12 @@
     </div>
     <!-- /Application header -->
 
+    <!-- Application Sidebar -->
+    <div>
+      <Sidebar />
+    </div>
+    <!-- /Application Sidebar -->
+
     <!-- Application main view -->
     <v-container class="xl:tw-max-w-[1200px] sm:tw-px-3 tw-px-3 tw-pt-[70px]">
         <router-view></router-view>
@@ -24,9 +30,10 @@
 
 <script>
 import Header from '@/layouts/default/partials/AppHeader'
+import Sidebar from '@/layouts/default/partials/AppSidebar.vue'
 
 export default {
-    components: { Header }
+    components: { Header, Sidebar }
 
 }
 </script>
