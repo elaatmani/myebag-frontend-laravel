@@ -1,6 +1,6 @@
 <template>
   <div >
-    <v-layout class="tw-bg-white dark:tw-text-white dark:tw-bg-neutral-800 tw-min-h-screen">
+    <v-layout class="tw-bg-neutral-100 dark:tw-text-white dark:tw-bg-neutral-900/90 tw-min-h-screen">
 
         <Sidebar />
 

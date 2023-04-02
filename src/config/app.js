@@ -1,6 +1,6 @@
 
 
-// export const frontendUrl = 'http://192.168.203.46:8080/'
+// export const frontendUrl = 'http://192.168.100.56:8080/'
 export const frontendUrl = 'http://localhost:8080/'
 export const backendUrl  = 'http://localhost:8000/'
 export const appName = 'My Ebag'
