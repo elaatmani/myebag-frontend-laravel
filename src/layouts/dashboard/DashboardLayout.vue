@@ -7,7 +7,7 @@
         <Header />
 
       <v-main style="min-height: 300px;">
-        <v-container class="xl:tw-max-w-[1200px]">
+        <v-container class="xl:tw-max-w-[1500px]">
             <router-view></router-view>
         </v-container>
       </v-main>

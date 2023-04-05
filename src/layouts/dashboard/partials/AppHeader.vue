@@ -3,7 +3,7 @@
     <v-app-bar
         density="compact"
         elevation="0"
-        class="tw-border-b-0 dark:tw-bg-neutral-900 !tw-shadow-lg !tw-shadow-gray-900/10 tw-top-0 !tw-fixed !tw-overflow-visible"
+        class="tw-border-b-0 dark:tw-bg-neutral-900 !tw-shadow-lg !tw-shadow-gray-900/5 tw-top-0 !tw-fixed !tw-overflow-visible"
         :absolute="false"
       >
 

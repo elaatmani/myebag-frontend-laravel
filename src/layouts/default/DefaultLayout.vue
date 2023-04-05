@@ -22,7 +22,7 @@
 
     <!-- Application Footer -->
     <div>
-
+      <Footer />
     </div>
     <!-- Application Footer -->
   </div>
@@ -31,9 +31,10 @@
 <script>
 import Header from '@/layouts/default/partials/AppHeader'
 import Sidebar from '@/layouts/default/partials/AppSidebar.vue'
+import Footer from '@/layouts/default/partials/AppFooter.vue'
 
 export default {
-    components: { Header, Sidebar }
+    components: { Header, Sidebar, Footer }
 
 }
 </script>

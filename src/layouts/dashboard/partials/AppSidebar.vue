@@ -9,15 +9,8 @@
         <!-- Links -->
         <div class="tw-flex tw-flex-col tw-gap-2 mt-5">
 
-            <router-link to="/" class="tw-flex tw-items-center dark:tw-text-neutral-200 tw-text-neutral-700 dark:hover:tw-bg-neutral-800 hover:tw-bg-neutral-300 tw-duration-300 tw-py-2 tw-px-6 tw-gap-4">
-                <icon class="tw-text-xl" icon="carbon:dashboard" />
-                <span class="dark:tw-font-thin">Dashboard</span>
-            </router-link>
+            <SidebarLink v-for="link in links" :key="link.id" :link="link" />
 
-            <router-link to="/" class="tw-flex tw-items-center dark:tw-text-neutral-200 tw-text-neutral-700 dark:hover:tw-bg-neutral-800 hover:tw-bg-neutral-300 tw-duration-300 tw-py-2 tw-px-6 tw-gap-4">
-                <icon class="tw-text-xl" icon="fluent-mdl2:product-variant" />
-                <span class="dark:tw-font-thin">Products</span>
-            </router-link>
         </div>
 
 
@@ -37,12 +30,60 @@
 <script>
 import AppLogo from '@/components/AppLogo'
 import ThemeSwitcher from '@/layouts/default/partials/header/ThemeSwitcher.vue';
+import SidebarLink from '@/layouts/dashboard/partials/sidebar/SidebarLink'
 
 export default {
-    components: { AppLogo, ThemeSwitcher },
+    components: { AppLogo, ThemeSwitcher, SidebarLink },
 
     data() {
         return {
+            links: [
+                {
+                    id: 1,
+                    name: 'Dashboard',
+                    icon: 'carbon:dashboard',
+                    to: '/'
+                },
+                {
+                    id: 2,
+                    name: 'Products',
+                    icon: 'fluent-mdl2:product-variant',
+                    hasChildren: true,
+                    to: '/',
+                    children: [
+                        {
+                            id: 1,
+                            name: 'All products',
+                            icon: '',
+                            to: '/'
+                        },
+                        {
+                            id: 2,
+                            name: 'Add product',
+                            icon: '',
+                            to: '/'
+                        },
+                        {
+                            id: 3,
+                            name: 'Update product',
+                            icon: '',
+                            to: '/'
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    name: 'Orders',
+                    icon: 'carbon:dashboard',
+                    to: '/'
+                },
+                {
+                    id: 4,
+                    name: 'Users',
+                    icon: 'carbon:dashboard',
+                    to: '/'
+                },
+            ]
         }
     },
 
