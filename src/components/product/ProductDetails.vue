@@ -22,16 +22,31 @@
 
     <div class="tw-mt-3">
         <div>
-            <h2>Select Size</h2>
+            <h2>Size</h2>
             <div class="tw-mt-2 tw-flex tw-gap-2 tw-flex-wrap">
 
-                <div class="
-                dark:hover:tw-bg-neutral-700
+                <button v-for="s in sizes" :key="s.id"
+                @click="size = s.id"
+                :class="[
+                    s.id == size && `
+                    dark:tw-bg-neutral-300 
+                    dark:tw-text-neutral-800 
+                    tw-text-white 
+                    tw-bg-neutral-700 
+                    `,
+
+                    s.id != size && `
+                    hover:tw-bg-neutral-200 
+                    dark:hover:tw-text-neutral-700
+                    `
+                ]"
+                class="
+                
                 dark:tw-text-neutral-300
                 dark:tw-border-neutral-500
                 tw-text-sm 
                 tw-cursor-pointer 
-                hover:tw-bg-neutral-200 
+                
                 tw-duration-300 
                 tw-font-bold 
                 tw-text-neutral-600 
@@ -46,102 +61,26 @@
                 tw-border-neutral-500 
                 tw-rounded-lg
                 ">
-                    XS
-                </div>
+                    {{ s.name }}
+                </button>
 
-                <div class="
-                dark:hover:tw-bg-neutral-700
-                dark:tw-text-neutral-300
-                dark:tw-border-neutral-500
-                tw-text-sm 
-                tw-cursor-pointer 
-                hover:tw-bg-neutral-200 
-                tw-duration-300 
-                tw-font-bold 
-                tw-text-neutral-600 
-                tw-w-[35px] 
-                tw-h-[35px] 
-                tw-px-1 
-                tw-flex 
-                tw-items-center 
-                tw-justify-center 
-                tw-border 
-                tw-border-solid 
-                tw-border-neutral-500 
+                
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <h2>Color</h2>
+            <div class="tw-mt-2 tw-flex tw-gap-2 tw-flex-wrap">
+
+                <button v-for="c in colors" :key="c.id" @click="color = c.id" :class="[ c.color , c.id == color && 'tw-ring-2 dark:tw-ring-secondary tw-ring-primary']" class="
                 tw-rounded-lg
+                tw-w-[24px]
+                tw-h-[24px]
+                tw-border tw-border-solid
+                dark:tw-border-neutral-700
+                tw-border-neutral-300
                 ">
-                    S
-                </div>
-
-                <div class="
-                dark:hover:tw-bg-neutral-700
-                dark:tw-text-neutral-300
-                dark:tw-border-neutral-500
-                tw-text-sm 
-                tw-cursor-pointer 
-                hover:tw-bg-neutral-200 
-                tw-duration-300 
-                tw-font-bold 
-                tw-text-neutral-600 
-                tw-w-[35px] 
-                tw-h-[35px] 
-                tw-px-1 
-                tw-flex 
-                tw-items-center 
-                tw-justify-center 
-                tw-border 
-                tw-border-solid 
-                tw-border-neutral-500 
-                tw-rounded-lg
-                ">
-                    M
-                </div>
-
-                <div class="
-                tw-text-sm 
-                tw-cursor-pointer 
-                tw-duration-300 tw-font-bold 
-                tw-text-white 
-                tw-bg-neutral-700 
-                tw-w-[35px] 
-                tw-h-[35px] 
-                tw-px-1 
-                tw-flex 
-                tw-items-center 
-                tw-justify-center 
-                tw-border 
-                tw-border-solid 
-                tw-border-neutral-700 
-                dark:tw-border-neutral-300
-                dark:tw-bg-neutral-300
-                dark:tw-text-neutral-800
-                tw-rounded-lg">
-                    L
-                </div>
-
-                <div class="
-                dark:hover:tw-bg-neutral-700
-                dark:tw-text-neutral-300
-                dark:tw-border-neutral-500
-                tw-text-sm 
-                tw-cursor-pointer 
-                hover:tw-bg-neutral-200 
-                tw-duration-300 
-                tw-font-bold 
-                tw-text-neutral-600 
-                tw-w-[35px] 
-                tw-h-[35px] 
-                tw-px-1 
-                tw-flex 
-                tw-items-center 
-                tw-justify-center 
-                tw-border 
-                tw-border-solid 
-                tw-border-neutral-500 
-                tw-rounded-lg
-                ">
-                    XL
-                </div>
+                </button>
             </div>
         </div>
 
@@ -215,7 +154,7 @@
                     class="
                     tw-w-full
                     tw-py-2 tw-px-5
-                    tw-rounded-full
+                    tw-rounded-lg
                     tw-flex
                     tw-items-center
                     tw-justify-center
@@ -236,7 +175,7 @@
                     <div 
                     class="
                     tw-py-2 tw-px-5
-                    tw-rounded-full
+                    tw-rounded-lg
                     tw-border-solid
                     tw-border
                     tw-border-neutral-200
@@ -266,7 +205,60 @@ export default {
     data() {
         return {
             rating: 5,
-            quantity: 1
+            quantity: 1,
+            color: 1,
+            size: 1
+        }
+    },
+
+    computed: {
+        colors() {
+            return [
+                {
+                    id: 1,
+                    color: 'tw-bg-white'
+                },
+                {
+                    id: 2,
+                    color: 'tw-bg-black'
+                },
+                {
+                    id: 3,
+                    color: 'tw-bg-red-500'
+                },
+                {
+                    id: 4,
+                    color: 'tw-bg-green-500'
+                },
+                {
+                    id: 5,
+                    color: 'tw-bg-blue-500'
+                },
+            ]
+        },
+        sizes() {
+            return [
+                {
+                    id: 1,
+                    name: 'XS',
+                },
+                {
+                    id: 2,
+                    name: 'S',
+                },
+                {
+                    id: 3,
+                    name: 'M',
+                },
+                {
+                    id: 4,
+                    name: 'L',
+                },
+                {
+                    id: 5,
+                    name: 'XL',
+                },
+            ]
         }
     },
 

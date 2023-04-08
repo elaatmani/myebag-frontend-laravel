@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-bg-gray-100">
+  <div class="tw-bg-gray-100 dark:tw-bg-neutral-900">
     <v-container class="sm:tw-px-3 tw-py-2 tw-px-2">
         <div class="tw-grid tw-grid-cols-12 tw-py-10">
             <div class="tw-col-span-4">
