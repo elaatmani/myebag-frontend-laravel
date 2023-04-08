@@ -53,8 +53,10 @@
                     <td class="tw-px-6 tw-py-4 tw-font-bold">
                         {{ item.price }} DH
                     </td>
-                    <td class="tw-px-6 tw-py-4" :class="[item.quantity < 20 ? 'tw-text-red-500' : 'tw-text-emerald-500']">
-                        {{ item.quantity }}
+                    <td class="tw-px-5 tw-py-3">
+                        <div :class="[item.quantity < 20 ? 'tw-text-red-500 tw-bg-red-500/5' : 'tw-text-emerald-500 tw-bg-emerald-500/5']" class="tw-w-full tw-p-1 tw-rounded-md tw-text-center">
+                            {{ item.quantity }}
+                        </div>
                     </td>
                     <td class="tw-flex tw-items-center tw-px-6 tw-py-4 tw-space-x-3">
                         <ProductActions :product="item" />
