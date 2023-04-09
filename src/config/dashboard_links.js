@@ -35,6 +35,27 @@ export default [
     },
     {
         id: 3,
+        name: 'Categories',
+        icon: 'mdi:category-plus-outline',
+        hasChildren: true,
+        module: 'categories',
+        children: [
+            {
+                id: 1,
+                name: 'All categories',
+                to: 'categories/index',
+                module: 'categories'
+            },
+            {
+                id: 2,
+                name: 'Create category',
+                to: 'categories/create',
+                module: 'categories'
+            },
+        ]
+    },
+    {
+        id: 4,
         name: 'Test',
         icon: 'eos-icons:config-map',
         to: 'dashboard/test',

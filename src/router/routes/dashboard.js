@@ -5,9 +5,13 @@ import IndexView from "@/views/dashboard/IndexView";
 import TestView from '@/views/dashboard/TestView'
 
 // products
-import CreateProductView from '@/views/dashboard/product/CreateProductView';
 import IndexProductsView from '@/views/dashboard/product/IndexProductsView';
+import CreateProductView from '@/views/dashboard/product/CreateProductView';
 import FeaturedProductsView from '@/views/dashboard/product/FeaturedProductsView';
+
+// categories
+import IndexCategoriesView from '@/views/dashboard/category/IndexCategoriesView'
+import CreateCategoryView from '@/views/dashboard/category/CreateCategoryView'
 
 
 export default [
@@ -70,7 +74,30 @@ export default [
                     requireAuth: true,
                     title: "Featured products",
                 }
-            }
+            },
+
+
+            // Categories
+            {
+                name: 'categories/index',
+                path: 'categories',
+                component: IndexCategoriesView,
+                meta: {
+                    module: 'categories',
+                    requireAuth: true,
+                    title: "Categories list",
+                }
+            },
+            {
+                name: 'categories/create',
+                path: 'categories/create',
+                component: CreateCategoryView,
+                meta: {
+                    module: 'categories',
+                    requireAuth: true,
+                    title: "Create category",
+                }
+            },
         ],
     }
 ]
