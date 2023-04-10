@@ -1,17 +1,23 @@
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 
-// pages
+// Pages
 import IndexView from "@/views/dashboard/IndexView";
 import TestView from '@/views/dashboard/TestView'
+import NotFound from '@/views/dashboard/NotFound'
 
-// products
+// Products
 import IndexProductsView from '@/views/dashboard/product/IndexProductsView';
 import CreateProductView from '@/views/dashboard/product/CreateProductView';
 import FeaturedProductsView from '@/views/dashboard/product/FeaturedProductsView';
 
-// categories
+// Categories
 import IndexCategoriesView from '@/views/dashboard/category/IndexCategoriesView'
 import CreateCategoryView from '@/views/dashboard/category/CreateCategoryView'
+
+// Settings
+import GeneralView from '@/views/dashboard/settings/GeneralView'
+import ColorsView from '@/views/dashboard/settings/ColorsView'
+import SizesView from '@/views/dashboard/settings/SizesView'
 
 
 export default [
@@ -21,6 +27,7 @@ export default [
         component: DashboardLayout,
         meta: {
             requireAuth: true,
+            requireAdmin: true
         },
         children: [
             {
@@ -97,6 +104,62 @@ export default [
                     requireAuth: true,
                     title: "Create category",
                 }
+            },
+
+            
+            {
+                name: "dashboard/404",
+                path: "404",
+                component: NotFound,
+                meta: {
+                    requireAuth: true,
+                    title: "Not Found",
+                },
+            },
+
+            {
+                name: "dashboard/settings/general",
+                path: "settings/general",
+                module: 'settings',
+                component: GeneralView,
+                meta: {
+                    requireAuth: true,
+                    title: "Settings",
+                },
+            },
+
+            {
+                name: "dashboard/settings/colors",
+                path: "settings/colors",
+                module: 'settings',
+                component: ColorsView,
+                meta: {
+                    requireAuth: true,
+                    title: "Colors",
+                },
+            },
+
+            {
+                name: "dashboard/settings/sizes",
+                path: "sizes",
+                module: 'settings',
+                component: SizesView,
+                meta: {
+                    requireAuth: true,
+                    title: "Sizes",
+                },
+            },
+
+            {
+                name: 'catch-all',
+                path: ':pathMatch(.*)',
+                beforeEnter: (to, from, next) => {
+                    return next({ name: 'dashboard/404' })
+                },
+                meta: {
+                    requireAuth: true,
+                    title: "Not Found",
+                },
             },
         ],
     }

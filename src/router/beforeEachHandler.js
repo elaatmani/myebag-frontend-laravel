@@ -6,6 +6,7 @@ export default function (to, from) {
     console.log('to: ', to);
 
     const isLoggedIn = store.getters['user/isLoggedIn'];
+    const isAdmin = store.getters['user/isAdmin'];
 
     // change page title
     document.title = to.meta.title + ' | ' + appName;
@@ -24,4 +25,11 @@ export default function (to, from) {
     if (to.meta.requireAuth && !isLoggedIn) {
         return { name: 'login' }
     }
+
+    // handle admin paths
+    if(to.meta.requireAuth && to.meta.requireAdmin && !isAdmin) {
+        return { name: 'home' }
+    }
+
+    return true;
 }

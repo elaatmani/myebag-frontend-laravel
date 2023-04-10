@@ -6,11 +6,14 @@ export default {
         let csrf = Cookie.get("XSRF-TOKEN");
 
         if (!csrf) {
-            return Api.get("sanctum/csrf-cookie");
+            return Api.get("sanctum/csrf-cookie")
+            .catch(err => {
+                console.log(err);
+            });
         }  
         
         return new Promise(resolve => {
                 resolve();
-            });
+        });
     }
 };

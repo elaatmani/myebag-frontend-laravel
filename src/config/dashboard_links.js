@@ -56,10 +56,45 @@ export default [
     },
     {
         id: 4,
+        name: 'Users',
+        icon: 'mdi:account-multiple',
+        to: 'dashboard/test',
+        module: 'users',
+        hasChildren: true
+    },
+    {
+        id: 5,
         name: 'Test',
         icon: 'eos-icons:config-map',
         to: 'dashboard/test',
         hasChildren: false
+    },
+    {
+        id: 6,
+        name: 'Settings',
+        icon: 'ph:gear-six',
+        module: 'settings',
+        hasChildren: true,
+        children: [
+            {
+                id: 1,
+                name: 'General',
+                to: 'dashboard/settings/general',
+                module: 'settings'
+            },
+            {
+                id: 2,
+                name: 'Colors',
+                to: 'dashboard/settings/colors',
+                module: 'settings'
+            },
+            {
+                id: 3,
+                name: 'Sizes',
+                to: 'dashboard/settings/sizes',
+                module: 'settings'
+            },
+        ]
     },
     // {
     //     id: 3,

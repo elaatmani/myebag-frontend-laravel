@@ -48,25 +48,36 @@
 export default {
     data() {
         return {
-            links: [
+            adminLinks: [
                 { id: 1, name: "Dashboard", to: "/dashboard", icon: "akar-icons:dashboard" },
                 // { id: 2, name: "Profile", to: "/profile", icon: "ph:user" },
                 { id: 3, name: "Orders", to: "/signup", icon: "ph:package" },
                 { id: 4, name: "Settings", to: "/profile", icon: "ph:gear-six" },
             ],
+            userLinks: [
+                // { id: 1, name: "Dashboard", to: "/dashboard", icon: "akar-icons:dashboard" },
+                // { id: 2, name: "Profile", to: "/profile", icon: "ph:user" },
+                { id: 3, name: "Orders", to: "/signup", icon: "ph:package" },
+                { id: 4, name: "Settings", to: "/profile", icon: "ph:gear-six" },
+            ]
         }
     },
 
     computed: {
       user() {
         return this.$store.getters['user/user']
+      },
+      isAdmin() {
+        return this.$store.getters['user/isAdmin']
+      },
+      links() {
+        return this.isAdmin ? this.adminLinks : this.userLinks
       }
     },
 
     methods: {
       logout() {
-          this.$store.dispatch('user/setUser', {});
-          this.$store.dispatch('user/setIsLoggedIn', false);
+          this.$store.dispatch('user/logout');
           this.$router.push({name: 'login'})
       }
     }

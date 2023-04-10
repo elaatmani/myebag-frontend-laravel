@@ -46,10 +46,18 @@ export default {
             test, method, path
         }
     },
+    mounted() {
+        console.log(this.$handleApiError);
+    },
     methods: {
         async sendRequest() {
             this.isLoading = true
             await Csrf.getCookie()
+            .catch(
+                err => {
+                    console.log(err);
+                }
+            )
             switch (method) {
                 case 'get':
                     Api.get(path)
@@ -58,7 +66,9 @@ export default {
                             console.log('---- Success Response ----');
                             console.log(`---- Code ${res.status} ----`);
                             console.log(res.data);
-                        },
+                        }
+                    )
+                    .catch(
                         err => {
                             this.$handleApiError(err);
                             console.log('---- Failed Response ----');
@@ -75,7 +85,9 @@ export default {
                             console.log('---- Success Response ----');
                             console.log(`---- Code ${res.status} ----`);
                             console.log(res.data);
-                        },
+                        }
+                    )
+                    .catch(
                         err => {
                             this.$handleApiError(err);
                             console.log('---- Failed Response ----');
@@ -92,7 +104,9 @@ export default {
                             console.log('---- Success Response ----');
                             console.log(`---- Code ${res.status} ----`);
                             console.log(res.data);
-                        },
+                        }
+                    )
+                    .catch(
                         err => {
                             this.$handleApiError(err);
                             console.log('---- Failed Response ----');

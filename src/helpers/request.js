@@ -1,7 +1,7 @@
-export const path = 'api/categories/1'
+export const path = 'api/categories'
 
 // get | post | delete
-export const method = 'delete'
+export const method = 'post'
 
 export default {
     name: 'Category 2',

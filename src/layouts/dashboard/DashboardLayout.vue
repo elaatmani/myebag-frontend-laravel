@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div v-if="isAdmin && isLoggedIn">
     <v-layout class="tw-bg-neutral-100 dark:tw-text-white dark:tw-bg-neutral-900/90 tw-min-h-screen">
 
         <Sidebar />
@@ -31,10 +31,33 @@ export default {
         }
     },
 
-    methods: {
-        toggleSidebar() {
-
+    watch: {
+      isLoggedIn(newValue) {
+        if(!newValue) {
+          this.$router.push({'name': 'home'})
         }
+      },
+      isAdmin(newValue) {
+        if(!newValue) {
+          this.$router.push({'name': 'home'})
+        }
+      },
+
+    },
+
+    computed: {
+        isLoggedIn() {
+          return this.$store.getters['user/isLoggedIn']
+        },
+        isAdmin() {
+          return this.$store.getters['user/isAdmin']
+        }
+    },
+
+    mounted() {
+      if(!this.isLoggedIn && !this.isAdmin) {
+        this.$router.push({'name': 'home'})
+      }
     }
 
 }

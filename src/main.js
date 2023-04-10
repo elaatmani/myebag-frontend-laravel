@@ -7,6 +7,7 @@ import { loadFonts } from './plugins/webfontloader'
 import globalConfig from './plugins/globalConfig'
 import { Icon } from '@iconify/vue';
 import alert from './plugins/alert'
+import apiErrorHandler  from './plugins/apiErrorHandler'
 
 import '@/assets/css/main.css'
 
@@ -18,6 +19,7 @@ createApp(App)
   .use(vuetify)
   .use(globalConfig)
   .use(alert)
+  .use(apiErrorHandler)
 
   .component('icon', Icon)
   

@@ -26,14 +26,14 @@
                     <div class="tw-flex tw-flex-col tw-col-span-6  tw-text-neutral-700 dark:tw-text-neutral-200 tw-text-md">
                       <label for="firstname">First Name</label>
                       <input @keyup="reset('firstname')" v-model="user.firstname" :class="{ '!tw-border-red-400': !form.firstname.valid }" class="tw-w-full tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" type="text">
-                      <div ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
+                      <div ref="error" class="tw-h-1 tw-text-xs tw-text-red-400 tw-my-1">
                         {{ form.firstname.message }}
                       </div>
                     </div>
                     <div class="tw-flex tw-flex-col tw-col-span-6  tw-text-neutral-700 dark:tw-text-neutral-200 tw-text-md">
                       <label for="lastname">Last Name</label>
                       <input @keyup="reset('lastname')" v-model="user.lastname" :class="{ '!tw-border-red-400': !form.lastname.valid }"  class="tw-w-full tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500"  type="text">
-                      <div ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
+                      <div ref="error" class="tw-h-1 tw-text-xs tw-text-red-400 tw-my-1">
                         {{ form.lastname.message }}
                       </div>
                     </div>
@@ -41,16 +41,16 @@
                   
                   <div class="tw-grid tw-grid-cols-12 tw-gap-5 tw-text-neutral-700 dark:tw-text-neutral-200 tw-text-md">
                     <div class="tw-flex tw-flex-col md:tw-col-span-6 tw-col-span-12 tw-text-neutral-700 dark:tw-text-neutral-200 tw-text-md">
-                      <label for="phone">Phone <span class="tw-text-xs">(optionel)</span></label>
-                      <input @keyup="reset('phone')" :class="{ '!tw-border-red-400': !form.phone.valid }" class="tw-w-full tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" type="text">
-                      <div ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
-                        {{ form.phone.message }}
+                      <label for="telephone">Telephone <span class="tw-text-xs">(optionel)</span></label>
+                      <input @keyup="reset('telephone')" v-model="user.telephone" :class="{ '!tw-border-red-400': !form.telephone.valid }" class="tw-w-full tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" type="text">
+                      <div ref="error" class="tw-h-1 tw-text-xs tw-text-red-400 tw-my-1">
+                        {{ form.telephone.message }}
                       </div>
                     </div>
                     <div class="tw-flex tw-flex-col md:tw-col-span-6 tw-col-span-12 tw-text-neutral-700 dark:tw-text-neutral-200 tw-text-md">
                       <label for="email">Email</label>
                       <input @keyup="reset('email')" v-model="user.email" :class="{ '!tw-border-red-400': !form.email.valid }"  class="tw-w-full tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500"  type="text">
-                      <div ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
+                      <div ref="error" class="tw-h-1 tw-text-xs tw-text-red-400 tw-my-1">
                         {{ form.email.message }}
                       </div>
                     </div>
@@ -63,16 +63,16 @@
                         <input @keyup="reset('password')" v-model="user.password" :class="{ '!tw-border-red-400': !form.password.valid }" class="tw-w-full tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" :type="showPassword ? 'text' : 'password'">
                         <icon @click="showPassword = !showPassword" class="tw-text-xl tw-cursor-pointer tw-text-neutral-500 tw-absolute tw-top-1/2 -tw-translate-y-1/2  tw-z-10 tw-right-2" :icon="showPassword ? 'ph:eye-closed' : 'ph:eye'" />
                       </div>
-                      <div ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
+                      <div ref="error" class="tw-h-1 tw-text-xs tw-text-red-400 tw-my-1">
                         {{ form.password.message }}
                       </div>
                     </div>
                     <div class="tw-flex tw-flex-col md:tw-col-span-6 tw-col-span-12 tw-text-neutral-700 dark:tw-text-neutral-200 tw-text-md">
                       <label for="confirmPassword">Confirm Password</label>
                       <div class="tw-relative">
-                        <input @keyup="reset('confirmPassword')" v-model="user.confirmPassword" :class="{ '!tw-border-red-400': !form.confirmPassword.valid }" class=" tw-pr-8 tw-w-full tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" :type="showPassword ? 'text' : 'password'">
+                        <input @keyup.enter="signup" @keyup="reset('confirmPassword')" v-model="user.confirmPassword" :class="{ '!tw-border-red-400': !form.confirmPassword.valid }" class=" tw-pr-8 tw-w-full tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" :type="showPassword ? 'text' : 'password'">
                       </div>
-                      <div ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
+                      <div ref="error" class="tw-h-1 tw-text-xs tw-text-red-400 tw-my-1">
                         {{ form.confirmPassword.message }}
                       </div>
                     </div>
@@ -80,7 +80,11 @@
 
 
                   <div class="mt-5">
-                    <v-btn @click="signup" :loading="isLoading" class="text-capitalize" :ripple="false" variant="flat" color="primary" block size="large">Sign up</v-btn>
+                    <button @click="signup" class="tw-py-3 tw-px-7 tw-w-full tw-justify-center tw-text-capitalize tw-flex tw-items-center tw-rounded tw-text-sm tw-bg-primary tw-text-white">
+                      <v-icon size="small" class="tw-duration-300 tw-animate-spin tw-overflow-hidden tw-max-w-0 tw-mr-0" :class="[isLoading && '!tw-max-w-[50px] !tw-mr-3']">mdi-loading</v-icon>
+                      <span>Sign up</span>
+                    </button>
+                    <!-- <v-btn @click="signup" :loading="isLoading" class="text-capitalize" :ripple="false" variant="flat" color="primary" block size="large">Sign up</v-btn> -->
                   </div>
                   <div class="mt-2 tw-text-center tw-text-md tw-text-neutral-700 tw-font-normal dark:tw-text-neutral-200">
                     Already have an account? <router-link class="tw-text-primary tw-font-medium" :to="{ name: 'login' }">Sign in</router-link>
@@ -99,6 +103,7 @@
 <script>
 import AppLogo from '@/components/AppLogo'
 import { required } from '@/helpers/validators'
+import User from '@/api/User'
 export default {
   components: { AppLogo },
 
@@ -110,7 +115,7 @@ export default {
       user: {
         firstname: '',
         lastname: '',
-        phone: '',
+        telephone: '',
         email: '',
         password: '',
         confirmPassword: ''
@@ -125,7 +130,7 @@ export default {
           valid: true,
           message: ''
         },
-        phone: {
+        telephone: {
           valid: true,
           message: ''
         },
@@ -177,9 +182,34 @@ export default {
 
       this.validateForm();
 
-      if(!this.isFormValid) {
-        return false;
-      }
+      // if(!this.isFormValid) {
+      //   return false;
+      // }
+
+      this.isLoading = true
+      User.singup(
+        {
+          firstname: this.user.firstname,
+          lastname: this.user.lastname,
+          telephone: this.user.telephone,
+          email: this.user.email,
+          password: this.user.password
+        }
+      )
+      .then(
+        response => {
+          const data = response.data
+          console.log(data);
+        }
+      )
+      .catch(
+        error => {
+          this.$handleApiError(error)
+        }
+      )
+      .finally(
+        () => this.isLoading = false
+      )
 
       
     }

@@ -6,10 +6,10 @@
       <div class="tw-grid tw-grid-cols-12 md:tw-gap-10">
         <div class="md:tw-col-span-6 tw-col-span-12">
 
-          <div class="">
+          <div >
             <div class="tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
               <label class="tw-font-semibold" for="email">Category Name</label>
-              <input v-model="category.name" :class="{ '!tw-border-red-400': !form.name.valid }" class="tw-w-full tw-text-md tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="Category name" type="text">
+              <input v-model="category.name"  :class="{ '!tw-border-red-400': !form.name.valid }" class="tw-w-full tw-text-md tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="Category name" type="text">
               <div class="tw-text-xs tw-text-neutral-400 tw-mb-2" :class="[!form.name.valid && '!tw-text-red-400']">
                 <span v-if="!form.name.valid">
                   {{ form.name.message }}
@@ -80,16 +80,11 @@
                 </span>
               </div>
 
-            <!-- <div v-if="images.length < 4" class="tw-col-span-12">
-              <p class="tw-text-xs tw-text-neutral-400 dark:tw-text-neutral-300">
-                You need to add at least one image. Pay attention to the quality of the picture you add comply with the background color standards.
-                </p>
-            </div> -->
-
-
             <div class="mt-3 tw-col-span-12 tw-flex tw-justify-end">
-              <button @click="validateForm" class="tw-py-2 tw-px-7 tw-rounded tw-text-sm tw-bg-primary tw-text-white">
-                Add Category
+              <button @click="create" class="tw-py-2 tw-px-7 tw-flex tw-items-center tw-rounded tw-text-sm tw-bg-primary tw-text-white">
+                <!-- <icon icon="mdi:loading" /> -->
+                <v-icon size="small" class="tw-duration-300 tw-animate-spin tw-overflow-hidden tw-max-w-0 tw-mr-0" :class="[isLoading && '!tw-max-w-[50px] !tw-mr-3']">mdi-loading</v-icon>
+                <span>Add Category</span>
               </button>
             </div>
             
@@ -102,11 +97,14 @@
 
 <script>
 import { isStringBetween, required } from '@/helpers/validators';
+import Category from '@/api/Category'
+
 export default {
 
   data() {
     return {
       isDragOver: false,
+      isLoading: false,
 
       category: {
         name: '',
@@ -133,7 +131,9 @@ export default {
 
   computed: {
     isFormValid() {
-      return this.form.name.valid && this.form.description.valid
+      return this.form.name.valid 
+      && this.form.description.valid
+      && this.form.image.valid
     }
   },
 
@@ -144,10 +144,10 @@ export default {
       if (!file) return false;      
 
         if (file) {
-          const reader = new FileReader();
-          
+            const reader = new FileReader();
+            console.log(file);
             this.category.image = file;
-          reader.addEventListener('load', (e) => {
+            reader.addEventListener('load', (e) => {
             const images = document.querySelectorAll(`[name='image-preview']`)
             images.forEach(image => {
               image.src = e.target.result;
@@ -173,8 +173,39 @@ export default {
       this.form.name = required(this.category.name, 'Name');
       this.form.image = required(this.category.image, 'Image');
       this.form.description = isStringBetween(this.category.description, { min: 20, max: 300 }, 'Description');
-
     },
+
+    reset(field) {
+      this.form[field] = {
+        valid: true,
+        message: ''
+      }
+    },
+
+    create() {
+      this.validateForm()
+      if(!this.isFormValid) return false;
+
+      this.isLoading = true;
+      Category.create(this.category)
+      .then(
+        res => {
+          console.log(res.data);
+          if(res.data.code == 'SUCCESS') {
+            this.$alert({
+              type: 'success',
+              body: "Category created successfuly" 
+            })
+          }
+        },
+        err => {
+          this.$handleApiError(err)
+        }
+      )
+      .finally(
+        () => this.isLoading = false
+      )
+    }
   }
 }
 </script>
