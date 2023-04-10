@@ -13,7 +13,7 @@
               <div v-if="false" ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
                 {{ 'Error' }}
               </div>
-              <div ref="note" class=" tw-text-sm tw-text-neutral-400 tw-my-2">
+              <div ref="note" class=" tw-text-xs tw-text-neutral-400 tw-mb-2">
                 Do not exceed 20 characters when entering the product name.
               </div>
             </div>
@@ -54,6 +54,9 @@
                rows="5"></textarea>
               <div v-if="false" ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
                 {{ 'Error' }}
+              </div>
+              <div ref="note" class=" tw-text-xs tw-text-neutral-400 tw-mb-2">
+                Do not exceed 300 characters when entering the product description.
               </div>
             </div>
 
@@ -117,6 +120,41 @@
               <p class="tw-text-xs tw-text-neutral-400 dark:tw-text-neutral-300">
                 You need to add at least 4 images. Pay attention to the quality of the pictures you add comply with the background color standards.
                 </p>
+            </div>
+
+            <div class=" tw-col-span-12 tw-grid tw-gap-2 tw-grid-cols-12">
+
+              <div class="md:tw-col-span-6 tw-col-span-8 tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
+                <label class="tw-font-semibold" for="email">Add Size</label>
+                <div class=" tw-relative  tw-mt-1" >
+                  <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-md tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
+                    <option class="tw-text-neutral-600" value="1">S</option>
+                    <option class="tw-text-neutral-600" value="2">M</option>
+                    <option class="tw-text-neutral-600" value="3">L</option>
+                    <option class="tw-text-neutral-600" value="3">XL</option>
+                  </select>
+                  <v-icon size="small" class="tw-absolute tw-top-1/2 -tw-translate-y-1/2 tw-pointer-events-none tw-right-3">mdi-chevron-down</v-icon>
+                </div>
+              </div>
+
+              <div class="md:tw-col-span-6 tw-col-span-4 tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
+                <label class="tw-font-semibold" for="email">Color</label>
+                <div class=" tw-relative  tw-mt-1">
+                  <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-md tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
+                    <option class="tw-text-neutral-600" value="1">Green</option>
+                    <option class="tw-text-neutral-600" value="2">Red</option>
+                    <option class="tw-text-neutral-600" value="3">Blue</option>
+                    <option class="tw-text-neutral-600" value="3">...</option>
+                  </select>
+                  <v-icon size="small" class="tw-absolute tw-top-1/2 -tw-translate-y-1/2 tw-pointer-events-none tw-right-3">mdi-chevron-down</v-icon>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-3 tw-col-span-12 tw-flex tw-justify-end">
+              <button class="tw-py-2 tw-px-7 tw-rounded tw-text-sm tw-bg-primary tw-text-white">
+                Add Product
+              </button>
             </div>
             
           </div>

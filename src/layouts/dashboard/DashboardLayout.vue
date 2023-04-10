@@ -6,6 +6,8 @@
 
         <Header />
 
+        <Alert />
+
       <v-main style="min-height: 300px;">
         <v-container class="xl:tw-max-w-[1500px]">
             <router-view></router-view>
@@ -18,9 +20,10 @@
 <script>
 import Header from '@/layouts/dashboard/partials/AppHeader'
 import Sidebar from '@/layouts/dashboard/partials/AppSidebar'
+import Alert from '@/components/AlertVue'
 
 export default {
-    components: { Header, Sidebar },
+    components: { Header, Sidebar, Alert },
 
     data() {
         return {

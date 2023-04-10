@@ -1,4 +1,22 @@
 
+export const categories = [
+    {
+        id: 1,
+        name: 'Shoes',
+        image: 'assets/images/categories/shoes.png'
+    },
+    {
+        id: 2,
+        name: 'Hoodies',
+        image: 'assets/images/categories/hoodies.png'
+    },
+    {
+        id: 3,
+        name: 'Watches',
+        image: 'assets/images/categories/watches.png'
+    }
+]
+
 export const products = {
     shoes: [
         {

@@ -1,9 +1,10 @@
-export const path = 'api/products/add'
+export const path = 'api/categories/1'
 
 // get | post | delete
-export const method = 'get'
+export const method = 'delete'
 
 export default {
-    name: 'Product 1',
-    price: 2000
+    name: 'Category 2',
+    description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+    image: 'assets/images/categories/shoes.png'
 }

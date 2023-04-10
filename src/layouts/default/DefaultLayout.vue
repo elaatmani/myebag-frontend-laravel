@@ -25,6 +25,9 @@
       <Footer />
     </div>
     <!-- Application Footer -->
+
+    <Alert />
+
   </div>
 </template>
 
@@ -32,9 +35,10 @@
 import Header from '@/layouts/default/partials/AppHeader'
 import Sidebar from '@/layouts/default/partials/AppSidebar.vue'
 import Footer from '@/layouts/default/partials/AppFooter.vue'
+import Alert from '@/components/AlertVue'
 
 export default {
-    components: { Header, Sidebar, Footer }
+    components: { Header, Sidebar, Footer, Alert }
 
 }
 </script>

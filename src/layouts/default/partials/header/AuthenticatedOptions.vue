@@ -27,8 +27,8 @@
             class="tw-border-neutral-700 dark:tw-border-neutral-100 tw-my-1"
           ></v-divider>
 
-          <router-link
-            to="/"
+          <button
+            @click="logout"
             class="
               tw-py-2
               md:tw-py-1
@@ -39,7 +39,7 @@
           >
             <icon class="tw-text-xl tw-text-red-600" icon="ph:power" />
             <span class="tw-text-md tw-text-red-600">Logout</span>
-          </router-link>
+          </button>
         </div>
   </div>
 </template>
@@ -58,10 +58,18 @@ export default {
     },
 
     computed: {
-    user() {
-      return this.$store.getters['user/user']
+      user() {
+        return this.$store.getters['user/user']
+      }
+    },
+
+    methods: {
+      logout() {
+          this.$store.dispatch('user/setUser', {});
+          this.$store.dispatch('user/setIsLoggedIn', false);
+          this.$router.push({name: 'login'})
+      }
     }
-  },
 }
 </script>
 

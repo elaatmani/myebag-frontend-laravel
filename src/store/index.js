@@ -3,6 +3,7 @@ import theme from './modules/theme'
 import user from './modules/user'
 import app from './modules/app'
 import dashboard from './modules/dashboard'
+import alert from './modules/alert'
 
 export default createStore({
   state: {
@@ -17,6 +18,7 @@ export default createStore({
     theme,
     user,
     app,
-    dashboard
+    dashboard,
+    alert
   }
 })
