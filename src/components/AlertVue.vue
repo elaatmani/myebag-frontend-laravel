@@ -1,7 +1,7 @@
 <template>
     <teleport to='body' >
         <v-slide-y-reverse-transition>
-            <div v-show="state.active" class="pa-2 tw-fixed tw-w-full tw-flex tw-justify-end tw-pointer-events-none tw-bottom-0 tw-right-0 tw-z-[1000]">
+            <div v-show="state.active" class="pa-2 tw-fixed tw-w-full tw-flex tw-justify-end tw-pointer-events-none tw-bottom-0 tw-right-0 tw-z-[60000]">
                     <div class="tw-min-h-[40px] tw-pointer-events-auto tw-text-neutral-900 tw-shadow-lg tw-flex tw-items-center tw-gap-2 tw-rounded md:tw-w-[400px] tw-w-[95%] tw-mx-auto md:tw-mx-0 tw-max-w-full tw-py-2 tw-px-2" :class="[type.bg]">
                         <div class="tw-grid tw-place-items-center">
                             <icon class="tw-text-2xl" :icon="type.icon"/>

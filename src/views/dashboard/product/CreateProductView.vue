@@ -8,8 +8,8 @@
 
           <div class="">
             <div class="tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
-              <label class="tw-font-semibold" for="email">Product Name</label>
-              <input :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-md tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="Product name" type="text">
+              <label class="tw-text-sm" for="email">Product Name</label>
+              <input :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="Product name" type="text">
               <div v-if="false" ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
                 {{ 'Error' }}
               </div>
@@ -21,9 +21,9 @@
             <div class="mt-5 tw-grid tw-gap-2 tw-grid-cols-12">
 
               <div class="md:tw-col-span-9 tw-col-span-8 tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
-                <label class="tw-font-semibold" for="email">Category</label>
+                <label class="tw-text-sm" for="email">Category</label>
                 <div class=" tw-relative  tw-mt-1" >
-                  <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-md tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
+                  <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
                     <option class="tw-text-neutral-600" value="1">Shoes</option>
                     <option class="tw-text-neutral-600" value="2">Hoodies</option>
                     <option class="tw-text-neutral-600" value="3">Watches</option>
@@ -33,9 +33,9 @@
               </div>
 
               <div class="md:tw-col-span-3 tw-col-span-4 tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
-                <label class="tw-font-semibold" for="email">Genre</label>
+                <label class="tw-text-sm" for="email">Genre</label>
                 <div class=" tw-relative  tw-mt-1">
-                  <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-md tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
+                  <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
                     <option class="tw-text-neutral-600" value="1">All</option>
                     <option class="tw-text-neutral-600" value="2">Male</option>
                     <option class="tw-text-neutral-600" value="3">Female</option>
@@ -48,9 +48,9 @@
             </div>
 
             <div class="tw-flex tw-flex-col mt-5 tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
-              <label class="tw-font-semibold" for="email">Description</label>
+              <label class="tw-text-sm" for="email">Description</label>
               <textarea 
-              :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-md tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500"
+              :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500"
                rows="5"></textarea>
               <div v-if="false" ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
                 {{ 'Error' }}
@@ -64,7 +64,7 @@
 
         </div>
         <div class="md:tw-col-span-6 tw-col-span-12 md:tw-mt-0 tw-mt-3">
-          <h1 class="tw-text-neutral-500 dark:tw-text-neutral-300">Product Images</h1>
+          <h1 class="tw-text-neutral-500 dark:tw-text-neutral-300 tw-text-sm">Product Images</h1>
           <div class="tw-grid tw-grid-cols-12 tw-mt-2 tw-gap-2">
             <div :class="[isDragOver && 'tw-bg-primary/50']" @dragenter="handleDragEnter" @drop="handleDragLeave" @dragleave="handleDragLeave" class="lg:tw-col-span-6 tw-col-span-12 tw-aspect-square tw-relative tw-rounded-lg tw-border tw-border-dashed tw-border-neutral-500">
               
@@ -122,12 +122,12 @@
                 </p>
             </div>
 
-            <div class=" tw-col-span-12 tw-grid tw-gap-2 tw-grid-cols-12">
+            <div v-if="false" class=" tw-col-span-12 tw-grid tw-gap-2 tw-grid-cols-12">
 
               <div class="md:tw-col-span-6 tw-col-span-8 tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
-                <label class="tw-font-semibold" for="email">Add Size</label>
+                <label class="tw-text-sm" for="email">Add Size</label>
                 <div class=" tw-relative  tw-mt-1" >
-                  <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-md tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
+                  <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
                     <option class="tw-text-neutral-600" value="1">S</option>
                     <option class="tw-text-neutral-600" value="2">M</option>
                     <option class="tw-text-neutral-600" value="3">L</option>
@@ -138,9 +138,9 @@
               </div>
 
               <div class="md:tw-col-span-6 tw-col-span-4 tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
-                <label class="tw-font-semibold" for="email">Color</label>
+                <label class="tw-text-sm" for="email">Color</label>
                 <div class=" tw-relative  tw-mt-1">
-                  <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-md tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
+                  <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
                     <option class="tw-text-neutral-600" value="1">Green</option>
                     <option class="tw-text-neutral-600" value="2">Red</option>
                     <option class="tw-text-neutral-600" value="3">Blue</option>
@@ -151,14 +151,14 @@
               </div>
             </div>
 
-            <div class="mt-3 tw-col-span-12 tw-flex tw-justify-end">
-              <button class="tw-py-2 tw-px-7 tw-rounded tw-text-sm tw-bg-primary tw-text-white">
-                Add Product
-              </button>
-            </div>
             
           </div>
         </div>
+      </div>
+      <div class="tw-flex tw-justify-end">
+        <button class="tw-py-2 tw-px-7 tw-rounded tw-text-sm tw-bg-primary tw-text-white">
+          Add Product
+        </button>
       </div>
     </div>
   </div>

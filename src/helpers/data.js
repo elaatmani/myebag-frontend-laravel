@@ -186,3 +186,88 @@ export const tableProducts = [
         quantity: 100
     }
 ]
+
+export const sizes = [
+    {
+        id: 1,
+        name: 'EU',
+        sizes: [
+            {
+                id: 1,
+                name: '30'
+            },
+            {
+                id: 2,
+                name: '32'
+            },
+            {
+                id: 3,
+                name: '34'
+            },
+            {
+                id: 4,
+                name: '36'
+            },
+            {
+                id: 5,
+                name: '38'
+            },
+            {
+                id: 6,
+                name: '40'
+            },
+            {
+                id: 7,
+                name: '42'
+            },
+        ]
+    },
+    {
+        id: 2,
+        name: 'UK',
+        sizes: [
+            {
+                id: 1,
+                name: 'XS'
+            },
+            {
+                id: 2,
+                name: 'S'
+            },
+            {
+                id: 3,
+                name: 'M'
+            },
+            {
+                id: 4,
+                name: 'L'
+            },
+            {
+                id: 5,
+                name: 'XL'
+            },
+            {
+                id: 6,
+                name: 'XXL'
+            },
+        ]
+    }
+]
+
+export const colors = [
+    {
+        id: 1,
+        name: 'red',
+        hex: '#FF0000'
+    },
+    {
+        id: 2,
+        name: 'green',
+        hex: '#00FF00'
+    },
+    {
+        id: 3,
+        name: 'blue',
+        hex: '#0000FF'
+    }
+]

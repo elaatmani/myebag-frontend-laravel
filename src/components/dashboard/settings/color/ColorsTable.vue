@@ -1,33 +1,35 @@
 <template>
   <div class="tw-pb-3">
+
+    <!-- Create a size type -->
+    <popup :visible="createPopup" @cancel="createPopup = false">
+        <CreateColor @cancel="createPopup = false" />
+    </popup>
     
     <div class="tw-grid tw-grid-cols-12 tw-gap-2 mb-4 mt-3 tw-p-2 tw-rounded-md tw-bg-neutral-400/10">
         <div class="tw-flex tw-items-center tw-gap-2 tw-justify-between tw-col-span-12">
             <div class="tw-relative tw-w-full tw-max-w-[550pxd] tw-flex-grow-1">
                 <icon icon="ph:magnifying-glass" class="tw-text-xl tw-text-neutral-400 tw-absolute tw-top-1/2 tw-left-3 -tw-translate-y-1/2" />
-                <input class="tw-outline-none tw-h-[38px] tw-rounded-lg tw-text-sm tw-text-neutral-500 dark:tw-text-neutral-300 tw-bg-white dark:tw-bg-neutral-800 tw-duration-300 focus:tw-border-primary hover:tw-border-primary/40 dark:hover:tw-border-purple-500/40 dark:focus:tw-border-purple-500 tw-border-neutral-200 dark:tw-border-neutral-600 tw-border-solid tw-border tw-py-2 tw-px-3 tw-pl-10 tw-w-full" type="text" placeholder="Search for ID, Name, SKU..." />
+                <input class="tw-outline-none tw-h-[38px] tw-rounded-lg tw-text-sm tw-text-neutral-500 dark:tw-text-neutral-300 tw-bg-white dark:tw-bg-neutral-800 tw-duration-300 focus:tw-border-primary hover:tw-border-primary/40 dark:hover:tw-border-purple-500/40 dark:focus:tw-border-purple-500 tw-border-neutral-200 dark:tw-border-neutral-600 tw-border-solid tw-border tw-py-2 tw-px-3 tw-pl-10 tw-w-full" type="text" placeholder="Search for ID, Name, Hex..." />
             </div>
-            <div class="tw-flex md:tw-justify-end tw-justify-center tw-items-center tw-gap-2">
+            <div class="tw-flex md:tw-justify-end tw-gap-2 tw-justify-center tw-items-center">
                 <button @click="filters = !filters" class="tw-p-2 tw-h-[38px] tw-rounded-lg dark:tw-text-neutral-300 tw-bg-white dark:tw-bg-neutral-800 tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-600 tw-flex tw-items-center tw-justify-center tw-gap-2">
                     <icon class="tw-text-lg" :icon="filters ? 'material-symbols:filter-list-off-rounded' : 'material-symbols:filter-list-rounded'" />
                     <span class="tw-hidden md:tw-block tw-text-sm">Filters</span>
                 </button>
-                <button class="tw-p-2 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded-lg dark:tw-text-neutral-300 tw-text-white tw-bg-primary dark:tw-bg-primary tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-600 tw-flex tw-items-center tw-justify-center tw-gap-2">
+                <button @click="createPopup = true" class="tw-p-2 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded-lg tw-bg-violet-500 tw-border tw-border-solid tw-border-tansparent hover:tw-border-violet-600 dark:tw-border-neutral-600 dark:hover:tw-border-violet-400 hover:tw-bg-violet-500 dark:hover:tw-bg-violet-500 tw-duration-200 tw-text-white tw-flex tw-items-center tw-justify-center tw-gap-2">
                     <icon class="tw-text-lg" icon="mdi:plus" />
                     <span class="tw-hidden md:tw-block tw-text-sm">Create</span>
                 </button>
             </div>
         </div>
-        <!-- <div class="tw-col-span-12 tw-max-h-0 tw-duration-500 tw-ease-in-out tw-overflow-hidden" :class="[filters && '!tw-max-h-[300px]']">
-            <div class="tw-h-[150px]"></div>
-        </div> -->
     </div>
     <div class="tw-relative tw-min-h-fit dark:tw-border-neutral-700 tw-border !tw-rounded-lg tw-border-neutral-200/80 tw-max-h-[600px] tw-overflow-x-auto  sm:tw-rounded-lg">
         <table class="tw-w-full  tw-relative tw-text-sm tw-text-left !tw-rounded-lg tw-text-gray-500 dark:tw-text-neutral-200">
             <thead class="tw-text-xs  tw-w-full tw-text-gray-700 dark:tw-text-gray-300 tw-uppercase tw-bg-gray-50 dark:tw-bg-neutral-900">
                 <tr>
                     
-                    <th v-for="column in columns" :key="column" :class="[column == 'actions' && '!tw-w-[100px]', column == 'name' && 'tw-w-[150px]']" scope="col" class="tw-px-6 tw-py-3 text-truncate">
+                    <th v-for="column in columns" :key="column" :class="[column == 'actions' && '!tw-w-[100px]', column == 'name' && 'tw-w-[150px]', column == 'sizes' && 'tw-min-w-[400px]']" scope="col" class="tw-px-6 tw-w-fit tw-py-3 text-truncate">
                         <div class="tw-w-fit tw-flex tw-whitespace-nowrap">
                             {{ column }}
                         </div>
@@ -37,22 +39,23 @@
             <tbody>
                 <tr v-for="item in items" :key="item.id" :class="[items[items.length - 1].id == item.id && '!tw-border-b-0']" class="tw-bg-white dark:tw-bg-neutral-800 tw-border-b dark:tw-border-b-neutral-700 tw-whitespace-nowrap hover:tw-bg-gray-50 dark:hover:tw-bg-black/30">
                     
-                    <td class="tw-px-6 tw-py-4 tw-w-[20px]">
+                    <td class="tw-px-6 tw-py-2 tw-w-[20px]">
                         {{ item.id }}
                     </td>
-                    <th scope="row" class="tw-px-6 tw-py-2 tw-font-medium tw-w-[36px] tw-h-[36px]  tw-whitespace-nowrap ">
-                        <div class="tw-w-[35px] tw-h-[35px] tw-bg-primary/20 tw-overflow-hidden tw-rounded-lg">
-                            <img class="tw-w-full tw-object-cover" :src="$frontend(item.image)" alt="">
-                        </div>
-                    </th>
-                    <td class="tw-px-6 tw-py-4 tw-max-w-[200px] tw-truncate">
+                    <td class="tw-px-6 tw-py-2 tw-max-w-[100px] tw-truncate tw-uppercase">
                         {{ item.name }}
                     </td>
-                    <td class="tw-px-6 tw-py-4 tw-max-w-[300px] tw-truncate">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur eligendi corporis blanditiis voluptate, optio alias?
+                    <td class="tw-px-6 tw-py-2 tw-max-w-[120px] tw-truncate tw-uppercase">
+                        {{ item.hex }}
+                        
                     </td>
-                    <td class="tw-flex tw-items-center tw-px-6 tw-py-4 tw-space-x-3">
-                        <CategoryActions :category="item" />
+                    <td class="tw-px-6 tw-py-2 tw-max-w-[120px] tw-truncate">
+                        <div :style="{'background-color': item.hex}" class="tw-w-[50px] tw-h-[25px] tw-rounded-lg tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-800">
+
+                        </div>
+                    </td>
+                    <td class="tw-flex tw-items-center tw-px-6 tw-py-2 tw-space-x-3">
+                        <ColorActions :color="item" />
                     </td>
                 </tr>
                 
@@ -87,13 +90,14 @@
 </template>
 
 <script>
-import { categories } from '@/helpers/data'
-import CategoryActions from '@/components/dashboard/category/CategoryActions'
+import { colors } from '@/helpers/data'
+import ColorActions from '@/components/dashboard/settings/color/ColorActions'
+import CreateColor from '@/components/dashboard/settings/color/CreateColor'
 
 export default {
     // props: ['allItems'],
 
-    components: { CategoryActions },
+    components: { ColorActions, CreateColor },
 
     data() {
         return {
@@ -102,8 +106,10 @@ export default {
             paginationLimit: 10,
             filters: false,
 
-            columns: [ 'id', 'image','name', 'description', 'actions' ],
-            allItems: categories
+            createPopup: false,
+
+            columns: [ 'id', 'name','hex', 'color', 'actions'],
+            allItems: colors
         }
     },
 
