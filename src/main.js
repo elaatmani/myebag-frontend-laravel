@@ -5,9 +5,10 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import { loadFonts } from './plugins/webfontloader'
 import globalConfig from './plugins/globalConfig'
-import { Icon } from '@iconify/vue';
 import alert from './plugins/alert'
 import apiErrorHandler  from './plugins/apiErrorHandler'
+import { Icon } from '@iconify/vue';
+import Popup from '@/components/PopupVue'
 
 import '@/assets/css/main.css'
 
@@ -22,5 +23,6 @@ createApp(App)
   .use(apiErrorHandler)
 
   .component('icon', Icon)
+  .component('popup', Popup)
   
   .mount('#app')

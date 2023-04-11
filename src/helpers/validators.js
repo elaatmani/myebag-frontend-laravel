@@ -1,6 +1,6 @@
 
 
-export function required(value, fieldName = 'This feild') {
+export function required(value, fieldName = 'This field') {
     if(!value) {
         return {
             valid: false,
@@ -12,7 +12,7 @@ export function required(value, fieldName = 'This feild') {
 }
 
 
-export function isStringBetween(value, { min, max }, fieldName = 'This feild') {
+export function isStringBetween(value, { min, max }, fieldName = 'This field') {
     if (!value) {
         return {
             valid: false,
