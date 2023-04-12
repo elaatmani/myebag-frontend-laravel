@@ -46,7 +46,7 @@ export default {
   mounted() {
     if(this.isLoggedIn) {
       console.log('checking...');
-      this.check()
+      // this.check()
     }
   }
 }

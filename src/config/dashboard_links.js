@@ -2,7 +2,8 @@ export default [
     {
         id: 1,
         name: 'Dashboard',
-        icon: 'carbon:dashboard',
+        // icon: 'carbon:dashboard',
+        icon: 'ph:diamonds-four',
         to: 'dashboard/index',
         hasChildren: false
     },
@@ -36,7 +37,7 @@ export default [
     {
         id: 3,
         name: 'Categories',
-        icon: 'mdi:category-plus-outline',
+        icon: 'ph:tag',
         hasChildren: true,
         module: 'categories',
         children: [
@@ -57,7 +58,7 @@ export default [
     {
         id: 4,
         name: 'Users',
-        icon: 'mdi:account-multiple',
+        icon: 'ph:user-list',
         to: 'dashboard/test',
         module: 'users',
         hasChildren: true
@@ -65,7 +66,7 @@ export default [
     {
         id: 5,
         name: 'Test',
-        icon: 'eos-icons:config-map',
+        icon: 'ph:tree-structure',
         to: 'dashboard/test',
         hasChildren: false
     },

@@ -92,7 +92,6 @@ export default {
         hex(value) {
             const hexRegex = /^#(?:[0-9a-f]{3}){2}$/i;
             if(hexRegex.test(value)) {
-                console.log('color validated');
                 this.colorHex = value
             }
         }

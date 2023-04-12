@@ -5,6 +5,7 @@ import DefaultLayout from "@/layouts/default/DefaultLayout";
 import HomeView from "@/views/HomeView.vue";
 import ProfileView from "@/views/ProfileView";
 import ProductView from "@/views/ProductView";
+import CategoriesView from '@/views/CategoriesView'
 
 export default [
     {
@@ -28,6 +29,15 @@ export default [
                 meta: {
                     requireAuth: true,
                     title: "Account",
+                },
+            },
+            {
+                path: "/categories",
+                name: "categories",
+                component: CategoriesView,
+                meta: {
+                    requireAuth: false,
+                    title: "Categories",
                 },
             },
             {
