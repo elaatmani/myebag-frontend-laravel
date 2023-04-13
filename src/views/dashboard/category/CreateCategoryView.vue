@@ -49,7 +49,7 @@
             @dragleave="handleDragLeave" 
             class="lg:tw-col-span-6 tw-col-span-12 tw-aspect-square tw-relative tw-rounded-lg tw-border tw-border-dashed tw-border-neutral-500">
               
-              <input accept=".jpg, .jpeg, .png, .webp" max="4" type="file" @change="showImage" class="tw-opacity-0 tw-z-[1] tw-w-full tw-h-full tw-cursor-pointer" title="Drop your image">
+              <input id="category-image" accept=".jpg, .jpeg, .png, .webp" max="4" type="file" @change="showImage" class="tw-opacity-0 tw-z-[1] tw-w-full tw-h-full tw-cursor-pointer" title="Drop your image">
 
               
               <div v-if="!category.image" class="tw-flex tw-flex-col tw-w-[80%] tw-text-center tw-justify-center tw-pointer-events-none tw-items-center tw-absolute tw-top-1/2 tw-left-1/2 -tw-translate-y-1/2 -tw-translate-x-1/2">
@@ -147,6 +147,7 @@ export default {
             const reader = new FileReader();
             console.log(file);
             this.category.image = file;
+
             reader.addEventListener('load', (e) => {
             const images = document.querySelectorAll(`[name='image-preview']`)
             images.forEach(image => {
@@ -155,13 +156,6 @@ export default {
           });
           reader.readAsDataURL(file);
         }
-    },
-    deleteImage() {
-      this.category.image = null;
-      const images = document.querySelectorAll(`[name='image-preview']`)
-      images.forEach(image => {
-        image.src = '';
-      })
     },
     handleDragEnter() {
       this.isDragOver = true;
@@ -186,8 +180,18 @@ export default {
       this.validateForm()
       if(!this.isFormValid) return false;
 
+      const formData = new FormData();
+      formData.append('name', this.category.name);
+      formData.append('description', this.category.description);
+      formData.append('image', this.category.image);
+
+      // const ob = {
+      //   image: this.category.image
+      // }
+
+
       this.isLoading = true;
-      Category.create(this.category)
+      Category.create(formData)
       .then(
         res => {
           console.log(res.data);

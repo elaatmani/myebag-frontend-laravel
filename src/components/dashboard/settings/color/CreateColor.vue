@@ -109,6 +109,15 @@ export default {
                 type: 'success',
                 body: 'Color created successfully'
             })
+
+            const color = {
+                id: 4,
+                name: this.name,
+                hex: this.hex
+            }
+
+            this.$store.dispatch('app/addColor', color)
+
             this.cancel()
         },
         validateForm() {

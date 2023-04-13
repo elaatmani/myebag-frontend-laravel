@@ -227,27 +227,27 @@ export const sizes = [
         name: 'UK',
         sizes: [
             {
-                id: 1,
+                id: 8,
                 name: 'XS'
             },
             {
-                id: 2,
+                id: 9,
                 name: 'S'
             },
             {
-                id: 3,
+                id: 10,
                 name: 'M'
             },
             {
-                id: 4,
+                id: 11,
                 name: 'L'
             },
             {
-                id: 5,
+                id: 12,
                 name: 'XL'
             },
             {
-                id: 6,
+                id: 13,
                 name: 'XXL'
             },
         ]
@@ -271,3 +271,86 @@ export const colors = [
         hex: '#0000FF'
     }
 ]
+
+export const product = {
+    id: 1,
+    name: 'Air Force 1',
+    sku: 'air-force-1',
+    description: 'lorem ipsum...',
+    category_id: 1,
+    category: {
+        id: 1,
+        name: 'Shoes',
+        image: '...'
+    },
+
+    size_type_id: 2,
+    size_type: {
+        id: 2,
+        name: 'UK',
+    },
+    
+    discount_id: null,
+    discount: null,
+
+    images: [
+        {
+            id: 1,
+            order: 1,
+            path: 'assets/images/products/shoes/1/1.webp'
+        },
+        {
+            id: 2,
+            order: 2,
+            path: 'assets/images/products/shoes/1/2.webp'
+        },
+        {
+            id: 3,
+            order: 3,
+            path: 'assets/images/products/shoes/1/3.webp'
+        },
+    ],
+
+    product_variations: [
+        {
+            id: 1,
+            product_id: 1,
+            size_id: 12,
+            size: {
+                id: 9,
+                name: 'S'
+            },
+
+            color_id: 1,
+            color: {
+                id: 1,
+                name: 'red',
+                hex: '#FF0000'
+            },
+
+            quantity: 100,
+            price: 150
+        },
+        {
+            id: 2,
+            product_id: 1,
+            size_id: 13,
+            size: {
+                id: 13,
+                name: 'XXL'
+            },
+
+            color_id: 1,
+            color: {
+                id: 1,
+                name: 'red',
+                hex: '#FF0000'
+            },
+
+            quantity: 100,
+            price: 150
+        }
+    ],
+
+    reviews: []
+}

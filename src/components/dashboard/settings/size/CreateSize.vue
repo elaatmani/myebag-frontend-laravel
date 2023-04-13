@@ -104,6 +104,9 @@ export default {
     computed: {
         isFormValid() {
             return this.form.name.valid && this.form.sizes.valid
+        },
+        allSizes() {
+            return this.$store.getters['app/sizes']
         }
     },
 
@@ -132,6 +135,15 @@ export default {
                 type: 'success',
                 body: 'Size created successfully'
             })
+
+            const size = {
+                id: 4,
+                name: this.name,
+                sizes: this.sizes
+            }
+
+            this.$store.dispatch('app/addSize', size)
+
             this.cancel()
         },
         handleDelete(id) {

@@ -21,11 +21,11 @@
     </div>
 
     <div class="tw-mt-3">
-        <div>
+        <div v-if="availableSizes.length > 0">
             <h2>Size</h2>
             <div class="tw-mt-2 tw-flex tw-gap-2 tw-flex-wrap">
 
-                <button v-for="s in sizes" :key="s.id"
+                <button v-for="s in availableSizes" :key="s.id"
                 @click="size = s.id"
                 :class="[
                     s.id == size && `
@@ -68,7 +68,7 @@
             </div>
         </div>
 
-        <div class="mt-3">
+        <div v-if="false" class="mt-3">
             <h2>Color</h2>
             <div class="tw-mt-2 tw-flex tw-gap-2 tw-flex-wrap">
 
@@ -151,6 +151,7 @@
             <div class="tw-grid tw-grid-cols-12 tw-gap-2">
                 <div class="tw-col-span-7">
                     <button
+                    @click="addToCart"
                     class="
                     tw-w-full
                     tw-py-2 tw-px-5
@@ -201,7 +202,15 @@
 </template>
 
 <script>
+// import { sizes } from '@/helpers/data'
+import { getAvailableSizes } from '@/helpers/methods'
+
 export default {
+    props: {
+        product: {
+            required: true,
+        }
+    },
     data() {
         return {
             rating: 5,
@@ -213,52 +222,14 @@ export default {
 
     computed: {
         colors() {
-            return [
-                {
-                    id: 1,
-                    color: 'tw-bg-white'
-                },
-                {
-                    id: 2,
-                    color: 'tw-bg-black'
-                },
-                {
-                    id: 3,
-                    color: 'tw-bg-red-500'
-                },
-                {
-                    id: 4,
-                    color: 'tw-bg-green-500'
-                },
-                {
-                    id: 5,
-                    color: 'tw-bg-blue-500'
-                },
-            ]
+            return this.$store.getters['app/colors']
         },
         sizes() {
-            return [
-                {
-                    id: 1,
-                    name: 'XS',
-                },
-                {
-                    id: 2,
-                    name: 'S',
-                },
-                {
-                    id: 3,
-                    name: 'M',
-                },
-                {
-                    id: 4,
-                    name: 'L',
-                },
-                {
-                    id: 5,
-                    name: 'XL',
-                },
-            ]
+            return this.$store.getters['app/sizes']
+        },
+
+        availableSizes() {
+            return getAvailableSizes(this.sizes.find(s => s.id == this.product.size_type_id), this.product.product_variations)
         }
     },
 
@@ -270,7 +241,24 @@ export default {
         decrementQty() {
             if(this.quantity <= 1) return false;
             this.quantity -= 1
+        },
+
+        addToCart() {
+            this.quantity = 1;
+            this.$router.push('/products/3')
+            this.$alert({
+                type: 'success',
+                body: 'Item added to cart'
+            })
         }
+    },
+
+    mounted() {
+
+        this.size = this.availableSizes[0]?.id
+        console.log(this.sizes);
+        console.log(this.colors);
+        console.log(this.availableSizes);
     }
 }
 </script>

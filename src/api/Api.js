@@ -10,7 +10,7 @@ const ApiForm = axios.create({
 });
 
 ApiForm.defaults.withCredentials = true;
-ApiForm.defaults.headers = { 'Content-Type': 'multipart/form-data', 'Accept': 'application/json' };
+ApiForm.defaults.headers = { 'content-type': 'multipart/form-data', 'Accept': 'application/json' };
 
 Api.defaults.withCredentials = true;
 Api.defaults.headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' };

@@ -90,7 +90,6 @@
 </template>
 
 <script>
-import { sizes } from '@/helpers/data'
 import SizeActions from '@/components/dashboard/settings/size/SizeActions'
 import CreateSize from '@/components/dashboard/settings/size/CreateSize'
 
@@ -109,11 +108,14 @@ export default {
             createSizePopup: false,
 
             columns: [ 'id', 'name','sizes', 'actions'],
-            allItems: sizes
         }
     },
 
     computed: {
+        allItems() {
+            return this.$store.getters['app/sizes']
+        },
+
         prevRange() {
             return (this.currentPage - 1) * this.paginationLimit
         },

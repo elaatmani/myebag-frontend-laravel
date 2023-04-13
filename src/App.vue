@@ -8,6 +8,7 @@
 
 <script>
 import User from './api/User'
+import { colors, sizes } from './helpers/data'
 
 export default {
   name: 'App',
@@ -48,6 +49,9 @@ export default {
       console.log('checking...');
       // this.check()
     }
+
+    this.$store.dispatch('app/setSizes', sizes)
+    this.$store.dispatch('app/setColors', colors)
   }
 }
 </script>

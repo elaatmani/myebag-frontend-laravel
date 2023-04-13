@@ -14,9 +14,24 @@
 
 <script>
 import CategoriesTable from '@/components/dashboard/category/CategoriesTable.vue'
+import Category from '@/api/Category'
 
 export default {
-  components: { CategoriesTable }
+  components: { CategoriesTable },
+
+  method: {
+    getCategories() {
+      Category.all()
+      .then(
+        res => {
+          if(res.data.code == 'SUCCESS') {
+            this.$store.dispatch('category/setCategories', res.data.data.categories)
+          }
+        },
+        this.$handleApiError
+      )
+    }
+  }
 }
 </script>
 

@@ -52,7 +52,16 @@
       >
         <!-- Content goes here -->
         <div class="tw-h-full tw-w-full tw-py-2 tw-relative tw-z-20">
-          <p class="tw-px-2 tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-sm tw-mb-5" >Shopping cart:</p>
+          <div v-if="!cart.length">
+            <p class="tw-px-2 tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-sm tw-my-3" >No items yet</p>
+          </div>
+          <div v-if="cart.length > 0">
+            <div>
+              <router-link to="/" v-for="item in cart" v-bind:key="item.id">
+                {{ item.id }}
+              </router-link>
+            </div>
+          </div>
         </div>
       </div>
       </div>
@@ -67,6 +76,12 @@ export default {
       isActive: false,
     };
   },
+
+  computed: {
+    cart() {
+      return this.$store.getters['cart/cart']
+    }
+  },
   methods: {
     showMenu() {
       this.isActive = true;
@@ -78,6 +93,9 @@ export default {
       this.isActive = !this.isActive;
     },
   },
+  mounted() {
+    console.log(this.cart);
+  }
 };
 </script>
 

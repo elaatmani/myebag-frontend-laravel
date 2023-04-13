@@ -90,7 +90,6 @@
 </template>
 
 <script>
-import { colors } from '@/helpers/data'
 import ColorActions from '@/components/dashboard/settings/color/ColorActions'
 import CreateColor from '@/components/dashboard/settings/color/CreateColor'
 
@@ -109,11 +108,14 @@ export default {
             createPopup: false,
 
             columns: [ 'id', 'name','hex', 'color', 'actions'],
-            allItems: colors
         }
     },
 
     computed: {
+        allItems() {
+            return this.$store.getters['app/colors']
+        },
+
         prevRange() {
             return (this.currentPage - 1) * this.paginationLimit
         },
