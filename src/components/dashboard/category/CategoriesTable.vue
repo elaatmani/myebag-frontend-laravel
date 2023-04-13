@@ -23,7 +23,12 @@
         </div> -->
     </div>
     <div class="tw-relative tw-min-h-fit dark:tw-border-neutral-700 tw-border !tw-rounded-lg tw-border-neutral-200/80 tw-max-h-[600px] tw-overflow-x-auto  sm:tw-rounded-lg">
-        <table class="tw-w-full  tw-relative tw-text-sm tw-text-left !tw-rounded-lg tw-text-gray-500 dark:tw-text-neutral-200">
+        
+        <div v-if="!isLoaded" class="tw-min-h-[150px] tw-flex tw-items-center tw-justify-center">
+            <loading class="tw-scale-50"></loading>
+        </div>
+        
+        <table v-if="isLoaded" class="tw-w-full  tw-relative tw-text-sm tw-text-left !tw-rounded-lg tw-text-gray-500 dark:tw-text-neutral-200">
             <thead class="tw-text-xs  tw-w-full tw-text-gray-700 dark:tw-text-gray-300 tw-uppercase tw-bg-gray-50 dark:tw-bg-neutral-900">
                 <tr>
                     
@@ -34,7 +39,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody v-if="items.length > 0">
                 <tr v-for="item in items" :key="item.id" :class="[items[items.length - 1].id == item.id && '!tw-border-b-0']" class="tw-bg-white dark:tw-bg-neutral-800 tw-border-b dark:tw-border-b-neutral-700 tw-whitespace-nowrap hover:tw-bg-gray-50 dark:hover:tw-bg-black/30">
                     
                     <td class="tw-px-6 tw-py-4 tw-w-[20px]">
@@ -42,20 +47,31 @@
                     </td>
                     <th scope="row" class="tw-px-6 tw-py-2 tw-font-medium tw-w-[36px] tw-h-[36px]  tw-whitespace-nowrap ">
                         <div class="tw-w-[35px] tw-h-[35px] tw-bg-primary/20 tw-overflow-hidden tw-rounded-lg">
-                            <img class="tw-w-full tw-object-cover" :src="$frontend(item.image)" alt="">
+                            <img class="tw-w-full tw-object-cover tw-h-full" :src="$backend(item.image)" alt="">
                         </div>
                     </th>
                     <td class="tw-px-6 tw-py-4 tw-max-w-[200px] tw-truncate">
                         {{ item.name }}
                     </td>
                     <td class="tw-px-6 tw-py-4 tw-max-w-[300px] tw-truncate">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur eligendi corporis blanditiis voluptate, optio alias?
+                        {{ item.description }}
                     </td>
                     <td class="tw-flex tw-items-center tw-px-6 tw-py-4 tw-space-x-3">
                         <CategoryActions :category="item" />
                     </td>
                 </tr>
                 
+            </tbody>
+            <tbody v-else>
+                <tr>
+                    <td colspan="5">
+
+                        <div class="tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-gap-2 tw-p-5 tw-min-h-[150px] tw-justify-center">
+                            <h1 class="tw-text-lg tw-font-medium">No Data was found !</h1>
+                            <img class="tw-w-[200px]" :src="$frontend('assets/images/illustrations/not-found.svg')" alt="">
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -87,11 +103,11 @@
 </template>
 
 <script>
-import { categories } from '@/helpers/data'
+// import { categories } from '@/helpers/data'
 import CategoryActions from '@/components/dashboard/category/CategoryActions'
 
 export default {
-    // props: ['allItems'],
+    props: ['allItems', 'isLoaded'],
 
     components: { CategoryActions },
 
@@ -103,7 +119,7 @@ export default {
             filters: false,
 
             columns: [ 'id', 'image','name', 'description', 'actions' ],
-            allItems: categories
+            // allItems: categories
         }
     },
 

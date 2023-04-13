@@ -5,7 +5,9 @@
     <div class="tw-w-full tw-h-fit dark:tw-bg-neutral-800 tw-rounded-lg tw-bg-white">
       <div class="tw-grid tw-grid-cols-12 tw-p-3 tw-pb-0 tw-gap-2">
         <div class="tw-col-span-12">
-          <CategoriesTable />
+          <div>
+            <CategoriesTable :isLoaded="isLoaded" :allItems="categories" />
+          </div>
         </div>
       </div>
     </div>
@@ -19,7 +21,19 @@ import Category from '@/api/Category'
 export default {
   components: { CategoriesTable },
 
-  method: {
+  data() {
+    return {
+      isLoaded: false
+    }
+  },
+
+  computed: {
+    categories() {
+      return this.$store.getters['category/categories']
+    }
+  },
+
+  methods: {
     getCategories() {
       Category.all()
       .then(
@@ -31,6 +45,16 @@ export default {
         this.$handleApiError
       )
     }
+  },
+
+  mounted() {
+    this.getCategories()
+    setTimeout(
+      () => {
+        this.isLoaded = true
+      },
+      3000
+    )
   }
 }
 </script>

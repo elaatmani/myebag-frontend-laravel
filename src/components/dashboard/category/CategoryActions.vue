@@ -24,8 +24,9 @@
           <button @click="popup = false" class="tw-py-2 tw-px-7 tw-rounded tw-text-sm tw-border tw-border-solid tw-border-tansparent dark:tw-border-neutral-900 hover:tw-border-neutral-400 dark:hover:tw-border-neutral-500 hover:tw-bg-black/20 tw-bg-neutral-300  dark:tw-bg-neutral-600  tw-duration-300  tw-text-neutral-900 dark:tw-text-neutral-300">
             Cancel
           </button>
-          <button class="tw-py-2 tw-px-7 tw-font-medium tw-rounded tw-text-sm tw-bg-red-400 tw-border tw-border-solid tw-border-tansparent hover:tw-border-red-600 dark:tw-border-neutral-900 dark:hover:tw-border-red-500 hover:tw-bg-red-500/80 dark:hover:tw-bg-red-400 tw-duration-300  tw-text-neutral-800">
-            Delete
+          <button @click="handleDelete" class="tw-py-2 tw-px-7 tw-flex tw-items-center tw-font-medium tw-rounded tw-text-sm tw-bg-red-400 tw-border tw-border-solid tw-border-tansparent hover:tw-border-red-600 dark:tw-border-neutral-900 dark:hover:tw-border-red-500 hover:tw-bg-red-500/80 dark:hover:tw-bg-red-400 tw-duration-300  tw-text-neutral-800">
+            <v-icon size="small" class="tw-duration-300 tw-animate-spin tw-overflow-hidden tw-max-w-0 tw-mr-0" :class="[isLoading && '!tw-max-w-[50px] !tw-mr-3']">mdi-loading</v-icon>
+            <span>{{isLoading ? 'Deleting...' : 'Delete'}}</span>
           </button>
         </div>
       </div>
@@ -37,7 +38,24 @@
 export default {
   data() {
     return {
-      popup: false
+      popup: false,
+      isLoading: false,
+    }
+  },
+
+  methods: {
+    handleDelete() {
+      this.isLoading = true
+
+      setTimeout(() => {
+        this.isLoading = false
+        this.popup = false
+
+        this.$alert({
+          type: 'success',
+          body: "Category deleted successfully"
+        })
+      }, 3000)
     }
   }
 }
