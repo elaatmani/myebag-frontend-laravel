@@ -43,7 +43,9 @@
         </div>
 
         <div>
-            <ShoppingCart />
+            <keep-alive>
+              <ShoppingCart />
+            </keep-alive>
         </div>
 
         <div>

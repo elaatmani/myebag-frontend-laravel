@@ -10,6 +10,7 @@ import apiErrorHandler  from './plugins/apiErrorHandler'
 import { Icon } from '@iconify/vue';
 import Popup from '@/components/PopupVue'
 import Loading from '@/components/LoadingVue'
+import LoadingDashboard from '@/components/LoadingDashboard'
 
 import '@/assets/css/main.css'
 
@@ -26,5 +27,6 @@ createApp(App)
   .component('icon', Icon)
   .component('popup', Popup)
   .component('loading', Loading)
+  .component('loading-dash', LoadingDashboard)
   
   .mount('#app')

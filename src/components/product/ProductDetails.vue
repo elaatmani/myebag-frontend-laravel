@@ -15,10 +15,10 @@
     <h1 class="lg:tw-text-3xl tw-text-2xl tw-font-bold tw-mt-5">
         Air Jordan 4 - Dark Blue
     </h1>
-    <div class="tw-flex tw-items-center tw-gap-2 tw-mt-2">
+    <!-- <div class="tw-flex tw-items-center tw-gap-2 tw-mt-2">
         <v-rating v-model="rating" readonly density="compact" size="small" color="yellow"></v-rating>
         <span class="tw-text-sm tw-flex tw-items-center">4.5</span>
-    </div>
+    </div> -->
 
     <div class="tw-mt-3">
         <div v-if="availableSizes.length > 0">
@@ -227,6 +227,9 @@ export default {
         sizes() {
             return this.$store.getters['app/sizes']
         },
+        cart() {
+            return this.$store.getters['cart/cart']
+        },
 
         availableSizes() {
             return getAvailableSizes(this.sizes.find(s => s.id == this.product.size_type_id), this.product.product_variations)
@@ -244,8 +247,21 @@ export default {
         },
 
         addToCart() {
+
+            const id = this.cart.map(i => i.id).sort().slice(-1)[0] || 1;
+
+            const item = {
+                id: id + 1,
+                product_id: this.product.id,
+                product: this.product,
+                quantity: this.quantity,
+                size_id: this.size,
+                size: this.availableSizes.find(i => i.id == this.size)
+            }
+
+            this.$store.dispatch('cart/addItem', item);
+
             this.quantity = 1;
-            this.$router.push('/products/3')
             this.$alert({
                 type: 'success',
                 body: 'Item added to cart'

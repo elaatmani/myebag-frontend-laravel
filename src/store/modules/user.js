@@ -11,8 +11,11 @@
 
 const initialStateTest = {
     user: {},
+    users: [],
+
     isLoggedIn: true,
-    isAdmin: true
+    isAdmin: true,
+
 };
 
 export default {
@@ -23,6 +26,7 @@ export default {
 
     getters: {
         user: (state) => state.user,
+        users: (state) => state.users,
         isLoggedIn: (state) => state.isLoggedIn,
         isAdmin: (state) => state.isAdmin
     },
@@ -32,6 +36,10 @@ export default {
         SET_USER: (state, payload) => {
             state.user = payload
             localStorage.setItem('user', JSON.stringify(payload))
+        },
+
+        SET_USERS: (state, payload) => {
+            state.users = payload
         },
 
         SET_IS_LOGGED_IN: (state, payload) => {
@@ -54,6 +62,10 @@ export default {
 
         setUser: ({commit}, payload) => {
             commit('SET_USER', payload)
+        },
+
+        setUsers: ({commit}, payload) => {
+            commit('SET_USERS', payload)
         },
 
         setIsLoggedIn: ({commit}, payload) => {

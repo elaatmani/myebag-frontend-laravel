@@ -6,6 +6,8 @@ import HomeView from "@/views/HomeView.vue";
 import ProfileView from "@/views/ProfileView";
 import ProductView from "@/views/ProductView";
 import CategoriesView from '@/views/CategoriesView'
+import CheckoutView from '@/views/CheckoutView'
+import OrdersView from '@/views/OrdersView'
 
 export default [
     {
@@ -42,11 +44,29 @@ export default [
             },
             {
                 path: "/products/:id",
-                name: "products.show",
+                name: "products/show",
                 component: ProductView,
                 meta: {
                     requireAuth: false,
                     title: "Product",
+                },
+            },
+            {
+                path: "/checkout",
+                name: "checkout",
+                component: CheckoutView,
+                meta: {
+                    requireAuth: false,
+                    title: "Checkout",
+                },
+            },
+            {
+                path: "/orders",
+                name: "user/orders/index",
+                component: OrdersView,
+                meta: {
+                    requireAuth: false,
+                    title: "Orders",
                 },
             },
         ],

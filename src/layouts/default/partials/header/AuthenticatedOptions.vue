@@ -4,7 +4,7 @@
           <router-link
             v-for="link in links"
             :key="link.id"
-            :to="link.to"
+            :to="{name: link.to}"
             class="
               tw-py-2
               md:tw-py-1
@@ -49,16 +49,16 @@ export default {
     data() {
         return {
             adminLinks: [
-                { id: 1, name: "Dashboard", to: "/dashboard", icon: "ph:squares-four" },
+                { id: 1, name: "Dashboard", to: "dashboard/index", icon: "ph:squares-four" },
                 // { id: 2, name: "Profile", to: "/profile", icon: "ph:user" },
-                { id: 3, name: "Orders", to: "/signup", icon: "ph:package" },
-                { id: 4, name: "Settings", to: "/profile", icon: "ph:gear-six" },
+                { id: 3, name: "Orders", to: "user/orders/index", icon: "ph:package" },
+                { id: 4, name: "Settings", to: "profile", icon: "ph:gear-six" },
             ],
             userLinks: [
                 // { id: 1, name: "Dashboard", to: "/dashboard", icon: "akar-icons:dashboard" },
                 // { id: 2, name: "Profile", to: "/profile", icon: "ph:user" },
-                { id: 3, name: "Orders", to: "/signup", icon: "ph:package" },
-                { id: 4, name: "Settings", to: "/profile", icon: "ph:gear-six" },
+                { id: 3, name: "Orders", to: "user/orders/index", icon: "ph:package" },
+                { id: 4, name: "Settings", to: "profile", icon: "ph:gear-six" },
             ]
         }
     },

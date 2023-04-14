@@ -5,22 +5,19 @@
         <div class="tw-flex tw-items-center tw-gap-2 tw-justify-between tw-col-span-12">
             <div class="tw-relative tw-w-full tw-max-w-[550pxd] tw-flex-grow-1">
                 <icon icon="ph:magnifying-glass" class="tw-text-xl tw-text-neutral-400 tw-absolute tw-top-1/2 tw-left-3 -tw-translate-y-1/2" />
-                <input class="tw-outline-none tw-h-[38px] tw-rounded-lg tw-text-sm tw-text-neutral-500 dark:tw-text-neutral-300 tw-bg-white dark:tw-bg-neutral-800 tw-duration-300 focus:tw-border-primary hover:tw-border-primary/40 dark:hover:tw-border-purple-500/40 dark:focus:tw-border-purple-500 tw-border-neutral-200 dark:tw-border-neutral-600 tw-border-solid tw-border tw-py-2 tw-px-3 tw-pl-10 tw-w-full" type="text" placeholder="Search for ID, Name, SKU..." />
+                <input class="tw-outline-none tw-h-[38px] tw-rounded-lg tw-text-sm tw-text-neutral-500 dark:tw-text-neutral-300 tw-bg-white dark:tw-bg-neutral-800 tw-duration-300 focus:tw-border-primary hover:tw-border-primary/40 dark:hover:tw-border-purple-500/40 dark:focus:tw-border-purple-500 tw-border-neutral-200 dark:tw-border-neutral-600 tw-border-solid tw-border tw-py-2 tw-px-3 tw-pl-10 tw-w-full" type="text" placeholder="Search for ID, Client, Status..." />
             </div>
             <div class="tw-flex md:tw-justify-end tw-justify-center tw-items-center tw-gap-2">
                 <button @click="filters = !filters" class="tw-p-2 tw-h-[38px] tw-rounded-lg dark:tw-text-neutral-300 tw-bg-white dark:tw-bg-neutral-800 tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-600 tw-flex tw-items-center tw-justify-center tw-gap-2">
                     <icon class="tw-text-lg" :icon="filters ? 'material-symbols:filter-list-off-rounded' : 'material-symbols:filter-list-rounded'" />
                     <span class="tw-hidden md:tw-block tw-text-sm">Filters</span>
                 </button>
-                <button class="tw-p-2 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded-lg dark:tw-text-neutral-300 tw-text-white tw-bg-primary dark:tw-bg-primary tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-600 tw-flex tw-items-center tw-justify-center tw-gap-2">
+                <!-- <button class="tw-p-2 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded-lg dark:tw-text-neutral-300 tw-text-white tw-bg-primary dark:tw-bg-primary tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-600 tw-flex tw-items-center tw-justify-center tw-gap-2">
                     <icon class="tw-text-lg" icon="mdi:plus" />
                     <span class="tw-hidden md:tw-block tw-text-sm">Create</span>
-                </button>
+                </button> -->
             </div>
         </div>
-        <!-- <div class="tw-col-span-12 tw-max-h-0 tw-duration-500 tw-ease-in-out tw-overflow-hidden" :class="[filters && '!tw-max-h-[300px]']">
-            <div class="tw-h-[150px]"></div>
-        </div> -->
     </div>
     <div class="tw-relative tw-min-h-fit dark:tw-border-neutral-700 tw-border !tw-rounded-lg tw-border-neutral-200/80 tw-max-h-[600px] tw-overflow-x-auto  sm:tw-rounded-lg">
         
@@ -46,18 +43,18 @@
                         {{ item.id }}
                     </td>
                     <th scope="row" class="tw-px-6 tw-py-2 tw-font-medium tw-w-[36px] tw-h-[36px]  tw-whitespace-nowrap ">
-                        <div class="tw-w-[35px] tw-h-[35px] tw-bg-primary/20 tw-overflow-hidden tw-rounded-lg">
+                        <!-- <div class="tw-w-[35px] tw-h-[35px] tw-bg-primary/20 tw-overflow-hidden tw-rounded-lg">
                             <img class="tw-w-full tw-object-cover tw-h-full" :src="$backend(item.image)" alt="">
-                        </div>
+                        </div> -->
                     </th>
                     <td class="tw-px-6 tw-py-4 tw-max-w-[200px] tw-truncate">
-                        {{ item.name }}
+                        <!-- {{ item.name }} -->
                     </td>
                     <td class="tw-px-6 tw-py-4 tw-max-w-[300px] tw-truncate">
-                        {{ item.description }}
+                        <!-- {{ item.description }} -->
                     </td>
                     <td class="tw-flex tw-items-center tw-px-6 tw-py-4 tw-space-x-3">
-                        <CategoryActions :category="item" />
+                        <!-- <CategoryActions :category="item" /> -->
                     </td>
                 </tr>
                 
@@ -103,13 +100,10 @@
 </template>
 
 <script>
-// import { categories } from '@/helpers/data'
-import CategoryActions from '@/components/dashboard/category/CategoryActions'
 
 export default {
     props: ['allItems', 'isLoaded'],
 
-    components: { CategoryActions },
 
     data() {
         return {
@@ -128,7 +122,7 @@ export default {
             if(this.items.length == 0) {
                 this.$alert({
                     type: 'info',
-                    body: 'Category list is empty!'
+                    body: 'Orders list is empty!'
                 })
             }
         }
@@ -150,14 +144,6 @@ export default {
     },
 
     methods: {
-        calculQty(variants) {
-            let total = 0;
-            variants.forEach(item => {
-                total += item.quantity
-            });
-
-            return total
-        }
     }
 }
 </script>

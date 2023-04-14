@@ -293,6 +293,8 @@ export const product = {
     discount_id: null,
     discount: null,
 
+    price: 200,
+
     images: [
         {
             id: 1,

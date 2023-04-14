@@ -5,7 +5,7 @@ class Product {
     
     async get(id) {
         await Csrf.getCookie();
-        return Api.post('api/products/' + id)
+        return Api.get('api/products/' + id)
     }
 
 }

@@ -8,6 +8,14 @@ export default [
         hasChildren: false
     },
     {
+        id: 0,
+        name: 'Orders',
+        to: 'orders/index',
+        icon: 'ph:storefront',
+        hasChildren: false,
+        module: 'order',
+    },
+    {
         id: 2,
         name: 'Products',
         icon: 'fluent-mdl2:product-variant',
@@ -59,17 +67,25 @@ export default [
         id: 4,
         name: 'Users',
         icon: 'ph:user-list',
-        to: 'dashboard/test',
+        to: 'users/index',
         module: 'users',
-        hasChildren: true
+        hasChildren: true,
+        children: [
+            {
+                id: 1,
+                name: 'All users',
+                to: 'users/index',
+                module: 'users'
+            },
+        ]
     },
-    {
-        id: 5,
-        name: 'Test',
-        icon: 'ph:tree-structure',
-        to: 'dashboard/test',
-        hasChildren: false
-    },
+    // {
+    //     id: 5,
+    //     name: 'Test',
+    //     icon: 'ph:tree-structure',
+    //     to: 'dashboard/test',
+    //     hasChildren: false
+    // },
     {
         id: 6,
         name: 'Settings',

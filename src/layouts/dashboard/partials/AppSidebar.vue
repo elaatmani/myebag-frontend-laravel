@@ -9,7 +9,14 @@
         <!-- Links -->
         <div class="tw-flex tw-flex-col tw-gap-2 mt-5">
             <div v-for="link in links" :key="link.id">
-                <SidebarLink v-if="!link?.hasChildren" :link="link" />
+                
+                <div class="tw-w-full" v-if="!link?.hasChildren">
+
+                    <SidebarOdersLink v-if="link.to == 'orders/index'"  :link="link" />
+
+                    <SidebarLink :link="link"  v-else/>
+                </div>
+
                 <SidebarDropdownLink v-if="!!link?.hasChildren"  :link="link" />
             </div>
 
@@ -24,10 +31,11 @@ import links from '@/config/dashboard_links'
 import AppLogo from '@/components/AppLogo'
 import ThemeSwitcher from '@/layouts/default/partials/header/ThemeSwitcher.vue';
 import SidebarLink from '@/layouts/dashboard/partials/sidebar/SidebarLink'
+import SidebarOdersLink from '@/layouts/dashboard/partials/sidebar/SidebarOdersLink'
 import SidebarDropdownLink from '@/layouts/dashboard/partials/sidebar/SidebarDropdownLink'
 
 export default {
-    components: { AppLogo, ThemeSwitcher, SidebarLink, SidebarDropdownLink },
+    components: { AppLogo, ThemeSwitcher, SidebarLink, SidebarOdersLink, SidebarDropdownLink },
 
     data() {
         return {

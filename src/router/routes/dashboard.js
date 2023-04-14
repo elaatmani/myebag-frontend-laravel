@@ -10,6 +10,12 @@ import IndexProductsView from '@/views/dashboard/product/IndexProductsView';
 import CreateProductView from '@/views/dashboard/product/CreateProductView';
 import FeaturedProductsView from '@/views/dashboard/product/FeaturedProductsView';
 
+// Orders
+import IndexOrdersView from '@/views/dashboard/order/IndexOrdersView'
+
+// Users
+import IndexUsersView from '@/views/dashboard/user/IndexUsersView'
+
 // Categories
 import IndexCategoriesView from '@/views/dashboard/category/IndexCategoriesView'
 import CreateCategoryView from '@/views/dashboard/category/CreateCategoryView'
@@ -80,6 +86,30 @@ export default [
                     module: 'products',
                     requireAuth: true,
                     title: "Featured products",
+                }
+            },
+
+            // Orders
+            {
+                name: 'orders/index',
+                path: 'orders',
+                component: IndexOrdersView,
+                meta: {
+                    module: 'orders',
+                    requireAuth: true,
+                    title: 'Orders'
+                }
+            },
+
+            // Users
+            {
+                name: 'users/index',
+                path: 'users',
+                component: IndexUsersView,
+                meta: {
+                    modeul: 'users',
+                    requireAuth: true,
+                    title: 'Users'
                 }
             },
 

@@ -8,6 +8,11 @@ class User {
         return Api.get('api/user')
     }
 
+    async all() {
+        await Csrf.getCookie();
+        return Api.get('api/users')
+    }
+
     async login({email, password}) {
         await Csrf.getCookie();
         return Api.post('api/auth/login', {email, password})

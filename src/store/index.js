@@ -7,6 +7,7 @@ import alert from './modules/alert'
 import cart from './modules/cart'
 import product from './modules/product'
 import category from './modules/category'
+import order from './modules/order'
 
 export default createStore({
   state: {
@@ -18,13 +19,14 @@ export default createStore({
   actions: {
   },
   modules: {
-    theme,
-    user,
     app,
+    theme,
     dashboard,
+    user,
     alert,
     cart,
     product,
-    category
+    category,
+    order
   }
 })

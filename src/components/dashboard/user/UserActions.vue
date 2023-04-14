@@ -17,7 +17,7 @@
         <div class="tw-px-5 tw-flex dark:tw-text-neutral-400 tw-text-neutral-500 tw-items-center tw-gap-4 tw-py-4 dark:tw-bg-neutral-800 tw-bg-white">
           <v-icon size="x-large" class="dark:tw-text-red-400 tw-text-red-500">mdi-alert-outline</v-icon>
           <p>
-            Are you sure you want to delete this Category?
+            Are you sure you want to delete this User?
           </p>
         </div>
         <div class="tw-flex tw-justify-end tw-items-center tw-p-4 tw-gap-3 dark:tw-bg-neutral-900 tw-bg-neutral-100">
@@ -35,10 +35,7 @@
 </template>
 
 <script>
-import Category from '@/api/Category'
 export default {
-  props: ['category'],
-  
   data() {
     return {
       popup: false,
@@ -50,25 +47,15 @@ export default {
     handleDelete() {
       this.isLoading = true
 
-      Category.delete(this.category.id)
-      .then(
-        res => {
-          if(res.data.code == 'SUCCESS') {
-            this.$store.dispatch('category/delete', this.category.id)
-            this.$alert({
-              type: 'success',
-              body: "Category deleted successfully"
-            })
-          }
-        },
-        this.$handApiError
-      )
-      .finally(
-        () => {
-          this.isLoading = false
-          this.popup = false
-        }
-      )
+      setTimeout(() => {
+        this.isLoading = false
+        this.popup = false
+
+        this.$alert({
+          type: 'success',
+          body: "User deleted successfully"
+        })
+      }, 3000)
     }
   }
 }
