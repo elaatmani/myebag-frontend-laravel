@@ -9,7 +9,7 @@
           <div class="">
             <div class="tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
               <label class="tw-text-sm" for="email">Product Name</label>
-              <input :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="Product name" type="text">
+              <input v-model="product.name" :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="Product name" type="text">
               <div v-if="false" ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
                 {{ 'Error' }}
               </div>
@@ -23,7 +23,7 @@
               <div class="md:tw-col-span-9 tw-col-span-8 tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
                 <label class="tw-text-sm" for="email">Category</label>
                 <div class=" tw-relative  tw-mt-1" >
-                  <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
+                  <select v-model="product.category_id" :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
                     <option class="tw-text-neutral-600" value="1">Shoes</option>
                     <option class="tw-text-neutral-600" value="2">Hoodies</option>
                     <option class="tw-text-neutral-600" value="3">Watches</option>
@@ -35,10 +35,10 @@
               <div class="md:tw-col-span-3 tw-col-span-4 tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
                 <label class="tw-text-sm" for="email">Genre</label>
                 <div class=" tw-relative  tw-mt-1">
-                  <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
-                    <option class="tw-text-neutral-600" value="1">All</option>
-                    <option class="tw-text-neutral-600" value="2">Male</option>
-                    <option class="tw-text-neutral-600" value="3">Female</option>
+                  <select v-model="product.gendre" :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
+                    <option class="tw-text-neutral-600" value="mix">Mix</option>
+                    <option class="tw-text-neutral-600" value="male">Male</option>
+                    <option class="tw-text-neutral-600" value="female">Female</option>
                   </select>
                   <v-icon size="small" class="tw-absolute tw-top-1/2 -tw-translate-y-1/2 tw-pointer-events-none tw-right-3">mdi-chevron-down</v-icon>
                 </div>
@@ -50,6 +50,7 @@
             <div class="tw-flex tw-flex-col mt-5 tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
               <label class="tw-text-sm" for="email">Description</label>
               <textarea 
+              v-model="product.description"
               :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500"
                rows="5"></textarea>
               <div v-if="false" ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
@@ -156,7 +157,7 @@
         </div>
       </div>
       <div class="tw-flex tw-justify-end">
-        <button class="tw-py-2 tw-px-7 tw-rounded tw-text-sm tw-bg-primary tw-text-white">
+        <button  class="tw-py-2 tw-px-7 tw-rounded tw-text-sm tw-bg-primary tw-text-white">
           Add Product
         </button>
       </div>
@@ -165,10 +166,17 @@
 </template>
 
 <script>
+import Product from '@/api/Product'
 export default {
 
   data() {
     return {
+      product: {
+        name: '',
+        category_id: 1,
+        gendre: 'mix',
+        desctiption: ''
+      },
       imageId: 3,
       primaryImage: null || 2,
       images: [
@@ -192,6 +200,19 @@ export default {
   },
 
   methods: {
+    create() {
+      const p = {
+        ...this.product,
+        images: this.images
+      }
+      Product.create(p)
+      .then(
+        res => {
+          console.log(res.data);
+        },
+        this.$handleApiError
+      )
+    },
     showImage(e) {
       const files = e.target.files
 
@@ -203,7 +224,7 @@ export default {
         const file = e.target.files[i];
         let img = {
           id: this.imageId,
-          src: null
+          image: file
         }
 
         if (file) {
