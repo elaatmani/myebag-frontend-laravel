@@ -3,38 +3,41 @@ import Csrf from "./Csrf";
 
 class Product {
     
+    async all() {
+        await Csrf.getCookie();
+        return Api.get('api/products')
+    }
+
     async get(id) {
         await Csrf.getCookie();
         return Api.get('api/products/' + id)
     }
 
-    async create(p) {
-        const product = {
-            name: '',
-            description: '',
-            discount_id: null,
-            size_type_id: null,
-            images: [
-                {
-                    order: '',
-                    image: p
-                }
-            ],
+    async delete(id) {
+        await Csrf.getCookie();
+        return Api.delete('api/products/' + id)
+    }
 
-            stock_alert: 10,
-            product_variations: [
-                {
-                    id: '',
-                    product_id: '',
-                    size_id: '',
-                    color_id: '',
-                    quantity: '',
-                    price: ''
-                }
-            ]
+    async create(product) {
+        const p = {
+            name: product.name,
+            description: product.description,
+            size_type_id: product.size_type_id,
+            stock_alert: product.stock_alert,
+            gender: product.gender,
+            category_id: product.category_id,
+            discount_id: product.discount_id,
+            product_variations: product.variations,
+            images: product.images
         }
         await Csrf.getCookie();
-        return ApiForm.post('api/products', product)
+        return ApiForm.post('api/products', p)
+    }
+
+    async storeImages(images) {
+        
+        await Csrf.getCookie();
+        return ApiForm.post('api/products/images', {images})
     }
 
 }

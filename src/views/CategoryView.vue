@@ -27,21 +27,31 @@
     </div>
     <h1 class="tw-text-lg tw-my-5 tw-font-medium tw-w-full">Explore Categories ⚡</h1>
     <div v-if="isLoading">
-      <loading-dash class="tw-scale-50"></loading-dash>
+      loading...
     </div>
     <div v-else class="tw-grid tw-grid-cols-12 tw-gap-5">
 
       <div v-for="category in categories" :key="category.id" class="lg:tw-col-span-3 md:tw-col-span-6 sm:tw-col-span-6 tw-col-span-12">
-        <router-link to="/">
+          <router-link to="/">
+            <div class="md:tw-h-[150px] tw-h-[180px] tw-border tw-border-solid tw-border-transparent hover:tw-border-violet-500 tw-duration-200 tw-cursor-pointer tw-overflow-hidden tw-relative tw-rounded-lg">
+              <div ref="gradient" class="tw-z-10 tw-bg-gradient-to-t tw-from-neutral-900  tw-via-neutral-900/20 tw-to-transparent tw-absolute tw-top-0 tw-left-0 tw-w-full tw-h-full"></div>
+              <div class="tw-w-full tw-h-full">
+                <img :src="$backend(category.image)" class="tw-object-cover tw-w-full tw-h-full" alt="">
+              </div>
+              <h1 class="tw-text-md tw-px-2 tw-mb-2 tw-absolute tw-bottom-0 tw-z-[11] tw-text-neutral-100">{{ category.name }}</h1>
+            </div>
+          </router-link>
+        </div>
+
+        <div class="lg:tw-col-span-3 md:tw-col-span-6 sm:tw-col-span-6 tw-col-span-12">
           <div class="md:tw-h-[150px] tw-h-[180px] tw-border tw-border-solid tw-border-transparent hover:tw-border-violet-500 tw-duration-200 tw-cursor-pointer tw-overflow-hidden tw-relative tw-rounded-lg">
             <div ref="gradient" class="tw-z-10 tw-bg-gradient-to-t tw-from-neutral-900  tw-via-neutral-900/20 tw-to-transparent tw-absolute tw-top-0 tw-left-0 tw-w-full tw-h-full"></div>
             <div class="tw-w-full tw-h-full">
-              <img :src="$backend(category.image)" class="tw-object-cover tw-w-full tw-h-full" alt="">
+              <img :src="$frontend('assets/images/categories/hoodies-1.jpg')" class="tw-object-cover tw-w-full tw-h-full" alt="">
             </div>
-            <h1 class="tw-text-md tw-px-2 tw-mb-2 tw-absolute tw-bottom-0 tw-z-[11] tw-text-neutral-100">{{ category.name }}</h1>
+          <h1 class="tw-text-md tw-px-2 tw-mb-2 tw-absolute tw-bottom-0 tw-z-[11] tw-text-neutral-100">Hoodies</h1>
           </div>
-        </router-link>
-      </div>
+        </div>
     </div>
 
     
@@ -57,7 +67,15 @@ export default {
 
   data() {
     return {
-      isLoading: true
+      isLoading: true,
+      products: [],
+      category: null
+    }
+  },
+
+  watch: {
+    $route() {
+        console.log('category changed');
     }
   },
 
@@ -65,22 +83,21 @@ export default {
     isFetched(){
       return this.$store.getters['category/isFetched']
     },
-    categories(){
-      return this.$store.getters['category/categories']
+    id() {
+        return this.$route.params.id
     }
   },
 
   methods: {
-    getCategories() {
+    getCategoryProducts() {
       this.isLoading = true
-      return Category.all()
+      return Category.products(this.id)
       .then(
         res => {
-          this.$store.dispatch('category/setIsFetched', true)
           if (res.data.code == 'SUCCESS') {
-            return this.$store.dispatch('category/setCategories', res.data.data.categories)
+            return this.products = res.data.data.categories
           }
-          return this.$store.dispatch('category/setCategories', [])
+          return this.products = []
         },
         this.$handleApiError
       )
@@ -91,11 +108,7 @@ export default {
   },
 
   mounted() {
-    if(!this.isFetched) {
-      this.getCategories()
-    } else {
-      this.isLoading = false
-    }
+    this.getCategoryProducts()
 
   }
 };

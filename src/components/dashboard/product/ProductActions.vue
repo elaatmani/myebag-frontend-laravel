@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tw-h-full">
     <div class="tw-flex tw-items-center tw-gap-2">
       <button class="tw-px-2 tw-py-1 tw-w-[25px] tw-h-[25px] tw-border tw-border-solid tw-border-blue-500/20 hover:tw-bg-blue-500/10 hover:tw-border-blue-500/70 tw-duration-300 tw-text-blue-500/80 tw-rounded-md tw-flex tw-items-center tw-justify-center">
           <v-icon size="x-small" >mdi-eye-outline</v-icon>
@@ -35,7 +35,10 @@
 </template>
 
 <script>
+import Product from '@/api/Product'
 export default {
+  props: ['product'],
+
   data() {
     return {
       popup: false,
@@ -47,15 +50,23 @@ export default {
     handleDelete() {
       this.isLoading = true
 
-      setTimeout(() => {
-        this.isLoading = false
-        this.popup = false
-
-        this.$alert({
-          type: 'success',
-          body: "Product deleted successfully"
-        })
-      }, 3000)
+      Product.delete(this.product.id)
+      .then(
+        res => {
+          if(res.data.code == 'SUCCESS') {
+            this.$alert({
+              type: 'success',
+              body: "Product deleted successfully"
+            })
+            this.$store.dispatch('product/delete', this.product.id)
+            this.popup = false
+          }
+        },
+        this.$handleApiError
+      )
+      .finally(
+        () => this.isLoading = false
+      )
     }
   }
 }

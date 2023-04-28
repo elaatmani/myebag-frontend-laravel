@@ -56,7 +56,7 @@
                     <td class="tw-px-6 tw-py-4 tw-max-w-[300px] tw-truncate">
                         {{ item.description }}
                     </td>
-                    <td class="tw-flex tw-items-center tw-px-6 tw-py-4 tw-space-x-3">
+                    <td class="tw-px-6 tw-py-4 tw-space-x-3">
                         <CategoryActions :category="item" />
                     </td>
                 </tr>

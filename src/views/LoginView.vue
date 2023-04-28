@@ -39,6 +39,20 @@
                       <span>Sign in</span>
                     </button>
                   </div>
+
+                  <div class="tw-text-sm tw-text-center ">
+                    Or
+                  </div>
+
+                  <div class="mt-1">
+                    <button @click="loginWithGoogle" class="tw-py-3 tw-px-7 tw-w-full tw-gap-3 tw-justify-center tw-border tw-border-solid tw-border-neutral-300 dark:tw-border-neutral-700 tw-text-capitalize tw-flex tw-items-center tw-rounded tw-text-sm dark:tw-text-white tw-text-neutral-700">
+                      <v-icon v-if="isLoadingGoogle" size="small" class="tw-duration-300 tw-animate-spin tw-overflow-hidden tw-max-w-0 tw-mr-0" :class="[isLoadingGoogle && '!tw-max-w-[50px] !tw-mr-3']">mdi-loading</v-icon>
+                      <icon v-else icon="logos:google-icon" class="tw-text-lg" />
+                      
+                      <span class="tw-text-sm tw-font-bold">Sign in with Google</span>
+                    </button>
+                  </div>
+
                   <div class="mt-2 tw-text-center tw-text-md tw-text-neutral-700 tw-font-normal dark:tw-text-neutral-200">
                     Don't have an account? <router-link class="tw-text-primary tw-font-medium" :to="{ name: 'signup' }">Sign up</router-link>
                   </div>
@@ -69,6 +83,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      isLoadingGoogle: false,
 
       user: {
         email: '',
@@ -140,6 +155,27 @@ export default {
       .finally(() => {
         this.isLoading = false
       })
+    },
+
+    loginWithGoogle() {
+      this.isLoadingGoogle = true;
+      User.getGoogleUrl()
+      .then(
+        res => {
+          console.log(res.data);
+          window.open(res.data.url, 'Authentication', 'target=_blank')
+          .addEventListener('close', 
+          (e) => {
+            console.log('closed');
+            console.log(e);
+          }
+          )
+
+          this.isLoadingGoogle = false
+          
+        },
+        this.$handleApiError
+      )
     }
   }
 }

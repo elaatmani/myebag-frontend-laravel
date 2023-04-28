@@ -3,12 +3,12 @@
     <h2 class="tw-text-lg tw-text-neutral-600 dark:tw-text-neutral-200">Create Product</h2>
     <p class="tw-text-sm tw-mb-3 tw-font-light tw-text-neutral-500 dark:tw-text-neutral-300">Add new product</p>
     <div class="tw-w-full tw-h-fit tw-p-3 tw-px-4  dark:tw-bg-neutral-800 tw-rounded-lg tw-bg-white">
-      <div class="tw-grid tw-grid-cols-12 md:tw-gap-10">
+      <div class="tw-grid tw-grid-cols-12 md:tw-gap-10 md:tw-gap-y-5 tw-gap-y-5">
         <div class="md:tw-col-span-6 tw-col-span-12">
 
           <div class="">
             <div class="tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
-              <label class="tw-text-sm" for="email">Product Name</label>
+              <label class="tw-text-sm">Product Name</label>
               <input v-model="product.name" :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="Product name" type="text">
               <div v-if="false" ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
                 {{ 'Error' }}
@@ -21,21 +21,19 @@
             <div class="mt-5 tw-grid tw-gap-2 tw-grid-cols-12">
 
               <div class="md:tw-col-span-9 tw-col-span-8 tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
-                <label class="tw-text-sm" for="email">Category</label>
+                <label class="tw-text-sm">Category</label>
                 <div class=" tw-relative  tw-mt-1" >
                   <select v-model="product.category_id" :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
-                    <option class="tw-text-neutral-600" value="1">Shoes</option>
-                    <option class="tw-text-neutral-600" value="2">Hoodies</option>
-                    <option class="tw-text-neutral-600" value="3">Watches</option>
+                    <option v-for="c in categories" :key="c.id" class="tw-text-neutral-600" :value="c.id">{{ c.name }}</option>
                   </select>
                   <v-icon size="small" class="tw-absolute tw-top-1/2 -tw-translate-y-1/2 tw-pointer-events-none tw-right-3">mdi-chevron-down</v-icon>
                 </div>
               </div>
 
               <div class="md:tw-col-span-3 tw-col-span-4 tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
-                <label class="tw-text-sm" for="email">Genre</label>
+                <label class="tw-text-sm">Gender</label>
                 <div class=" tw-relative  tw-mt-1">
-                  <select v-model="product.gendre" :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
+                  <select v-model="product.gender" :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
                     <option class="tw-text-neutral-600" value="mix">Mix</option>
                     <option class="tw-text-neutral-600" value="male">Male</option>
                     <option class="tw-text-neutral-600" value="female">Female</option>
@@ -48,11 +46,11 @@
             </div>
 
             <div class="tw-flex tw-flex-col mt-5 tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
-              <label class="tw-text-sm" for="email">Description</label>
+              <label class="tw-text-sm">Description</label>
               <textarea 
               v-model="product.description"
               :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500"
-               rows="5"></textarea>
+               rows="8"></textarea>
               <div v-if="false" ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
                 {{ 'Error' }}
               </div>
@@ -60,6 +58,8 @@
                 Do not exceed 300 characters when entering the product description.
               </div>
             </div>
+
+            
 
           </div>
 
@@ -111,54 +111,174 @@
                   <!-- <span class="tw-text-xs tw-text-neutral-800">Primary</span> -->
                 </div>
               </div>
-
-
-
-              
-
             </div>
-            <div v-if="images.length < 4" class="tw-col-span-12">
+            
+            <div v-if="images.length < 4 || true" class="tw-col-span-12">
               <p class="tw-text-xs tw-text-neutral-400 dark:tw-text-neutral-300">
                 You need to add at least 4 images. Pay attention to the quality of the pictures you add comply with the background color standards.
                 </p>
             </div>
 
-            <div v-if="false" class=" tw-col-span-12 tw-grid tw-gap-2 tw-grid-cols-12">
+            <div class="mt-5 tw-col-span-12 tw-grid tw-gap-2 tw-grid-cols-12">
 
-              <div class="md:tw-col-span-6 tw-col-span-8 tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
-                <label class="tw-text-sm" for="email">Add Size</label>
-                <div class=" tw-relative  tw-mt-1" >
-                  <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
-                    <option class="tw-text-neutral-600" value="1">S</option>
-                    <option class="tw-text-neutral-600" value="2">M</option>
-                    <option class="tw-text-neutral-600" value="3">L</option>
-                    <option class="tw-text-neutral-600" value="3">XL</option>
+              <div class="md:tw-col-span-9 tw-col-span-8 tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
+                <label class="tw-text-sm">Size System</label>
+                <div class=" tw-relative  tw-mt-2" >
+                  <select v-model="size_type_id" :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
+                    <option v-for="s in size_types" :key="s.id" class="tw-text-neutral-600 tw-uppercase" :value="s.id">{{s.name}}</option>
                   </select>
                   <v-icon size="small" class="tw-absolute tw-top-1/2 -tw-translate-y-1/2 tw-pointer-events-none tw-right-3">mdi-chevron-down</v-icon>
                 </div>
               </div>
 
-              <div class="md:tw-col-span-6 tw-col-span-4 tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
-                <label class="tw-text-sm" for="email">Color</label>
-                <div class=" tw-relative  tw-mt-1">
-                  <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
-                    <option class="tw-text-neutral-600" value="1">Green</option>
-                    <option class="tw-text-neutral-600" value="2">Red</option>
-                    <option class="tw-text-neutral-600" value="3">Blue</option>
-                    <option class="tw-text-neutral-600" value="3">...</option>
-                  </select>
-                  <v-icon size="small" class="tw-absolute tw-top-1/2 -tw-translate-y-1/2 tw-pointer-events-none tw-right-3">mdi-chevron-down</v-icon>
+              <div class="md:tw-col-span-3 tw-col-span-4 tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
+                <label class="tw-text-sm">Stock Alert</label>
+                <input v-model="product.stock_alert" :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="Stock alert" type="number">
+                <div v-if="false" ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
+                  {{ 'Error' }}
                 </div>
               </div>
             </div>
 
-            
+          </div>
+        </div>
+
+        <div class="tw-text-md tw-col-span-12">
+          Add Variations
+        </div>
+        <div class="tw-col-span-12 md:tw-mt-0 ">
+
+          <div class="tw-grid tw-grid-cols-5 tw-gap-2">
+            <div class="md:tw-col-span-1 tw-col-span-12">
+              <div class="tw-flex  tw-flex-col mt-0 tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
+                <label class="tw-text-sm">Size</label>
+                <div class=" tw-relative  tw-mt-1" >
+                  <select v-model="size_id" :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-uppercase tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
+                    <option v-for="s in sizes" :key="s.id" class="tw-text-neutral-600  tw-uppercase" :value="s.id">{{s.value}}</option>
+                  </select>
+                  <v-icon size="small" class="tw-absolute tw-top-1/2 -tw-translate-y-1/2 tw-pointer-events-none tw-right-3">mdi-chevron-down</v-icon>
+                </div>
+              
+              </div>
+            </div>
+
+            <div class="md:tw-col-span-1 tw-col-span-12">
+              <div class="tw-flex  tw-flex-col mt-0 tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
+                <label class="tw-text-sm">Color</label>
+                <div class=" tw-relative  tw-mt-1" >
+                  <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-uppercase tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
+                    <option v-for="c in colors" :key="c.id" class="tw-text-neutral-600 tw-uppercase" :value="c.id">{{c.name}}</option>
+                  </select>
+                  <v-icon size="small" class="tw-absolute tw-top-1/2 -tw-translate-y-1/2 tw-pointer-events-none tw-right-3">mdi-chevron-down</v-icon>
+                </div>
+              
+              </div>
+            </div>
+
+            <div class="md:tw-col-span-1 tw-col-span-12">
+              <div class="tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
+                <label class="tw-text-sm">Quantity</label>
+                <input v-model="quantity" :class="{ '!tw-border-red-400': !true }" type="number" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="0">
+                
+              </div>
+            </div>
+            <div class="md:tw-col-span-1 tw-col-span-12">
+              <div class="tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
+                <label class="tw-text-sm">Price</label>
+                <input v-model="price" :class="{ '!tw-border-red-400': !true }" type="number" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="0">
+              </div>
+            </div>
+
+            <div class="md:tw-col-span-1 tw-col-span-12 tw-flex tw-items-end tw-h-full">
+              <button @click="handleAdd" class="tw-py-2 tw-px-7 tw-w-full tw-h-[38px] tw-whitespace-nowrap tw-rounded dark:tw-text-neutral-300 tw-text-white tw-bg-violet-500 tw-border tw-border-solid tw-border-tansparent hover:tw-border-violet-600 dark:tw-border-neutral-900 dark:hover:tw-border-violet-400 hover:tw-bg-violet-500 dark:hover:tw-bg-violet-500 tw-duration-200 tw-flex tw-gap-2 tw-items-center tw-justify-center">
+                  <icon class="tw-text-lg" icon="mdi:plus" />
+                  <span class="tw-text-sm">Add</span>
+              </button>
+            </div>
+
+            <div class="tw-col-span-5 tw-mt-2">
+              <div class="tw-flex tw-items-center tw-gap-2 tw-text-sm" >
+                <input v-model="samePrice" class="tw-cursor-pointer tw-caret-primary" id="same-price" type="checkbox">
+                <label class="tw-cursor-pointer" for="same-price">Keep same price</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="my-5">
+            <div class="tw-relative tw-min-h-fit dark:tw-border-neutral-700 tw-border !tw-rounded-lg tw-border-neutral-200/80 tw-max-h-[600px] tw-overflow-x-auto  sm:tw-rounded-lg">
+              <table class="tw-w-full  tw-relative tw-text-sm tw-text-left !tw-rounded-lg tw-text-gray-500 dark:tw-text-neutral-200">
+                  <thead class="tw-text-xs  tw-w-full tw-text-gray-700 dark:tw-text-gray-300 tw-uppercase tw-bg-gray-50 dark:tw-bg-neutral-900">
+                      <tr>
+                          
+                          <th v-for="column in ['id', 'size', 'color', 'quantity', 'actions']" :key="column" :class="[column == 'actions' && '!tw-w-[100px]', column == 'name' && 'tw-w-[150px]', column == 'sizes' && 'tw-min-w-[400px]']" scope="col" class="tw-px-6 tw-w-fit tw-py-3 text-truncate">
+                              <div class="tw-w-fit tw-flex tw-whitespace-nowrap">
+                                  {{ column }}
+                              </div>
+                          </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr v-for="item in variations" :key="item.id" :class="[variations[variations.length - 1].id == item.id && '!tw-border-b-0']" class="tw-bg-white dark:tw-bg-neutral-800 tw-border-b dark:tw-border-b-neutral-700 tw-whitespace-nowrap hover:tw-bg-gray-50 dark:hover:tw-bg-black/30">
+                          
+                          <td class="tw-px-6 tw-py-2 tw-w-[20px]">
+                              {{ item.id }}
+                          </td>
+                          <td class="tw-px-6 tw-py-2 tw-max-w-[100px] tw-truncate tw-uppercase">
+                              <div class="tw-rounded tw-w-fit tw-bg-primary/10 tw-text-primary dark:tw-text-violet-500 tw-px-3 tw-border tw-border-solid tw-border-primary/20 tw-font-medium dark:tw-border-primary/30 ">
+                                  <span class="tw-text-sm">
+                                      {{ item.size.value }}
+                                  </span>
+                              </div>
+                          </td>
+                          <td class="tw-px-6 tw-py-2 tw-max-w-[120px] tw-truncate tw-uppercase">
+                              {{ item.color.name }}
+                              
+                          </td>
+                          <td class="tw-px-6 tw-py-2 tw-max-w-[120px] tw-truncate">
+                              {{ item.quantity }}
+                          </td>
+                          <td class="tw-flex tw-items-center tw-px-6 tw-py-2 tw-space-x-3">
+                              <div>
+                                  <div class="tw-flex tw-items-center tw-gap-2">
+                                    
+                                    <button @click="popup = true" class="tw-px-2 tw-py-1 tw-w-[25px] tw-h-[25px] tw-border tw-border-solid tw-border-red-500/20 hover:tw-bg-red-500/10 hover:tw-border-red-500/70 tw-duration-300 tw-text-red-500/80 tw-rounded-md tw-flex tw-items-center tw-justify-center">
+                                        <v-icon size="x-small" >mdi-delete-outline</v-icon>
+                                    </button>
+                                  </div>
+
+                                  <popup :visible="popup" @cancel="popup = false">
+                                    <div class="tw-mx-auto tw-w-[95%] md:tw-max-w-[400px] tw-overflow-hidden tw-min-h-fit dark:tw-bg-neutral-900 tw-bg-white tw-border tw-border-solid dark:tw-border-neutral-700 tw-border-neutral-300 tw-shadow-md  tw-my-5 tw-rounded-lg">
+                                      <div class="tw-px-5 tw-flex dark:tw-text-neutral-400 tw-text-neutral-500 tw-items-center tw-gap-4 tw-py-4 dark:tw-bg-neutral-800 tw-bg-white">
+                                        <v-icon size="x-large" class="dark:tw-text-red-400 tw-text-red-500">mdi-alert-outline</v-icon>
+                                        <p>
+                                          Are you sure you want to delete this Variation?
+                                        </p>
+                                      </div>
+                                      <div class="tw-flex tw-justify-end tw-items-center tw-p-4 tw-gap-3 dark:tw-bg-neutral-900 tw-bg-neutral-100">
+                                        <button @click="popup = false" class="tw-py-2 tw-px-7 tw-rounded tw-text-sm tw-border tw-border-solid tw-border-tansparent dark:tw-border-neutral-900 hover:tw-border-neutral-400 dark:hover:tw-border-neutral-500 hover:tw-bg-black/20 tw-bg-neutral-300  dark:tw-bg-neutral-600  tw-duration-300  tw-text-neutral-900 dark:tw-text-neutral-300">
+                                          Cancel
+                                        </button>
+                                        <button @click="handleDelete(item.id)" class="tw-py-2 tw-px-7 tw-flex tw-items-center tw-font-medium tw-rounded tw-text-sm tw-bg-red-400 tw-border tw-border-solid tw-border-tansparent hover:tw-border-red-600 dark:tw-border-neutral-900 dark:hover:tw-border-red-500 hover:tw-bg-red-500/80 dark:hover:tw-bg-red-400 tw-duration-300  tw-text-neutral-800">
+                                          <v-icon size="small" class="tw-duration-300 tw-animate-spin tw-overflow-hidden tw-max-w-0 tw-mr-0" :class="[isLoading && '!tw-max-w-[50px] !tw-mr-3']">mdi-loading</v-icon>
+                                          <span>Delete</span>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </popup>
+                                </div>
+                          </td>
+                      </tr>
+                      
+                  </tbody>
+              </table>
+          </div>
           </div>
         </div>
       </div>
       <div class="tw-flex tw-justify-end">
-        <button  class="tw-py-2 tw-px-7 tw-rounded tw-text-sm tw-bg-primary tw-text-white">
-          Add Product
+        <button @click="create" class="tw-py-2 tw-px-7 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded dark:tw-text-neutral-300 tw-text-white tw-bg-violet-500 tw-border tw-border-solid tw-border-tansparent hover:tw-border-violet-600 dark:tw-border-neutral-900 dark:hover:tw-border-violet-400 hover:tw-bg-violet-500 dark:hover:tw-bg-violet-500 tw-duration-200 tw-flex tw-items-center tw-justify-center">
+            <v-icon size="small" class="tw-duration-300 tw-animate-spin tw-overflow-hidden tw-max-w-0 tw-mr-0" :class="[isLoading && '!tw-max-w-[50px] !tw-mr-3']">mdi-loading</v-icon>
+            <span class="tw-text-sm">Add Product</span>
         </button>
       </div>
     </div>
@@ -171,23 +291,29 @@ export default {
 
   data() {
     return {
+      isLoading: false,
+      popup: false,
+      samePrice: false,
       product: {
         name: '',
         category_id: 1,
-        gendre: 'mix',
-        desctiption: ''
+        gender: 'mix',
+        description: '',
+        stock_alert: 10,
       },
-      imageId: 3,
-      primaryImage: null || 2,
+
+      variation_id: 1,
+      variations: [],
+
+      size_type_id: 1,
+      size_id: 1,
+      color_id: 1,
+      quantity: 0,
+      price: 0,
+
+      imageId: 1,
+      primaryImage: null || 1,
       images: [
-        {
-          id: 1,
-          src: 'assets/images/products/shoes/1/2.webp'
-        },
-        {
-          id: 2,
-          src: 'assets/images/products/shoes/1/3.webp'
-        }
       ],
       isDragOver: false,
     }
@@ -196,16 +322,125 @@ export default {
   computed: {
     imagesReversed() {
       return this.images.map(i => i).reverse()
+    },
+    colors() {
+      return this.$store.getters['app/colors']
+    },
+    size_types() {
+      return this.$store.getters['app/sizes']
+    },
+    sizes() {
+      return this.size_types.find(s => s.id == this.size_type_id)?.sizes || []
+    },
+    categories() {
+      return this.$store.getters['category/categories']
+    },
+    isFetched(){
+      return this.$store.getters['category/isFetched']
+    }
+  },
+
+  watch: {
+    size_type_id() {
+      if(this.sizes.length > 0) {
+        this.size_id = this.sizes[0].id
+      }
     }
   },
 
   methods: {
-    create() {
-      const p = {
-        ...this.product,
-        images: this.images
+
+    handleAdd() {
+      const selectedSize = this.sizes.find(s => s.id == this.size_id)
+      const selectedColor = this.colors.find(c => c.id == this.color_id)
+
+      const variation = {
+        id: this.variation_id++,
+        size_id: selectedSize.id,
+        color_id: selectedColor.id,
+        size: selectedSize,
+        color: selectedColor,
+        quantity: this.quantity
       }
-      Product.create(p)
+
+      this.variations.push(variation)
+      this.quantity = 0;
+
+    },
+
+    handleDelete(id) {
+      this.variations = this.variations.filter(v => v.id !== id)
+    },
+
+    create() {
+      this.isLoading = true
+
+      const primaryImage = {
+        order: 1,
+        image: this.images.find(i => i.id == this.primaryImage).image
+      }
+
+      let order = 2
+      let images = this.images.filter(img => img.id !== this.primaryImage).map(
+        item => {
+          return {
+            order: order++,
+            image: item.image
+          }
+        }
+      )
+
+      images.push(primaryImage)
+
+      const product = {
+        name: this.product.name,
+        description: this.product.description,
+        category_id: this.product.category_id,
+        discount_id: 0,
+        size_type_id: this.size_type_id,
+        variations: this.variations,
+        stock_alert: 10,
+        gender: this.product.gender,
+        images: images
+      }
+
+      console.log(product);
+
+      Product.create(product)
+      .then(
+        res => {
+          console.log(res.data);
+          this.$alert({
+            type: 'success',
+            body: 'Product Created Successfully'
+          })
+        },
+        this.$handleApiError
+      )
+      
+    },
+
+    createImages() {
+
+      const primaryImage = {
+        order: 1,
+        image: this.images.find(i => i.id == this.primaryImage).image
+      }
+
+      let order = 2
+      let images = this.images.filter(img => img.id !== this.primaryImage).map(
+        item => {
+          return {
+            order: order++,
+            image: item.image
+          }
+        }
+      )
+
+      images.push(primaryImage)
+
+
+      Product.storeImages(images)
       .then(
         res => {
           console.log(res.data);
@@ -261,6 +496,20 @@ export default {
     },
     handleDragLeave() {
       this.isDragOver = false
+    }
+  },
+
+  mounted() {
+    if(this.size_types.length > 0) {
+      this.size_type_id = this.size_types[0].id
+    }
+
+    if(this.colors.length > 0) {
+      this.color_id = this.colors[0].id
+    }
+
+    if(this.sizes.length > 0) {
+      this.size_id = this.sizes[0].id
     }
   }
 }

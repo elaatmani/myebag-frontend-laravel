@@ -44,8 +44,9 @@
             <button @click="cancel" class="tw-py-2 tw-px-7 tw-rounded tw-text-sm tw-border tw-border-solid tw-border-tansparent dark:tw-border-neutral-900 hover:tw-border-neutral-400 dark:hover:tw-border-neutral-500 hover:tw-bg-black/20 tw-bg-neutral-300  dark:tw-bg-neutral-600  tw-duration-200  tw-text-neutral-900 dark:tw-text-neutral-300">
                 Cancel
             </button>
-            <button @click="handleCreate" class="tw-py-2 tw-px-7 tw-rounded tw-text-sm tw-bg-violet-500 tw-border tw-border-solid tw-border-tansparent hover:tw-border-violet-600 dark:tw-border-neutral-900 dark:hover:tw-border-violet-400 hover:tw-bg-violet-500 dark:hover:tw-bg-violet-500 tw-duration-200  tw-text-white">
-                Create
+            <button @click="handleCreate" class="tw-py-2 tw-px-7 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded dark:tw-text-neutral-300 tw-text-white tw-bg-violet-500 tw-border tw-border-solid tw-border-tansparent hover:tw-border-violet-600 dark:tw-border-neutral-900 dark:hover:tw-border-violet-400 hover:tw-bg-violet-500 dark:hover:tw-bg-violet-500 tw-duration-200 tw-flex tw-items-center tw-justify-center">
+                <v-icon size="small" class="tw-duration-300 tw-animate-spin tw-overflow-hidden tw-max-w-0 tw-mr-0" :class="[isLoading && '!tw-max-w-[50px] !tw-mr-3']">mdi-loading</v-icon>
+                <span>Create</span>
             </button>
         </div>
     
@@ -54,9 +55,12 @@
 
 <script>
 import { required } from '@/helpers/validators';
+import Color from '@/api/Color';
 export default {
     data() {
         return {
+            isLoading: false,
+
             name: '',
             hex: '',
 
@@ -105,20 +109,35 @@ export default {
             this.validateForm()
             if(!this.isFormValid) return false;
 
-            this.$alert({
-                type: 'success',
-                body: 'Color created successfully'
-            })
-
             const color = {
-                id: 4,
                 name: this.name,
-                hex: this.hex
+                hex_code: this.hex
             }
+            
+            this.isLoading = true
+            Color.create(color)
+            .then(
+                res => {
+                    if(res.data.code == 'SUCCESS') {
+                        console.log(res.data);
+                            color.id = res.data.data?.color?.id
 
-            this.$store.dispatch('app/addColor', color)
+                        this.$store.dispatch('app/addColor', color)
 
-            this.cancel()
+                        this.$alert({
+                            type: 'success',
+                            body: 'Color created successfully'
+                        })
+                        this.cancel()
+                    }
+                }
+            )
+            .finally(
+                () => {
+                    this.isLoading = false
+                }
+            )
+
         },
         validateForm() {
             this.form.name = required(this.name, 'Color name')

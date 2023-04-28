@@ -7,7 +7,7 @@
             <icon class="tw-text-xl" :icon="link.icon" />
             <span class="dark:tw-font-thin">{{ link.name }}</span>
         </div>
-        <div :class="[isActive && '!tw-bg-white !tw-text-primary']" class="tw-py-1 tw-font-bold tw-px-2 tw-bg-emerald-400 tw-text-xs tw-rounded-md  tw-text-neutral-800">
+        <div :class="[isActive && '!tw-bg-white !tw-text-primary']" class="tw-py-1 tw-font-bold tw-px-2 tw-text-white tw-bg-emerald-400 tw-text-xs tw-rounded-md  dark:tw-text-neutral-800">
             <span v-if="isLoaded">
               {{ ordersCount }}
             </span>

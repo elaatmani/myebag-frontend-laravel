@@ -23,6 +23,11 @@ class User {
         return Api.post('api/auth/signup', {firstname, lastname, telephone, email, password})
     }
 
+    async getGoogleUrl() {
+        await Csrf.getCookie();
+        return Api.get('api/auth/google')
+    }
+
 }
 
 export default new User();

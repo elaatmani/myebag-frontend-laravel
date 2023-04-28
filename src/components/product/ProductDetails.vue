@@ -203,7 +203,7 @@
 
 <script>
 // import { sizes } from '@/helpers/data'
-import { getAvailableSizes } from '@/helpers/methods'
+// import { getAvailableSizes } from '@/helpers/methods'
 
 export default {
     props: {
@@ -232,7 +232,8 @@ export default {
         },
 
         availableSizes() {
-            return getAvailableSizes(this.sizes.find(s => s.id == this.product.size_type_id), this.product.product_variations)
+            return this.sizes[0].sizes
+            // return getAvailableSizes(this.sizes.find(s => s.id == this.product.size_type_id), this.product.product_variations)
         }
     },
 

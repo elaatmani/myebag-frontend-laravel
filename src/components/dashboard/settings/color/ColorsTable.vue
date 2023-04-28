@@ -36,7 +36,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody v-if="items.length > 0">
                 <tr v-for="item in items" :key="item.id" :class="[items[items.length - 1].id == item.id && '!tw-border-b-0']" class="tw-bg-white dark:tw-bg-neutral-800 tw-border-b dark:tw-border-b-neutral-700 tw-whitespace-nowrap hover:tw-bg-gray-50 dark:hover:tw-bg-black/30">
                     
                     <td class="tw-px-6 tw-py-2 tw-w-[20px]">
@@ -46,11 +46,11 @@
                         {{ item.name }}
                     </td>
                     <td class="tw-px-6 tw-py-2 tw-max-w-[120px] tw-truncate tw-uppercase">
-                        {{ item.hex }}
+                        {{ item.hex_code }}
                         
                     </td>
                     <td class="tw-px-6 tw-py-2 tw-max-w-[120px] tw-truncate">
-                        <div :style="{'background-color': item.hex}" class="tw-w-[50px] tw-h-[25px] tw-rounded-lg tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-800">
+                        <div :style="{'background-color': item.hex_code}" class="tw-w-[50px] tw-h-[25px] tw-rounded-lg tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-800">
 
                         </div>
                     </td>
@@ -59,6 +59,17 @@
                     </td>
                 </tr>
                 
+            </tbody>
+            <tbody v-else>
+                <tr>
+                    <td colspan="5">
+
+                        <div class="tw-flex tw-flex-col tw-items-center tw-gap-2 tw-p-5 tw-min-h-[150px] tw-justify-center">
+                            <!-- <h1 class="tw-text-sm tw-font-medium">Category list is empty!</h1> -->
+                            <img class="tw-w-[200px]" :src="$frontend('assets/images/illustrations/not-found.svg')" alt="">
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

@@ -50,7 +50,7 @@
                     <div v-if="sizes.length > 0" class="tw-flex tw-flex-wrap tw-gap-3">
                         <div v-for="s in sizes" :key="s.id" class="tw-relative tw-px-4 tw- tw-text-sm tw-py-1 tw-font-medium tw-bg-violet-500/20 tw-border tw-border-solid tw-border-violet-500/50 tw-rounded tw-text-violet-500">
                             <span>
-                                {{ s.name }}
+                                {{ s.value }}
                             </span>
                             <button @click="handleDelete(s.id)" class="tw-flex tw-items-center tw-justify-center tw-w-[20px] tw-h-[20px] tw-absolute tw-top-0 tw-right-0 tw-p-1 tw-bg-red-500 tw-rounded-full tw-scale-75 -tw-translate-y-1/2 tw-translate-x-1/2">
                                 <v-icon class="tw-text-sm tw-text-white dark:tw-text-black">mdi-close</v-icon>
@@ -63,12 +63,13 @@
         </div>
 
         <div class="tw-flex tw-justify-end tw-items-center tw-p-4 tw-py-2 tw-gap-3 dark:tw-bg-neutral-900 tw-bg-neutral-100">
-          <button @click="cancel" class="tw-py-2 tw-px-7 tw-rounded tw-text-sm tw-border tw-border-solid tw-border-tansparent dark:tw-border-neutral-900 hover:tw-border-neutral-400 dark:hover:tw-border-neutral-500 hover:tw-bg-black/20 tw-bg-neutral-300  dark:tw-bg-neutral-600  tw-duration-200  tw-text-neutral-900 dark:tw-text-neutral-300">
-            Cancel
-          </button>
-          <button @click="handleCreate" class="tw-py-2 tw-px-7 tw-rounded tw-text-sm tw-bg-violet-500 tw-border tw-border-solid tw-border-tansparent hover:tw-border-violet-600 dark:tw-border-neutral-900 dark:hover:tw-border-violet-400 hover:tw-bg-violet-500 dark:hover:tw-bg-violet-500 tw-duration-200  tw-text-white">
-            Create
-          </button>
+            <button @click="cancel" class="tw-py-2 tw-px-7 tw-rounded tw-text-sm tw-border tw-border-solid tw-border-tansparent dark:tw-border-neutral-900 hover:tw-border-neutral-400 dark:hover:tw-border-neutral-500 hover:tw-bg-black/20 tw-bg-neutral-300  dark:tw-bg-neutral-600  tw-duration-200  tw-text-neutral-900 dark:tw-text-neutral-300">
+                Cancel
+            </button>
+            <button @click="handleCreate" class="tw-py-2 tw-px-7 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded dark:tw-text-neutral-300 tw-text-white tw-bg-violet-500 tw-border tw-border-solid tw-border-tansparent hover:tw-border-violet-600 dark:tw-border-neutral-900 dark:hover:tw-border-violet-400 hover:tw-bg-violet-500 dark:hover:tw-bg-violet-500 tw-duration-200 tw-flex tw-items-center tw-justify-center">
+                <v-icon size="small" class="tw-duration-300 tw-animate-spin tw-overflow-hidden tw-max-w-0 tw-mr-0" :class="[isLoading && '!tw-max-w-[50px] !tw-mr-3']">mdi-loading</v-icon>
+                <span>Create</span>
+            </button>
         </div>
     
     </div>
@@ -76,9 +77,12 @@
 
 <script>
 import { required } from '@/helpers/validators';
+import Size from '@/api/Size';
 export default {
     data() {
         return {
+            isLoading: false,
+
             name: '',
             sizeName: '',
             sizeId: 1,
@@ -119,7 +123,7 @@ export default {
             if(!this.form.sizeName.valid) return false;
             const s = {
                 id: this.sizeId,
-                name: this.sizeName.toUpperCase()
+                value: this.sizeName.toUpperCase()
             }
 
             this.sizes.push(s)
@@ -131,20 +135,34 @@ export default {
             this.validateForm()
             if(!this.isFormValid) return false;
 
-            this.$alert({
-                type: 'success',
-                body: 'Size created successfully'
-            })
-
             const size = {
-                id: 4,
                 name: this.name,
                 sizes: this.sizes
             }
+            this.isLoading = true
+            Size.create({ name: this.name, sizes: this.sizes })
+            .then(
+                res => {
+                    if(res.data.code == 'SUCCESS') {
+                        console.log(res.data);
+                            size.id = res.data.data?.size?.id
 
-            this.$store.dispatch('app/addSize', size)
+                        this.$store.dispatch('app/addSize', size)
 
-            this.cancel()
+                        this.$alert({
+                            type: 'success',
+                            body: 'Size created successfully'
+                        })
+                        this.cancel()
+                    }
+                }
+            )
+            .finally(
+                () => {
+                    this.isLoading = false
+                }
+            )
+
         },
         handleDelete(id) {
             this.sizes = this.sizes.filter(s => s.id !== id)

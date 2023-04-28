@@ -1,7 +1,7 @@
 
 export function getAvailableSizes(sizeType, productVariations) {
         const availableSizes = [];
-    
+        
         // Loop through each size in the size type
         for (const size of sizeType.sizes) {
             let sizeAvailable = false;

@@ -6,7 +6,7 @@
       <div class="tw-grid tw-grid-cols-12 tw-p-3 tw-gap-2">
         
         <div class="tw-col-span-12">
-          <ProductsTable />
+          <ProductsTable :isLoaded="isLoaded" :allItems="products" />
         </div>
       </div>
     </div>
@@ -15,9 +15,46 @@
 
 <script>
 import ProductsTable from '@/components/dashboard/product/ProductsTable'
+import Product from '@/api/Product'
 
 export default {
-  components: { ProductsTable }
+  components: { ProductsTable },
+
+  data() {
+    return {
+      isLoaded: false,
+    }
+  },
+
+  computed: {
+    products() {
+      return this.$store.getters['product/products']
+    }
+  },
+
+  methods: {
+    getProducts() {
+      this.isLoaded = false
+      Product.all()
+      .then(
+        res => {
+          if(res.data.code == 'SUCCESS') {
+            this.$store.dispatch('product/setProducts', res.data.data.products)
+          }
+        },
+        this.$handleApiError
+      )
+      .finally(
+        () => {
+          this.isLoaded = true
+        }
+      )
+    }
+  },
+  
+  mounted() {
+    this.getProducts()
+  }
 }
 </script>
 

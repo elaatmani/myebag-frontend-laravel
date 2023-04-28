@@ -112,7 +112,7 @@ export default {
             paginationLimit: 10,
             filters: false,
 
-            columns: [ 'id', 'image','name', 'description', 'actions' ],
+            columns: [ 'id', 'date', 'product','name', 'quantity', 'price', 'status', 'actions' ],
             // allItems: categories
         }
     },

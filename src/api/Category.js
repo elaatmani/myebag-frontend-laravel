@@ -22,6 +22,11 @@ class Category {
         await Csrf.getCookie();
         return Api.delete('api/categories/' + id)
     }
+
+    async products(id) {
+        await Csrf.getCookie();
+        return Api.get('api/categories/' + id + '/products')
+    }
 }
 
 export default new Category();

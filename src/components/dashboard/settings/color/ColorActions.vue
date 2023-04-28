@@ -35,7 +35,9 @@
 </template>
 
 <script>
+import Color from '@/api/Color'
 export default {
+  props: ['color'],
   data() {
     return {
       popup: false,
@@ -47,15 +49,27 @@ export default {
     handleDelete() {
       this.isLoading = true
 
-      setTimeout(() => {
-        this.isLoading = false
-        this.popup = false
+      Color.delete(this.color.id)
+      .then(
+        res => {
+          if(res.data.code == 'SUCCESS') {
+            this.$alert({
+              type: 'success',
+              body: "Color deleted successfully"
+            })
 
-        this.$alert({
-          type: 'success',
-          body: "Color deleted successfully"
-        })
-      }, 3000)
+            this.$store.dispatch('app/removeColor', this.color.id)
+
+            this.isLoading = false
+            this.popup = false
+          }
+        },
+        this.$handleApiError
+      )
+      .finally(
+        () => this.isLoading = false
+      )
+        
     }
   }
 }

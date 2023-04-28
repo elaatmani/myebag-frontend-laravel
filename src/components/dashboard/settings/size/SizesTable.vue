@@ -36,7 +36,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody v-if="items.length > 0">
                 <tr v-for="item in items" :key="item.id" :class="[items[items.length - 1].id == item.id && '!tw-border-b-0']" class="tw-bg-white dark:tw-bg-neutral-800 tw-border-b dark:tw-border-b-neutral-700 tw-whitespace-nowrap hover:tw-bg-gray-50 dark:hover:tw-bg-black/30">
                     
                     <td class="tw-px-6 tw-py-2 tw-w-[20px]">
@@ -49,7 +49,7 @@
                         <div class="tw-flex tw-items-center tw-flex-wrap tw-gap-2">
                             <div v-for="size in item.sizes" :key="size.id" class="tw-rounded tw-bg-primary/10 tw-text-primary dark:tw-text-violet-500 tw-px-3 tw-border tw-border-solid tw-border-primary/20 tw-font-medium dark:tw-border-primary/30 ">
                                 <span class="tw-text-sm">
-                                    {{ size.name }}
+                                    {{ size.value }}
                                 </span>
                             </div>
                         </div>
@@ -59,6 +59,17 @@
                     </td>
                 </tr>
                 
+            </tbody>
+            <tbody v-else>
+                <tr>
+                    <td colspan="5">
+
+                        <div class="tw-flex tw-flex-col tw-items-center tw-gap-2 tw-p-5 tw-min-h-[150px] tw-justify-center">
+                            <!-- <h1 class="tw-text-sm tw-font-medium">Category list is empty!</h1> -->
+                            <img class="tw-w-[200px]" :src="$frontend('assets/images/illustrations/not-found.svg')" alt="">
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

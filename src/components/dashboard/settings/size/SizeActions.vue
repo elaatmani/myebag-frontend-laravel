@@ -35,7 +35,9 @@
 </template>
 
 <script>
+import Size from '@/api/Size'
 export default {
+  props: ['size'],
   data() {
     return {
       popup: false,
@@ -47,15 +49,26 @@ export default {
     handleDelete() {
       this.isLoading = true
 
-      setTimeout(() => {
-        this.isLoading = false
-        this.popup = false
+        Size.delete(this.size.id)
+        .then(
+          res => {
+            if(res.data.code == 'SUCCESS') {
+              this.$alert({
+                type: 'success',
+                body: "Size deleted successfully"
+              })
 
-        this.$alert({
-          type: 'success',
-          body: "Size deleted successfully"
-        })
-      }, 3000)
+              this.$store.dispatch('app/removeSize', this.size.id)
+
+              this.isLoading = false
+              this.popup = false
+            }
+          },
+          this.$handleApiError
+        )
+        .finally(
+          () => this.isLoading = false
+        )
     }
   }
 }

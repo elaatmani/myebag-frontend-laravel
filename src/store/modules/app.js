@@ -24,12 +24,20 @@ export default {
             state.sizes = payload
         },
 
+        REMOVE_SIZE: (state, payload) => {
+            state.sizes = state.sizes.filter(s => s.id !== payload)
+        },
+
         ADD_SIZE: (state, payload) => {
             state.sizes.push(payload)
         },
 
         SET_COLORS: (state, payload) => {
             state.colors = payload
+        },
+
+        REMOVE_COLOR: (state, payload) => {
+            state.colors = state.colors.filter(c => c.id !== payload)
         },
 
         ADD_COLOR: (state, payload) => {
@@ -46,12 +54,20 @@ export default {
             commit('SET_SIZES', payload)
         },
 
+        removeSize: ({commit}, payload) => {
+            commit('REMOVE_SIZE', payload)
+        },
+
         addSize: ({commit}, payload) => {
             commit('ADD_SIZE', payload)
         },
 
         setColors: ({commit}, payload) => {
             commit('SET_COLORS', payload)
+        },
+
+        removeColor: ({commit}, payload) => {
+            commit('REMOVE_COLOR', payload)
         },
 
         addColor: ({commit}, payload) => {

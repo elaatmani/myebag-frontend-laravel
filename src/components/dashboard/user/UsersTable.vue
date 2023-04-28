@@ -63,7 +63,7 @@
                             <icon v-if="!item.email_verified_at" icon="ph:warning-circle" class="tw-text-xl tw-text-yellow-500" />
                         </div>
                     </td>
-                    <td class="tw-flex tw-items-center tw-px-6 tw-py-3 tw-space-x-3">
+                    <td class="tw-px-6 tw-py-3 tw-space-x-3">
                         <UserActions :user="item" />
                     </td>
                 </tr>

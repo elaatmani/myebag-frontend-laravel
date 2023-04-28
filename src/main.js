@@ -7,6 +7,7 @@ import { loadFonts } from './plugins/webfontloader'
 import globalConfig from './plugins/globalConfig'
 import alert from './plugins/alert'
 import apiErrorHandler  from './plugins/apiErrorHandler'
+import VueNumber from 'vue-number-animation'
 import { Icon } from '@iconify/vue';
 import Popup from '@/components/PopupVue'
 import Loading from '@/components/LoadingVue'
@@ -23,6 +24,7 @@ createApp(App)
   .use(globalConfig)
   .use(alert)
   .use(apiErrorHandler)
+  .use(VueNumber)
 
   .component('icon', Icon)
   .component('popup', Popup)
