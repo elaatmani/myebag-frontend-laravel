@@ -163,13 +163,24 @@ export default {
       .then(
         res => {
           console.log(res.data);
-          window.open(res.data.url, 'Authentication', 'target=_blank')
-          .addEventListener('close', 
+          const google = window.open(res.data.url, '_blank', 'height=600,width=400');
+
+          google.addEventListener('message', 
           (e) => {
             console.log('closed');
             console.log(e);
           }
           )
+          google.addEventListener('init', 
+          (e) => {
+            console.log('closed');
+            console.log(e);
+          }
+          )
+
+          // setTimeout(() => {
+          //   google.close()
+          // }, 6000)
 
           this.isLoadingGoogle = false
           
