@@ -30,7 +30,7 @@ export default {
                 },
                 'info': {
                     title: 'Info',
-                    bg: 'dark:tw-bg-blue-500 tw-bg-blue-400',
+                    bg: 'dark:tw-bg-blue-400 tw-bg-blue-400',
                     icon: 'ph:info'
                 },
                 'danger': {

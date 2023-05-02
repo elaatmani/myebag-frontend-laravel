@@ -1,29 +1,28 @@
 <template>
   <div class="tw-space-y-10">
     <ProductsContainer
-      v-for="category in categories"
-      :key="category"
-      :products="products[category]"
-      :title="category"
+      v-for="item in featured"
+      :key="item.id"
+      :products="item.products"
+      :title="item.name"
     />
   </div>
 </template>
 
 <script>
 import ProductsContainer from "@/components/product/ProductsContainer";
-import { products } from "@/helpers/data";
+// import { products } from "@/helpers/data";
 export default {
   components: { ProductsContainer },
+  props: ['featured'],
+
   data() {
     return {
-      products,
+      // products,
     };
   },
 
   computed: {
-    categories() {
-      return Object.keys(this.products);
-    },
   },
 };
 </script>

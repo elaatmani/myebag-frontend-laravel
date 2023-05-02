@@ -10,6 +10,18 @@ const routes = [
   ...auth,
   ...main,
   ...dashboard,
+  {
+    name: 'catch-all',
+    path: '/:pathMatch(.*)*',
+    beforeEnter: (to, from, next) => {
+        console.log('match for 404');
+        return next({ name: '404' })
+    },
+    meta: {
+        requireAuth: false,
+        title: 'Not Found'
+    }
+},
   
 ]
 

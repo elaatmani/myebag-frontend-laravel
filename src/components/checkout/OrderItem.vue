@@ -11,12 +11,12 @@
           class="tw-w-full tw-h-full tw-relative tw-rounded tw-overflow-hidden"
         >
           <img
-            :src="$frontend(item.product.images[0].path)"
+            :src="$backend(item.product.images.find(i => i.order == 1)?.path || item.product.images[0].path)"
             class="tw-w-full tw-absolute tw-opacity-60 tw-top-0 tw-left-0 tw-blur-md tw-h-full tw-object-contain"
             alt=""
           />
           <img
-            :src="$frontend(item.product.images[0].path)"
+            :src="$backend(item.product.images.find(i => i.order == 1)?.path || item.product.images[0].path)"
             class="tw-w-full tw-h-full tw-object-contain tw-relative tw-z-10"
             alt=""
           />

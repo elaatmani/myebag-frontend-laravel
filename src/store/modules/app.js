@@ -3,6 +3,9 @@ let initialState = {
     IsSidebarActive: false,
     sizes: [],
     colors: [],
+    featured: [],
+    categories: [],
+    isReady: false
 }
 
 export default {
@@ -12,7 +15,10 @@ export default {
     getters: {
         IsSidebarActive: state => state.IsSidebarActive,
         sizes: state => state.sizes,
-        colors: state => state.colors
+        colors: state => state.colors,
+        categories: state => state.categories,
+        featured: state => state.featured,
+        isReady: state => state.isReady,
     },
     mutations: {
         
@@ -42,6 +48,14 @@ export default {
 
         ADD_COLOR: (state, payload) => {
             state.colors.push(payload)
+        },
+
+        SET_FEATURED: (state, payload) => {
+            state.featured = payload
+        },
+
+        SET_IS_READY: (state, payload) => {
+            state.isReady = payload
         }
     },
     actions: {
@@ -72,6 +86,14 @@ export default {
 
         addColor: ({commit}, payload) => {
             commit('ADD_COLOR', payload)
+        },
+
+        setFeatured: ({commit}, payload) => {
+            commit('SET_FEATURED', payload)
+        },
+
+        setIsReady: ({commit}, payload) => {
+            commit('SET_IS_READY', payload)
         },
     }
 }

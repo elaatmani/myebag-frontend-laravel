@@ -41,12 +41,12 @@
                       class="tw-w-full tw-h-full tw-relative tw-rounded tw-overflow-hidden"
                     >
                       <img
-                        :src="$frontend(item.product.images[0].path)"
+                        :src="$backend(item.product.images.find(i => i.order == 1)?.path || item.product.images[0].path)"
                         class="tw-w-full tw-absolute tw-opacity-60 tw-top-0 tw-left-0 tw-blur-md tw-h-full tw-object-contain"
                         alt=""
                       />
                       <img
-                        :src="$frontend(item.product.images[0].path)"
+                        :src="$backend(item.product.images.find(i => i.order == 1)?.path || item.product.images[0].path)"
                         class="tw-w-full tw-h-full tw-object-contain tw-relative tw-z-10"
                         alt=""
                       />
@@ -54,14 +54,14 @@
                   </div>
                   <div class="tw-col-span-10">
                     <div class="tw-flex tw-flex-col tw-px-2 ">
-                      <h2 class="tw-text-sm">{{ item.product.name }}</h2>
+                      <h2 class="tw-text-sm tw-truncate">{{ item.product.name }}</h2>
                       <div class="tw-flex tw-items-center tw-justify-between">
                         <p class="tw-text-xs tw-mt-1">
-                          {{ item.quantity }} x ${{ item.product.price }}
+                          {{ item.quantity }} x ${{ item?.variation?.price }}
                         </p>
                         <p class="tw-text-xs tw-mt-1">
                           <span>Size: </span>
-                          <span>{{ item.size.name }}</span>
+                          <span>{{ item.size.value }}</span>
                         </p>
                         <button @click="handleDelete(item.id)" class="tw-px-2 tw-py-1 tw-w-[25px] tw-h-[25px] tw-border tw-border-solid tw-border-red-500/20 hover:tw-bg-red-500/10 hover:tw-border-red-500/70 tw-duration-300 tw-text-red-500/80 tw-rounded-md tw-flex tw-items-center tw-justify-center">
                             <v-icon size="x-small" >mdi-delete-outline</v-icon>

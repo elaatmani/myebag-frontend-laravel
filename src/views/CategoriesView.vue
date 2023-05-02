@@ -25,14 +25,18 @@
         </div>
       </div>
     </div>
-    <h1 class="tw-text-lg tw-my-5 tw-font-medium tw-w-full">Explore Categories ⚡</h1>
-    <div v-if="isLoading">
-      <loading-dash class="tw-scale-50"></loading-dash>
+
+    <div v-if="isLoading" class="tw-min-h-[500px] tw-flex tw-items-center tw-justify-center">
+      <loader class="tw-scale-110"></loader>
     </div>
+
     <div v-else class="tw-grid tw-grid-cols-12 tw-gap-5">
+      <div class="tw-col-span-12">
+        <h1 class="tw-text-lg tw-my-5 tw-font-medium tw-w-full">Explore Categories ⚡</h1>
+      </div>
 
       <div v-for="category in categories" :key="category.id" class="lg:tw-col-span-3 md:tw-col-span-6 sm:tw-col-span-6 tw-col-span-12">
-        <router-link to="/">
+        <router-link :to="'/categories/' + category.id">
           <div class="md:tw-h-[150px] tw-h-[180px] tw-border tw-border-solid tw-border-transparent hover:tw-border-violet-500 tw-duration-200 tw-cursor-pointer tw-overflow-hidden tw-relative tw-rounded-lg">
             <div ref="gradient" class="tw-z-10 tw-bg-gradient-to-t tw-from-neutral-900  tw-via-neutral-900/20 tw-to-transparent tw-absolute tw-top-0 tw-left-0 tw-w-full tw-h-full"></div>
             <div class="tw-w-full tw-h-full">

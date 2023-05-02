@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="tw-h-screen tw-min-h-[400px] md:tw-min-h-[500px] tw-max-h-[2000px]">
+    <keep-alive>
+      <div class="tw-h-screen tw-min-h-[400px] md:tw-min-h-[500px] tw-max-h-[2000px]">
         <div class="tw-grid tw-grid-cols-12 tw-h-full">
           <div class="md:tw-col-span-7 lg:tw-col-span-6 xl:tw-col-span-5 tw-col-span-12 tw-h-full dark:tw-bg-neutral-900 tw-py-10 tw-px-5 md:tw-px-10">
             <div  class="tw-py-5 tw-pb-0">
@@ -44,12 +45,12 @@
                     Or
                   </div>
 
-                  <div class="mt-1">
-                    <button @click="loginWithGoogle" class="tw-py-3 tw-px-7 tw-w-full tw-gap-3 tw-justify-center tw-border tw-border-solid tw-border-neutral-300 dark:tw-border-neutral-700 tw-text-capitalize tw-flex tw-items-center tw-rounded tw-text-sm dark:tw-text-white tw-text-neutral-700">
+                  <div v-if="true" class="mt-1">
+                    <button :disabled="isLoadingGoogle" @click="googleWrapper.click()" class="tw-py-3 tw-px-7 tw-w-full tw-gap-3 tw-justify-center tw-border tw-border-solid tw-border-neutral-300 dark:tw-border-neutral-700 tw-text-capitalize tw-flex tw-items-center tw-rounded tw-text-sm dark:tw-text-white tw-text-neutral-700">
                       <v-icon v-if="isLoadingGoogle" size="small" class="tw-duration-300 tw-animate-spin tw-overflow-hidden tw-max-w-0 tw-mr-0" :class="[isLoadingGoogle && '!tw-max-w-[50px] !tw-mr-3']">mdi-loading</v-icon>
                       <icon v-else icon="logos:google-icon" class="tw-text-lg" />
                       
-                      <span class="tw-text-sm tw-font-bold">Sign in with Google</span>
+                      <span class="tw-text-sm">Sign in with Google</span>
                     </button>
                   </div>
 
@@ -68,7 +69,10 @@
           </div>
         </div>
         
+    <div class="dark:!tw-text-white dark:!tw-bg-neutral-900" ref="googleLoginBtn" />
     </div>
+
+    </keep-alive>
   </div>
 </template>
 
@@ -76,6 +80,8 @@
 import AppLogo from '@/components/AppLogo'
 import User from '@/api/User'
 import { required, isStringBetween } from '@/helpers/validators'
+import { googleClientId } from '@/config/app'
+import { parseJwt } from '@/helpers/methods'
 
 export default {
   components: { AppLogo },
@@ -83,7 +89,9 @@ export default {
   data() {
     return {
       isLoading: false,
-      isLoadingGoogle: false,
+      isLoadingGoogle: true,
+
+      googleWrapper: null,
 
       user: {
         email: '',
@@ -159,36 +167,75 @@ export default {
 
     loginWithGoogle() {
       this.isLoadingGoogle = true;
-      User.getGoogleUrl()
-      .then(
-        res => {
-          console.log(res.data);
-          const google = window.open(res.data.url, '_blank', 'height=600,width=400');
+    },
 
-          google.addEventListener('message', 
-          (e) => {
-            console.log('closed');
-            console.log(e);
-          }
-          )
-          google.addEventListener('init', 
-          (e) => {
-            console.log('closed');
-            console.log(e);
-          }
-          )
+    async handleCredentialResponse(response) {
+         const userData = parseJwt(response.credential);
 
-          // setTimeout(() => {
-          //   google.close()
-          // }, 6000)
+         console.log(userData);
+    },
 
-          this.isLoadingGoogle = false
-          
+    createFakeGoogleWrapper() {
+      const googleLoginWrapper = document.createElement("div");
+      googleLoginWrapper.style.display = "none";
+      
+      this.$refs.googleLoginBtn.appendChild(googleLoginWrapper);
+      
+      // Use GSI javascript api to render the button inside the wrapper
+      window.google.accounts.id.renderButton(googleLoginWrapper, {
+        type: "icon",
+        width: "200",
+      });
+
+      const googleLoginWrapperButton =
+        googleLoginWrapper.querySelector("div[role=button]");
+
+      this.isLoadingGoogle = false
+      return {
+        click: () => {
+          googleLoginWrapperButton.click();
         },
-        this.$handleApiError
-      )
+      };
+    },
+
+    setGoogleAuth() {
+
+      if(document.readyState == 'complete') {
+          window.google.accounts.id.initialize({
+          client_id: googleClientId,
+          callback: this.handleCredentialResponse,
+          auto_select: true,
+          ux_mode: "popup"
+        })
+
+        this.googleWrapper = this.createFakeGoogleWrapper()
+      } else {
+        window.onload =  () => {
+          window.google.accounts.id.initialize({
+          client_id: googleClientId,
+          callback: this.handleCredentialResponse,
+          auto_select: true,
+          ux_mode: "popup"
+        })
+  
+        this.googleWrapper = this.createFakeGoogleWrapper()
+      }
+
+      // window.google.accounts.id.renderButton(
+      //   this.$refs.googleLoginBtn, {
+      //     text: 'continue_with', // 'signin_with' or 'signup_with' | 'continue_with' | 'signin'
+      //     size: 'large', //'large' or 'small' | 'medium'
+      //     width: 'full', // max width 400
+      //     theme: 'outline', //'outline' or 'filled_black' |  'filled_blue'
+      //     logo_alignment: 'left' // 'left' or 'center'
+      //   }
+      // )
+      }
     }
-  }
+  },
+  mounted() {
+    this.setGoogleAuth()
+  },
 }
 </script>
 

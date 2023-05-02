@@ -143,13 +143,64 @@
           </div>
         </div>
 
-        <div class="tw-text-md tw-col-span-12">
-          Add Variations
+        <div class="tw-col-span-12">
+          <div class="tw-text-md tw-mb-2">
+            Options
+          </div>
+          <div class="tw-grid tw-grid-cols-12 tw-gap-x-4 tw-border tw-border-solid tw-border-neutral-300 dark:tw-border-neutral-700  tw-rounded-lg">
+            <div class=" md:tw-col-span-6 tw-col-span-12 tw-border-0 md:tw-border-r tw-border-neutral-300 dark:tw-border-neutral-700 tw-px-3 tw-py-3 tw-border-solid">
+                <div class="tw-flex">
+                  <div class="tw-flex tw-items-center tw-h-5">
+                    <div class="tw-flex tw-items-center tw-mr-4">
+                        <input checked id="purple-checkbox" type="checkbox" v-model="hasColors" class="!tw-w-4 !tw-h-4 !tw-text-purple-600 !tw-bg-gray-100 !tw-border-gray-300 !tw-rounded focus:!tw-ring-purple-500 dark:focus:!tw-ring-purple-600 dark:!tw-ring-offset-gray-800 focus:!tw-ring-2 dark:!tw-bg-gray-700 dark:!tw-border-gray-600">
+                    </div>
+                  </div>
+                  <div class="tw-ml-2 tw-text-sm">
+                      <label for="helper-checkbox" class="tw-font-medium tw-text-gray-900 dark:tw-text-gray-300">Has colors</label>
+                      <p id="helper-checkbox-text" class="tw-text-xs tw-font-normal tw-text-gray-500 dark:tw-text-gray-300">For products that has multiple colors.</p>
+                  </div>
+                </div>
+
+                <div v-if="!hasColors" class="tw-col-span-12 md:tw-col-span-6 tw-flex  tw-flex-col mt-2 tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
+                  <label class="tw-text-sm">Select color</label>
+                  <div class=" tw-relative  tw-mt-1" >
+                    <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-uppercase tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
+                      <option v-for="c in colors" :key="c.id" class="tw-text-neutral-600 tw-uppercase" :value="c.id">{{c.name}}</option>
+                    </select>
+                    <v-icon size="small" class="tw-absolute tw-top-1/2 -tw-translate-y-1/2 tw-pointer-events-none tw-right-3">mdi-chevron-down</v-icon>
+                  </div>
+                
+                </div>
+            </div>
+            <div class="md:tw-border-t-0 tw-border-t tw-border-solid tw-border-neutral-300 dark:tw-border-neutral-700 md:tw-col-span-6 tw-col-span-12 tw-px-3 tw-py-3">
+                <div class="tw-flex">
+                  <div class="tw-flex tw-items-center tw-h-5">
+                    <input id="helper-checkbox-1"  type="checkbox" v-model="samePrice" class="!tw-caret-violet-500 tw-w-4 tw-h-4 tw-text-violet-600 tw-bg-gray-100 tw-border-gray-300 tw-rounded focus:tw-ring-violet-500 dark:focus:tw-ring-violet-600 dark:tw-ring-offset-gray-800 focus:tw-ring-2 dark:tw-bg-gray-700 dark:tw-border-gray-600">
+                  </div>
+                  <div class="tw-ml-2 tw-text-sm">
+                      <label for="helper-checkbox-1" class="tw-font-medium tw-text-gray-900 dark:tw-text-gray-300">Same price</label>
+                      <p id="helper-checkbox-1-text" class="tw-text-xs tw-font-normal tw-text-gray-500 dark:tw-text-gray-300">Apply same price for all variations.</p>
+                  </div>
+                </div>
+                <div v-if="samePrice" class="tw-col-span-12 md:tw-col-span-6 tw-flex tw-flex-col tw-text-neutral-600 tw-mt-2 dark:tw-text-neutral-200 tw-text-md">
+                  <label class="tw-text-sm">Set price</label>
+
+                  <input v-model="price" :class="{ '!tw-border-red-400': !true }" type="number" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="0">
+                </div>
+                
+            </div>
+          </div>
         </div>
+
+
         <div class="tw-col-span-12 md:tw-mt-0 ">
+          <div class="tw-text-md tw-mb-2 tw-mt-3">
+            Add Variations
+          </div>
 
           <div class="tw-grid tw-grid-cols-5 tw-gap-2">
-            <div class="md:tw-col-span-1 tw-col-span-12">
+
+            <div :class="[(!hasColors && samePrice) && 'md:tw-col-span-2', (hasColors || samePrice) && 'md:tw-col-span-1', (hasColors && !samePrice) && 'md:!tw-col-span-1']" class="md:tw-col-span-2 tw-col-span-12">
               <div class="tw-flex  tw-flex-col mt-0 tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
                 <label class="tw-text-sm">Size</label>
                 <div class=" tw-relative  tw-mt-1" >
@@ -162,7 +213,7 @@
               </div>
             </div>
 
-            <div class="md:tw-col-span-1 tw-col-span-12">
+            <div v-if="hasColors" :class="[ !samePrice && 'md:!tw-col-span-1']"  class="md:tw-col-span-1 tw-col-span-12">
               <div class="tw-flex  tw-flex-col mt-0 tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
                 <label class="tw-text-sm">Color</label>
                 <div class=" tw-relative  tw-mt-1" >
@@ -175,19 +226,21 @@
               </div>
             </div>
 
-            <div class="md:tw-col-span-1 tw-col-span-12">
+            <div :class="[(!hasColors && samePrice) && 'md:tw-col-span-2']" class="md:tw-col-span-1 tw-col-span-12">
               <div class="tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
                 <label class="tw-text-sm">Quantity</label>
                 <input v-model="quantity" :class="{ '!tw-border-red-400': !true }" type="number" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="0">
                 
               </div>
             </div>
-            <div class="md:tw-col-span-1 tw-col-span-12">
+
+            <div v-if="!samePrice" class="md:tw-col-span-1 tw-col-span-12">
               <div class="tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
                 <label class="tw-text-sm">Price</label>
                 <input v-model="price" :class="{ '!tw-border-red-400': !true }" type="number" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="0">
               </div>
             </div>
+            
 
             <div class="md:tw-col-span-1 tw-col-span-12 tw-flex tw-items-end tw-h-full">
               <button @click="handleAdd" class="tw-py-2 tw-px-7 tw-w-full tw-h-[38px] tw-whitespace-nowrap tw-rounded dark:tw-text-neutral-300 tw-text-white tw-bg-violet-500 tw-border tw-border-solid tw-border-tansparent hover:tw-border-violet-600 dark:tw-border-neutral-900 dark:hover:tw-border-violet-400 hover:tw-bg-violet-500 dark:hover:tw-bg-violet-500 tw-duration-200 tw-flex tw-gap-2 tw-items-center tw-justify-center">
@@ -196,12 +249,6 @@
               </button>
             </div>
 
-            <div class="tw-col-span-5 tw-mt-2">
-              <div class="tw-flex tw-items-center tw-gap-2 tw-text-sm" >
-                <input v-model="samePrice" class="tw-cursor-pointer tw-caret-primary" id="same-price" type="checkbox">
-                <label class="tw-cursor-pointer" for="same-price">Keep same price</label>
-              </div>
-            </div>
           </div>
 
           <div class="my-5">
@@ -294,6 +341,7 @@ export default {
       isLoading: false,
       popup: false,
       samePrice: false,
+      hasColors: true,
       product: {
         name: '',
         category_id: 1,
@@ -401,7 +449,9 @@ export default {
         variations: this.variations,
         stock_alert: 10,
         gender: this.product.gender,
-        images: images
+        images: images,
+        same_price: this.samePrice,
+        has_colors: this.has_colors,
       }
 
       console.log(product);
@@ -420,34 +470,6 @@ export default {
       
     },
 
-    createImages() {
-
-      const primaryImage = {
-        order: 1,
-        image: this.images.find(i => i.id == this.primaryImage).image
-      }
-
-      let order = 2
-      let images = this.images.filter(img => img.id !== this.primaryImage).map(
-        item => {
-          return {
-            order: order++,
-            image: item.image
-          }
-        }
-      )
-
-      images.push(primaryImage)
-
-
-      Product.storeImages(images)
-      .then(
-        res => {
-          console.log(res.data);
-        },
-        this.$handleApiError
-      )
-    },
     showImage(e) {
       const files = e.target.files
 

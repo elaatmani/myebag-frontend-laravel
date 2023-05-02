@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link to="/products/1">
+    <router-link :to="'/products/' + product.id">
       <v-hover v-slot="{ isHovering, props }">
         <div
           v-bind="props"
@@ -27,7 +27,7 @@
             "
           >
             <img
-              :src="$frontend(product.image)"
+              :src="$backend(product.images.find(i => i.order == 1)?.path || product.images[0]?.path || null)"
               :class="{ 'tw-scale-105': isHovering }"
               class="tw-w-full tw-h-full tw-object-contain tw-duration-200"
             />
@@ -64,8 +64,8 @@
             >
                 <div>
 
-                <p class="tw-truncate">Hello tegjq jgsqc gjg sqg jqsg sqfrty </p>
-                <p class="tw-text-sm tw-text-neutral-400 dark:tw-text-neutral-400">Shoes</p>
+                <p class="tw-truncate">{{ product.name }}</p>
+                <p class="tw-text-sm tw-text-neutral-400 dark:tw-text-neutral-400">{{ product.category.name }}</p>
                 </div>
                 <v-spacer class="md:tw-hidden"></v-spacer>
               <div class="tw-flex md:tw-justify-end tw-justify-between tw-items-end">

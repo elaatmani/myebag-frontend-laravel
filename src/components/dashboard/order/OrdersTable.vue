@@ -1,8 +1,8 @@
 <template>
   <div class="tw-pb-3">
     
-    <div class="tw-grid tw-grid-cols-12 tw-gap-2 mb-4 mt-3 tw-p-2 tw-rounded-md tw-bg-neutral-400/10">
-        <div class="tw-flex tw-items-center tw-gap-2 tw-justify-between tw-col-span-12">
+    <div class="tw-grid tw-grid-cols-12 mb-4 mt-3 tw-duration-300 tw-p-2 tw-rounded-md tw-bg-neutral-400/10">
+        <div class="tw-flex tw-items-center tw-gap-2 tw-justify-between tw-col-span-12 tw-max-h-fit" >
             <div class="tw-relative tw-w-full tw-max-w-[550pxd] tw-flex-grow-1">
                 <icon icon="ph:magnifying-glass" class="tw-text-xl tw-text-neutral-400 tw-absolute tw-top-1/2 tw-left-3 -tw-translate-y-1/2" />
                 <input class="tw-outline-none tw-h-[38px] tw-rounded-lg tw-text-sm tw-text-neutral-500 dark:tw-text-neutral-300 tw-bg-white dark:tw-bg-neutral-800 tw-duration-300 focus:tw-border-primary hover:tw-border-primary/40 dark:hover:tw-border-purple-500/40 dark:focus:tw-border-purple-500 tw-border-neutral-200 dark:tw-border-neutral-600 tw-border-solid tw-border tw-py-2 tw-px-3 tw-pl-10 tw-w-full" type="text" placeholder="Search for ID, Client, Status..." />
@@ -12,12 +12,21 @@
                     <icon class="tw-text-lg" :icon="filters ? 'material-symbols:filter-list-off-rounded' : 'material-symbols:filter-list-rounded'" />
                     <span class="tw-hidden md:tw-block tw-text-sm">Filters</span>
                 </button>
-                <!-- <button class="tw-p-2 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded-lg dark:tw-text-neutral-300 tw-text-white tw-bg-primary dark:tw-bg-primary tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-600 tw-flex tw-items-center tw-justify-center tw-gap-2">
-                    <icon class="tw-text-lg" icon="mdi:plus" />
-                    <span class="tw-hidden md:tw-block tw-text-sm">Create</span>
-                </button> -->
             </div>
         </div>
+
+    <div class="tw-col-span-12 tw-grid tw-grid-cols-12 tw-max-h-0 tw-overflow-hidden tw-duration-500" :class="[filters && '!tw-max-h-[500px] tw-pt-2 !tw-overflow-visible']">
+        <div class="tw-w-full tw-h-fit tw-flex tw-items-center tw-pt-2 tw-col-span-12 md:tw-col-span-6 tw-gap-2">
+            <!-- Date filter -->
+            <vue-date-picker class="tw-flex-1" :dark="dark" v-model="fromDate"></vue-date-picker>
+            <p class="tw-text-xs">To</p>
+            <vue-date-picker class="tw-flex-1" :dark="dark" v-model="toDate"></vue-date-picker>
+            <!-- <div class="tw-py-2 tw-flex-1 tw-px-2 tw-text-neutral-600  tw-flex tw-gap-2 tw-items-center dark:tw-text-neutral-300 tw-rounded dark:tw-bg-neutral-800 tw-bg-white tw-cursor-pointer tw-duration-300 tw-h-fit">
+                <icon class="tw-text-lg" icon="ph:calendar-blank" />
+                <p class="tw-text-xs">31 Jul 2023</p>
+            </div> -->
+        </div>
+    </div>
     </div>
     <div class="tw-relative tw-min-h-fit dark:tw-border-neutral-700 tw-border !tw-rounded-lg tw-border-neutral-200/80 tw-max-h-[600px] tw-overflow-x-auto  sm:tw-rounded-lg">
         
@@ -61,7 +70,7 @@
             </tbody>
             <tbody v-else>
                 <tr>
-                    <td colspan="5">
+                    <td :colspan="columns.length">
 
                         <div class="tw-flex tw-flex-col tw-items-center tw-gap-2 tw-p-5 tw-min-h-[150px] tw-justify-center">
                             <!-- <h1 class="tw-text-sm tw-font-medium">Category list is empty!</h1> -->
@@ -110,10 +119,14 @@ export default {
             allowedLimit: [5, 10, 20, 50, 100],
             currentPage: 1,
             paginationLimit: 10,
+
             filters: false,
+            fromDatePopup: false,
+            fromDate: new Date(),
+
+            toDate: new Date(),
 
             columns: [ 'id', 'date', 'product','name', 'quantity', 'price', 'status', 'actions' ],
-            // allItems: categories
         }
     },
 
@@ -140,6 +153,10 @@ export default {
         },
         items() {
             return this.allItems.slice(this.prevRange, this.nextRange)
+        },
+
+        dark() {
+            return this.$store.getters['theme/isDarkMode']
         }
     },
 

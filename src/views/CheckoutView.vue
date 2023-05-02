@@ -6,7 +6,7 @@
     </div>
     <div class="tw-grid tw-gap-5 tw-grid-cols-12">
         <div class="md:tw-col-span-8 tw-col-span-12">
-          <div>
+          <div class="tw-space-y-4">
             <OrderItem v-for="item in cart" :key="item.id" :item="item" />
           </div>
           <div></div>

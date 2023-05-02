@@ -1,24 +1,32 @@
 
-export function getAvailableSizes(sizeType, productVariations) {
-        const availableSizes = [];
-        
-        // Loop through each size in the size type
-        for (const size of sizeType.sizes) {
-            let sizeAvailable = false;
-        
-            // Check if there are any product variations for this product and size
-            for (const variation of productVariations) {
-                if (variation.size_id === size.id && variation.quantity > 0) {
-                sizeAvailable = true;
-                break;
-                }
-            }
-        
-            // If the size is available, add it to the list
-            if (sizeAvailable) {
-                availableSizes.push(size);
-            }
-        }
+export function getAvailableSizes(product) {
+    const availableSizes = product.variations.map(v => v.size);
     
-        return availableSizes;
-    }
+
+    return availableSizes;
+}
+
+export function getAvailableColors(product) {
+    const all = product.variations.map(p => p.color)
+    const availableColors = []
+    all.forEach(element => {
+        if(!availableColors.some(i => i.id == element.id)) {
+        // if(!availableColors.includes(element)) {
+            availableColors.push(element)
+        }
+    });
+    
+    
+
+    return availableColors;
+}
+
+export function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+}

@@ -4,5 +4,7 @@
 export const frontendUrl = 'http://localhost:8080/'
 export const backendUrl  = 'http://localhost:8000/'
 export const appName = 'My Ebag'
+export const googleClientId = '6344921916-pvcdln86psogo9q3epk8cqhdba6746ke.apps.googleusercontent.com'
+export const paypalClientId = 'AbxeamoV0YTBoNOzQsDEd3ALD2AIqiGFQoTo7ZFruJCuqBTs9NJ6R_gAKa1klat5KVsLgeqPuKb0yYZ0'
 // tw-text-neutral-600 light
 // tw-text-neutral-200 dark

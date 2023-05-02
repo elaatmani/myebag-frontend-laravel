@@ -8,6 +8,8 @@ import ProductView from "@/views/ProductView";
 import CategoriesView from '@/views/CategoriesView'
 import CheckoutView from '@/views/CheckoutView'
 import OrdersView from '@/views/OrdersView'
+import CategoryView from '@/views/CategoryView'
+import NotFound from '@/views/NotFound'
 
 export default [
     {
@@ -69,6 +71,26 @@ export default [
                     title: "Orders",
                 },
             },
+
+            {
+                path: "/categories/:id",
+                name: "categories/show",
+                component: CategoryView,
+                meta: {
+                    requireAuth: false,
+                    title: "Categories",
+                },
+            },
+            {
+                path: "/404",
+                name: '404',
+                component: NotFound,
+                meta: {
+                    requireAuth: false,
+                    title: 'Not Found'
+                }
+            },
+            
         ],
     },
 ];

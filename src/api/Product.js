@@ -28,7 +28,9 @@ class Product {
             category_id: product.category_id,
             discount_id: product.discount_id,
             product_variations: product.variations,
-            images: product.images
+            images: product.images,
+            has_colors: product.has_colors,
+            same_price: product.same_price
         }
         await Csrf.getCookie();
         return ApiForm.post('api/products', p)

@@ -12,6 +12,11 @@ import { Icon } from '@iconify/vue';
 import Popup from '@/components/PopupVue'
 import Loading from '@/components/LoadingVue'
 import LoadingDashboard from '@/components/LoadingDashboard'
+import Loader from '@/components/loaders/LoaderOne'
+import DatePicker from '@/components/DatePicker'
+
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 import '@/assets/css/main.css'
 
@@ -25,10 +30,14 @@ createApp(App)
   .use(alert)
   .use(apiErrorHandler)
   .use(VueNumber)
+  
 
   .component('icon', Icon)
   .component('popup', Popup)
   .component('loading', Loading)
   .component('loading-dash', LoadingDashboard)
+  .component('loader', Loader)
+  .component('date-picker', DatePicker)
+  .component('vue-date-picker', VueDatePicker)
   
   .mount('#app')

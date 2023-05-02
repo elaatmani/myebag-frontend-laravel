@@ -1,28 +1,28 @@
 
 let initialState = {
     cart: [
-        {
-            id: 1,
-            product_id: 1,
-            product: {
-                name: 'Air Force 1',
-                description: 'lorem ipsum lorem ipsum',
-                images: [
-                    {
-                        id: 1,
-                        order: 1,
-                        path: 'assets/images/products/shoes/1/1.webp'
-                    }
-                ],
-                price: 100
-            },
-            quantity: 5,
-            size: {
-                id: 1,
-                name: 'XL'
-            },
-            color: 'RED'
-        }
+        // {
+        //     id: 1,
+        //     product_id: 1,
+        //     product: {
+        //         name: 'Air Force 1',
+        //         description: 'lorem ipsum lorem ipsum',
+        //         images: [
+        //             {
+        //                 id: 1,
+        //                 order: 1,
+        //                 path: 'assets/images/products/shoes/1/1.webp'
+        //             }
+        //         ],
+        //         price: 100
+        //     },
+        //     quantity: 5,
+        //     size: {
+        //         id: 1,
+        //         name: 'XL'
+        //     },
+        //     color: 'RED'
+        // }
     ]
 }
 

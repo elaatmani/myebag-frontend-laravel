@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="tw-hidden tw-text-sm lg:tw-flex tw-items-center tw-gap-1 tw-mb-5 dark:tw-text-neutral-300 tw-text-neutral-500">
+    <!-- <ul class="tw-hidden tw-text-sm lg:tw-flex tw-items-center tw-gap-1 tw-mb-5 dark:tw-text-neutral-300 tw-text-neutral-500">
         <li>
           Shop
         </li>
@@ -8,20 +8,28 @@
           <v-icon>mdi-chevron-right</v-icon>
         </li>
         <li>
-          Shoes
+          {{ product.category.name }}
         </li>
-    </ul>
+    </ul> -->
 
-    <h1 class="lg:tw-text-3xl tw-text-2xl tw-font-bold tw-mt-5">
-        Air Jordan 4 - Dark Blue
+    <h1 class="lg:tw-text-3xl tw-text-2xl tw-font-bold">
+        {{ product.name }}
     </h1>
-    <!-- <div class="tw-flex tw-items-center tw-gap-2 tw-mt-2">
-        <v-rating v-model="rating" readonly density="compact" size="small" color="yellow"></v-rating>
-        <span class="tw-text-sm tw-flex tw-items-center">4.5</span>
-    </div> -->
+    <div class="tw-flex tw-items-end tw-gap-2">
+        <div class="tw-flex tw-items-center">
+            <v-rating v-model="rating" readonly density="compact" size="small" color="yellow"></v-rating>
+        </div>
+        <div class="tw-text-sm">(0 reviews)</div>
+    </div>
+
+    <div class="tw-text-2xl dark:tw-text-secondary tw-text-primary tw-font-bold tw-mt-4">
+        $40.00
+    </div>
 
     <div class="tw-mt-3">
-        <div v-if="availableSizes.length > 0">
+
+        <!-- old size select -->
+        <div v-if="availableSizes.length > 0 && false">
             <h2>Size</h2>
             <div class="tw-mt-2 tw-flex tw-gap-2 tw-flex-wrap">
 
@@ -61,21 +69,31 @@
                 tw-border-neutral-500 
                 tw-rounded-lg
                 ">
-                    {{ s.name }}
+                    {{ s.value }}
                 </button>
 
                 
             </div>
         </div>
 
-        <div v-if="false" class="mt-3">
+        <!-- new size select -->
+        <div>
+            <label for="sizes" class="tw-block tw-mb-2 tw-text-sm tw-font-medium tw-text-neutral-900 dark:tw-text-white">Select a size</label>
+            <select v-model="size" id="sizes" class="tw-bg-gray-50 tw-border tw-border-solid tw-outline-none tw-border-neutral-300 tw-text-neutral-700 tw-text-sm tw-rounded-lg focus:tw-ring-violet-500 focus:tw-border-violet-500 tw-block tw-w-full tw-p-2.5 dark:tw-bg-neutral-900 dark:tw-border-neutral-600 dark:tw-placeholder-gray-400 dark:tw-text-white dark:focus:tw-ring-violet-500 dark:focus:tw-border-violet-500">
+                <option disabled value="0">Choose a size</option>
+                <option v-for="s in availableSizes" :key="s.id" :value="s.id">{{s.value}}</option>
+            </select>
+        </div>
+
+
+        <div v-if="product.has_colors" class="mt-3">
             <h2>Color</h2>
             <div class="tw-mt-2 tw-flex tw-gap-2 tw-flex-wrap">
 
-                <button v-for="c in colors" :key="c.id" @click="color = c.id" :class="[ c.color , c.id == color && 'tw-ring-2 dark:tw-ring-secondary tw-ring-primary']" class="
+                <button v-for="c in colors" :key="c.id" @click="color = c.id" :style="{backgroundColor: c.hex_code}" :class="[ c.id == color && 'tw-ring-2 dark:tw-ring-secondary tw-ring-primary']" class="
                 tw-rounded-lg
-                tw-w-[24px]
-                tw-h-[24px]
+                tw-w-[30px]
+                tw-h-[30px]
                 tw-border tw-border-solid
                 dark:tw-border-neutral-700
                 tw-border-neutral-300
@@ -88,7 +106,10 @@
             <h2 class="tw-flex tw-items-center tw-gap-1">
                 Quantity
                 <!-- <span class="tw-text-xs tw-text-secondary">( 5 items left )</span> -->
-                <span class="tw-text-xs tw-text-green-500">( In stock )</span>
+                <span v-if="selectedVariation?.quantity > 10" class="tw-text-xs tw-text-green-500">( +10 items left )</span>
+                <span v-else-if="selectedVariation?.quantity > 0" class="tw-text-xs tw-text-green-500">( {{ selectedVariation?.quantity == 1 ? 'Only one item': selectedVariation?.quantity + ' items ' }} left )</span>
+                <span v-else-if="size == 0" class="tw-text-xs tw-text-green-500">( In Stock )</span>
+                <span v-else class="tw-text-xs tw-text-red-400">(Out of stock)</span>
             </h2>
             <div class="tw-flex tw-items-center tw-mt-2">
                 <button 
@@ -196,14 +217,14 @@
             </div>
         </div>
 
-
     </div>
+    
   </div>
 </template>
 
 <script>
 // import { sizes } from '@/helpers/data'
-// import { getAvailableSizes } from '@/helpers/methods'
+import { getAvailableColors, getAvailableSizes } from '@/helpers/methods'
 
 export default {
     props: {
@@ -213,10 +234,11 @@ export default {
     },
     data() {
         return {
-            rating: 5,
+
+            rating: 0,
             quantity: 1,
-            color: 1,
-            size: 1
+            color: 0,
+            size: 0
         }
     },
 
@@ -231,10 +253,17 @@ export default {
             return this.$store.getters['cart/cart']
         },
 
+        selectedVariation() {
+            return this.product.variations.find(v => v.size.id == this.size)
+        },
+
         availableSizes() {
-            return this.sizes[0].sizes
-            // return getAvailableSizes(this.sizes.find(s => s.id == this.product.size_type_id), this.product.product_variations)
-        }
+            return getAvailableSizes(this.product)
+        },
+
+        availableColors() {
+            return getAvailableColors(this.product)
+        },
     },
 
     methods: {
@@ -257,7 +286,8 @@ export default {
                 product: this.product,
                 quantity: this.quantity,
                 size_id: this.size,
-                size: this.availableSizes.find(i => i.id == this.size)
+                size: this.availableSizes.find(i => i.id == this.size),
+                variation: this.selectedVariation
             }
 
             this.$store.dispatch('cart/addItem', item);
@@ -267,15 +297,12 @@ export default {
                 type: 'success',
                 body: 'Item added to cart'
             })
-        }
+        },
+
     },
 
-    mounted() {
-
-        this.size = this.availableSizes[0]?.id
-        console.log(this.sizes);
-        console.log(this.colors);
-        console.log(this.availableSizes);
+    updated() {
+        console.log(this.selectedVariation);
     }
 }
 </script>

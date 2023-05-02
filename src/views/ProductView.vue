@@ -1,17 +1,33 @@
 <template>
   <div class="pt-10">
 
-    <div class="tw-grid tw-grid-cols-12">
+    <loading v-if="!isLoaded" />
+
+    <div v-if="isLoaded" class="tw-grid tw-grid-cols-12">
       
       <div class="lg:tw-col-span-7 tw-col-span-12">
-        <ImageSlider />
+        <ImageSlider :images="product.images" />
       </div>
 
       <div class="lg:tw-col-span-5 tw-col-span-12">
-        <ProductDetails :product="product" />
+        <ProductDetails :key="product.id" :product="product" />
       </div>
       
+
+      <div class="tw-col-span-12">
+        <h1 class="tw-text-lg tw-font-medium tw-mt-5 tw-w-fit tw-border-solid tw-border-primary tw-border-b ">Description</h1>
+        <p class="tw-text-sm tw-my-3">
+            {{ product.description }}
+        </p>
+      </div>
+
+      <div class="tw-col-span-12">
+        <h1 class="tw-text-lg tw-font-medium tw-mt-5 tw-w-fit tw-border-solid tw-border-primary tw-border-b ">Reviews</h1>
+        <p class="tw-text-sm tw-my-3">
+        </p>
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -19,6 +35,7 @@
 import ImageSlider from '@/components/product/ImageSlider'
 import ProductDetails from '@/components/product/ProductDetails'
 import { product } from '@/helpers/data'
+import Product from '@/api/Product'
 // import Product from '@/api/Product'
 
 
@@ -28,7 +45,8 @@ export default {
   data() {
     return {
       isLoading: true,
-      isFound: true,
+      isLoaded: false,
+
       product: product
     }
   },
@@ -46,24 +64,34 @@ export default {
   },
 
   watch: {
-    $route() {
-      this.isLoading = true;
-      this.getProduct();
+    id() {
+      if (this.$route.name == "products/show") {
+        this.getProduct();
+      }
     }
   },
 
   methods: {
     getProduct() {
+        this.isLoaded = false;
+        Product.get(this.id)
+        .then(
+            res => {
+              if(res.data.code == 'SUCCESS') {
+                this.product = res.data.data.product
+                console.log(res.data);
 
-      // Product
-      // .get(this.id)
-      // .then(
-      //   res => {
-      //     console.log(res.data);
-      //   },
-      //   this.$handleApiError
-      // )
-    }
+                this.isLoaded = true
+              }
+            },
+            this.$handleApiError
+        )
+    },
+    
+  },
+
+  mounted() {
+    this.getProduct()
   }
 
 }
