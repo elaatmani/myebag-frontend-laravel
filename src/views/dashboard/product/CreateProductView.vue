@@ -9,12 +9,16 @@
           <div class="">
             <div class="tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
               <label class="tw-text-sm">Product Name</label>
-              <input v-model="product.name" :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="Product name" type="text">
-              <div v-if="false" ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
-                {{ 'Error' }}
-              </div>
-              <div ref="note" class=" tw-text-xs tw-text-neutral-400 tw-mb-2">
-                Do not exceed 20 characters when entering the product name.
+              <input
+              @keydown="reset('name')"
+              v-model="product.name" :class="{ '!tw-border-red-400': !form.name.valid }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="Product name" type="text">
+              <div class="tw-text-xs tw-text-neutral-400 tw-mb-2" :class="[!form.name.valid && '!tw-text-red-400']">
+                <span v-if="!form.name.valid">
+                  {{ form.name.message }}
+                </span>
+                <span v-else>
+                  Do not exceed 20 characters when entering the product name.
+                </span>
               </div>
             </div>
 
@@ -48,14 +52,17 @@
             <div class="tw-flex tw-flex-col mt-5 tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
               <label class="tw-text-sm">Description</label>
               <textarea 
+              @keydown="reset('description')"
               v-model="product.description"
-              :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500"
+              :class="{ '!tw-border-red-400': !form.description.valid  }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500"
                rows="8"></textarea>
-              <div v-if="false" ref="error" class="tw-h-1 tw-text-sm tw-text-red-400 tw-mb-1">
-                {{ 'Error' }}
-              </div>
-              <div ref="note" class=" tw-text-xs tw-text-neutral-400 tw-mb-2">
+              <div class="tw-text-xs tw-text-neutral-400 tw-mb-2" :class="[!form.description.valid && '!tw-text-red-400']">
+                <span v-if="!form.description.valid">
+                  {{ form.description.message }}
+                </span>
+                <span v-else>
                 Do not exceed 300 characters when entering the product description.
+                </span>
               </div>
             </div>
 
@@ -67,7 +74,7 @@
         <div class="md:tw-col-span-6 tw-col-span-12 md:tw-mt-0 tw-mt-3">
           <h1 class="tw-text-neutral-500 dark:tw-text-neutral-300 tw-text-sm">Product Images</h1>
           <div class="tw-grid tw-grid-cols-12 tw-mt-2 tw-gap-2">
-            <div :class="[isDragOver && 'tw-bg-primary/50']" @dragenter="handleDragEnter" @drop="handleDragLeave" @dragleave="handleDragLeave" class="lg:tw-col-span-6 tw-col-span-12 tw-aspect-square tw-relative tw-rounded-lg tw-border tw-border-dashed tw-border-neutral-500">
+            <div :class="[isDragOver && 'tw-bg-primary/50', !form.images.valid && '!tw-border-red-400']" @dragenter="handleDragEnter" @drop="handleDragLeave" @dragleave="handleDragLeave" class="lg:tw-col-span-6 tw-col-span-12 tw-aspect-square tw-relative tw-rounded-lg tw-border tw-border-dashed tw-border-neutral-500">
               
               <input v-if="images.length < 4" multiple max="4" type="file" @change="showImage" class="tw-opacity-0 tw-z-[1] tw-w-full tw-h-full tw-cursor-pointer" title="Drop your image">
 
@@ -113,11 +120,14 @@
               </div>
             </div>
             
-            <div v-if="images.length < 4 || true" class="tw-col-span-12">
-              <p class="tw-text-xs tw-text-neutral-400 dark:tw-text-neutral-300">
-                You need to add at least 4 images. Pay attention to the quality of the pictures you add comply with the background color standards.
-                </p>
-            </div>
+            <div class="tw-text-xs tw-col-span-12 tw-text-neutral-400 tw-mb-2" :class="[!form.images.valid && '!tw-text-red-400']">
+                <span v-if="!form.images.valid">
+                  {{ form.images.message }}
+                </span>
+                <span v-else>
+                  You need to add at least 4 images. Pay attention to the quality of the pictures you add comply with the background color standards.
+                </span>
+              </div>
 
             <div class="mt-5 tw-col-span-12 tw-grid tw-gap-2 tw-grid-cols-12">
 
@@ -164,7 +174,7 @@
                 <div v-if="!hasColors" class="tw-col-span-12 md:tw-col-span-6 tw-flex  tw-flex-col mt-2 tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
                   <label class="tw-text-sm">Select color</label>
                   <div class=" tw-relative  tw-mt-1" >
-                    <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-uppercase tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
+                    <select :disabled="!!variations.length" v-model="color_id" :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-uppercase tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
                       <option v-for="c in colors" :key="c.id" class="tw-text-neutral-600 tw-uppercase" :value="c.id">{{c.name}}</option>
                     </select>
                     <v-icon size="small" class="tw-absolute tw-top-1/2 -tw-translate-y-1/2 tw-pointer-events-none tw-right-3">mdi-chevron-down</v-icon>
@@ -200,7 +210,7 @@
 
           <div class="tw-grid tw-grid-cols-5 tw-gap-2">
 
-            <div :class="[(!hasColors && samePrice) && 'md:tw-col-span-2', (hasColors || samePrice) && 'md:tw-col-span-1', (hasColors && !samePrice) && 'md:!tw-col-span-1']" class="md:tw-col-span-2 tw-col-span-12">
+            <div :class="[(!hasColors && samePrice) && 'md:!tw-col-span-2', (hasColors || samePrice) && 'md:tw-col-span-1', (hasColors && !samePrice) && 'md:!tw-col-span-1']" class="md:tw-col-span-2 tw-col-span-12">
               <div class="tw-flex  tw-flex-col mt-0 tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
                 <label class="tw-text-sm">Size</label>
                 <div class=" tw-relative  tw-mt-1" >
@@ -217,7 +227,7 @@
               <div class="tw-flex  tw-flex-col mt-0 tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
                 <label class="tw-text-sm">Color</label>
                 <div class=" tw-relative  tw-mt-1" >
-                  <select :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-uppercase tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
+                  <select v-model="color_id" :class="{ '!tw-border-red-400': !true }" class="tw-w-full tw-uppercase tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500">
                     <option v-for="c in colors" :key="c.id" class="tw-text-neutral-600 tw-uppercase" :value="c.id">{{c.name}}</option>
                   </select>
                   <v-icon size="small" class="tw-absolute tw-top-1/2 -tw-translate-y-1/2 tw-pointer-events-none tw-right-3">mdi-chevron-down</v-icon>
@@ -226,7 +236,7 @@
               </div>
             </div>
 
-            <div :class="[(!hasColors && samePrice) && 'md:tw-col-span-2']" class="md:tw-col-span-1 tw-col-span-12">
+            <div :class="[(!hasColors && samePrice) && 'md:!tw-col-span-2']" class="md:tw-col-span-1 tw-col-span-12">
               <div class="tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
                 <label class="tw-text-sm">Quantity</label>
                 <input v-model="quantity" :class="{ '!tw-border-red-400': !true }" type="number" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="0">
@@ -252,6 +262,9 @@
           </div>
 
           <div class="my-5">
+            <div v-if="!form.variations.valid" class="tw-text-xs tw-text-neutral-400 tw-mb-2" :class="[!form.variations.valid && '!tw-text-red-400']">
+                You should add at least one variation
+            </div>
             <div class="tw-relative tw-min-h-fit dark:tw-border-neutral-700 tw-border !tw-rounded-lg tw-border-neutral-200/80 tw-max-h-[600px] tw-overflow-x-auto  sm:tw-rounded-lg">
               <table class="tw-w-full  tw-relative tw-text-sm tw-text-left !tw-rounded-lg tw-text-gray-500 dark:tw-text-neutral-200">
                   <thead class="tw-text-xs  tw-w-full tw-text-gray-700 dark:tw-text-gray-300 tw-uppercase tw-bg-gray-50 dark:tw-bg-neutral-900">
@@ -334,6 +347,7 @@
 
 <script>
 import Product from '@/api/Product'
+import { isStringBetween, required } from '@/helpers/validators'
 export default {
 
   data() {
@@ -364,6 +378,25 @@ export default {
       images: [
       ],
       isDragOver: false,
+
+      form: {
+        name: {
+          valid: true,
+          message: ''
+        },
+        description: {
+          valid: true,
+          message: ''
+        },
+        images: {
+          valid: true,
+          message: ''
+        },
+        variations: {
+          valid: true,
+          message: ''
+        }
+      }
     }
   },
 
@@ -378,13 +411,21 @@ export default {
       return this.$store.getters['app/sizes']
     },
     sizes() {
-      return this.size_types.find(s => s.id == this.size_type_id)?.sizes || []
+      return this.size_types.find(s => s.id == this.size_type_id)
+      ?.sizes.filter(i => !this.variations.some(v => v.size_id == i.id))
+      || []
     },
     categories() {
       return this.$store.getters['category/categories']
     },
     isFetched(){
       return this.$store.getters['category/isFetched']
+    },
+    isFormValid() {
+      return this.form.name.valid 
+      && this.form.description.valid
+      && this.form.images.valid
+      && this.form.variations.valid
     }
   },
 
@@ -401,6 +442,9 @@ export default {
     handleAdd() {
       const selectedSize = this.sizes.find(s => s.id == this.size_id)
       const selectedColor = this.colors.find(c => c.id == this.color_id)
+      console.log(selectedColor);
+
+      if(!selectedSize) return false;
 
       const variation = {
         id: this.variation_id++,
@@ -412,15 +456,26 @@ export default {
       }
 
       this.variations.push(variation)
+
+      if(this.sizes.length > 0) {
+        this.size_id = this.sizes[0].id
+      }
       this.quantity = 0;
+
+      this.reset('variations')
 
     },
 
     handleDelete(id) {
       this.variations = this.variations.filter(v => v.id !== id)
+      this.popup = false
     },
 
     create() {
+
+      this.validateForm()
+      if(!this.isFormValid) return false;
+
       this.isLoading = true
 
       const primaryImage = {
@@ -454,8 +509,6 @@ export default {
         has_colors: this.has_colors,
       }
 
-      console.log(product);
-
       Product.create(product)
       .then(
         res => {
@@ -468,6 +521,13 @@ export default {
         this.$handleApiError
       )
       
+    },
+
+    validateForm() {
+      this.form.name = required(this.product.name, 'Name');
+      this.form.images = required(this.images.length, 'Images');
+      this.form.variations = required(this.variations.length, 'Variations');
+      this.form.description = isStringBetween(this.product.description, { min: 20, max: 300 }, 'Description');
     },
 
     showImage(e) {
@@ -499,6 +559,7 @@ export default {
           this.imageId += 1;
         }
       }
+      this.reset('images')
       this.setPrimaryImage()
     },
     deleteImage(id) {
@@ -518,7 +579,13 @@ export default {
     },
     handleDragLeave() {
       this.isDragOver = false
-    }
+    },
+    reset(field) {
+      this.form[field] = {
+        valid: true,
+        message: ''
+      }
+    },
   },
 
   mounted() {
