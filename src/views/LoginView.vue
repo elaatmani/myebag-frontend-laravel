@@ -41,11 +41,11 @@
                     </button>
                   </div>
 
-                  <div class="tw-text-sm tw-text-center ">
+                  <div v-if="!isLoadingGoogle" class="tw-text-sm tw-text-center ">
                     Or
                   </div>
 
-                  <div v-if="true" class="mt-1">
+                  <div v-if="!isLoadingGoogle" class="mt-1">
                     <button :disabled="isLoadingGoogle" @click="googleWrapper.click()" class="tw-py-3 tw-px-7 tw-w-full tw-gap-3 tw-justify-center tw-border tw-border-solid tw-border-neutral-300 dark:tw-border-neutral-700 tw-text-capitalize tw-flex tw-items-center tw-rounded tw-text-sm dark:tw-text-white tw-text-neutral-700">
                       <v-icon v-if="isLoadingGoogle" size="small" class="tw-duration-300 tw-animate-spin tw-overflow-hidden tw-max-w-0 tw-mr-0" :class="[isLoadingGoogle && '!tw-max-w-[50px] !tw-mr-3']">mdi-loading</v-icon>
                       <icon v-else icon="logos:google-icon" class="tw-text-lg" />
@@ -137,6 +137,7 @@ export default {
       this.validateForm();
 
       if (!this.isFormValid) {
+        console.log('form not valid');
         return false;
       }
 
@@ -155,10 +156,21 @@ export default {
           this.$router.push({ 'name': 'home' });
           
         }
-        console.log(response);
+
       })
       .catch(error => {
         this.$handleApiError(error);
+
+        if(error.response.data?.code == 'INVALID_CREDENTIALS') {
+          this.form.email = {
+            valid: false,
+            message: 'These credentials do not match our records.'
+          }
+          this.form.password = {
+            valid: false,
+            message: ''
+          }
+        }
       }) 
       .finally(() => {
         this.isLoading = false
@@ -176,6 +188,7 @@ export default {
     },
 
     createFakeGoogleWrapper() {
+
       const googleLoginWrapper = document.createElement("div");
       googleLoginWrapper.style.display = "none";
       
@@ -200,7 +213,7 @@ export default {
 
     setGoogleAuth() {
 
-      if(document.readyState == 'complete') {
+      if(document.readyState == 'complete' && window.google) {
           window.google.accounts.id.initialize({
           client_id: googleClientId,
           callback: this.handleCredentialResponse,
@@ -211,14 +224,17 @@ export default {
         this.googleWrapper = this.createFakeGoogleWrapper()
       } else {
         window.onload =  () => {
-          window.google.accounts.id.initialize({
-          client_id: googleClientId,
-          callback: this.handleCredentialResponse,
-          auto_select: true,
-          ux_mode: "popup"
-        })
+          if(window.google) {
+
+            window.google.accounts.id.initialize({
+              client_id: googleClientId,
+              callback: this.handleCredentialResponse,
+              auto_select: true,
+              ux_mode: "popup"
+            })
   
         this.googleWrapper = this.createFakeGoogleWrapper()
+            }
       }
 
       // window.google.accounts.id.renderButton(

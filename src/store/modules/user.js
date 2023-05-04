@@ -1,28 +1,28 @@
 
 
-// const user = localStorage.getItem('user');
-// const isLoggedIn = localStorage.getItem('isLoggedIn');
+const user = localStorage.getItem('user');
+const isLoggedIn = localStorage.getItem('isLoggedIn');
 
-// const initialState = {
-//     user: !user ? null : JSON.parse(user),
-//     isLoggedIn: !isLoggedIn ? null : JSON.parse(isLoggedIn),
-//     isAdmin: !user ? null : JSON.parse(user)?.is_admin == 1
-// };
-
-const initialStateTest = {
-    user: {},
-    users: [],
-
-    isLoggedIn: true,
-    isAdmin: true,
-
+const initialState = {
+    user: !user ? null : JSON.parse(user),
+    isLoggedIn: !isLoggedIn ? null : JSON.parse(isLoggedIn),
+    isAdmin: !user ? null : JSON.parse(user)?.is_admin == 1
 };
+
+// const initialStateTest = {
+//     user: {},
+//     users: [],
+
+//     isLoggedIn: true,
+//     isAdmin: true,
+
+// };
 
 export default {
     name: 'user',
     namespaced: true,
 
-    state: initialStateTest,
+    state: initialState,
 
     getters: {
         user: (state) => state.user,
