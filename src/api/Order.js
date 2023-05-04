@@ -13,23 +13,9 @@ class Order {
         return Api.get('api/orders/' + id)
     }
 
-    async create() {
-        const o = {
-            total: '',
-            items: [
-                {
-                    product_variation_id: 1,
-                    quantity: 1
-                }
-            ],
-            payment_details: {
-                amount: '',
-                provider: 'paypal',
-                status: true
-            }
-        }
+    async create(order) {
         await Csrf.getCookie();
-        return Api.post('api/orders', o)
+        return Api.post('api/orders', order)
     }
 
 }

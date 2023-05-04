@@ -11,6 +11,7 @@
 
 <script>
 import { paypalClientId } from '@/config/app'
+import Order from '@/api/Order'
 export default {
 
     emits: ['orderCompleted'],
@@ -42,9 +43,6 @@ export default {
     },
 
     methods: {
-        notify(notif) {
-            this.$alert(notif)
-        },
         loadScript() {
             const script = document.createElement('script');
             script.src = 'https://www.paypal.com/sdk/js?currency=USD&locale=en_US&disable-funding=card&client-id=' + paypalClientId
@@ -56,11 +54,10 @@ export default {
         mountButtons() {
             let paypal = window.paypal
             this.isReady = true
-            const alertToast = (notif) => this.notify(notif)
-            const nextStep = () => {
-                console.log('next step ...');
-                this.nextStep()
-            };
+            const createOrder = () => this.createOrder();
+            
+            const onError = () => this.onError();
+
             const total = this.total
             paypal.Buttons({
                 style: {
@@ -87,13 +84,8 @@ export default {
                     return actions.order.capture().then(details => {
                         // Show a success message to the buyer
                         if(details?.status == 'COMPLETED') {
-                            alertToast({
-                                body: 'Order completed !',
-                                type: 'success'
-                            });
+                            createOrder()
                         }
-                        console.log(details);
-                        nextStep()
                         
                     });
                 },
@@ -101,13 +93,50 @@ export default {
                     console.log('error paypal');
                     console.log(data);
                     console.log(actions);
+                    onError()
+                    
                 },
             }).render('#paypal-buttons')
         },
         nextStep() {
-            console.log('step fired');
             this.$emit('orderCompleted', 4)
         },
+        createOrder() {
+            const order = {
+                total: this.total,
+                items: this.cart.map(i => {
+                    return {
+                        product_variation_id: i.variation.id,
+                        quantity: i.quantity
+                    }
+                }),
+                payment_details: {
+                    amount: this.total,
+                    provider: 'paypal',
+                    status: true
+                }
+            }
+            Order.create(order)
+            .then(
+                res => {
+                    if(res.data.code == 'SUCCESS') {
+                        this.$alert({
+                            body: 'Order completed !',
+                            type: 'success'
+                        })
+                        this.nextStep()
+                    }
+                },
+                this.$handleApiError
+            )
+        },
+
+        onError() {
+            this.$alert({
+                type: 'danger',
+                body: 'Payment has been canceled'
+            })
+        }
     },
 
     mounted() {
