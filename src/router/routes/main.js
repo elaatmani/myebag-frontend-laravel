@@ -7,6 +7,7 @@ import ProfileView from "@/views/ProfileView";
 import ProductView from "@/views/ProductView";
 import CategoriesView from '@/views/CategoriesView'
 import CheckoutView from '@/views/CheckoutView'
+import ShoppingCartView from '@/views/ShoppingCartView'
 import OrdersView from '@/views/OrdersView'
 import CategoryView from '@/views/CategoryView'
 import NotFound from '@/views/NotFound'
@@ -51,6 +52,15 @@ export default [
                 meta: {
                     requireAuth: false,
                     title: "Product",
+                },
+            },
+            {
+                path: "/cart",
+                name: "cart",
+                component: ShoppingCartView,
+                meta: {
+                    requireAuth: false,
+                    title: "Cart",
                 },
             },
             {

@@ -54,7 +54,7 @@
                   </div>
                   <div class="tw-col-span-10">
                     <div class="tw-flex tw-flex-col tw-px-2 ">
-                      <h2 class="tw-text-sm tw-truncate">{{ item.product.name }}</h2>
+                      <router-link :to="'/products/' + item.product.id" class="tw-text-sm hover:tw-underline tw-truncate">{{ item.product.name }}</router-link>
                       <div class="tw-flex tw-items-center tw-justify-between">
                         <p class="tw-text-xs tw-mt-1">
                           {{ item.quantity }} x ${{ item?.variation?.price }}
@@ -79,12 +79,12 @@
               </div>
               <div v-if="cart.length > 0" class="">
                 <span>Total: </span>
-                <span>$300</span>
+                <span>${{total}}</span>
               </div>
             </div>
 
             <div v-if="cart.length > 0" class="tw-px-2 tw-mt-2">
-              <router-link :to="{ name: 'checkout' }" class="tw-w-full">
+              <router-link :to="{ name: 'cart' }" class="tw-w-full">
                 <button @click="hideMenu" class="tw-w-full tw-font-medium tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-primary tw-text-white">
                   Checkout
                 </button>
@@ -112,6 +112,15 @@ export default {
     visibleItems() {
       return [...this.cart].reverse().slice(0, 3);
     },
+    total() {
+      let total = 0;
+
+      this.cart.forEach(item => {
+        total += (item.variation.price * item.quantity)
+      });
+
+      return total
+    }
   },
   methods: {
     showMenu() {
@@ -125,7 +134,7 @@ export default {
     },
     handleDelete(id) {
       this.$store.dispatch('cart/removeItem', id)
-    }
+    },
   },
   mounted() {
     console.log(this.cart);

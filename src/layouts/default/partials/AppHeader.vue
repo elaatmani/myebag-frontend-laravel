@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-fixed tw-top-0 tw-left-0 tw-right-0 tw-z-50">
+  <div class="tw-fixed tw-top-0 tw-left-0 tw-right-0 tw-z-[101]">
     <v-container fluid class="sm:tw-px-3 tw-py-2 tw-px-2">
       <div
         class="

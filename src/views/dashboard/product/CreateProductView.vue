@@ -162,7 +162,7 @@
                 <div class="tw-flex">
                   <div class="tw-flex tw-items-center tw-h-5">
                     <div class="tw-flex tw-items-center tw-mr-4">
-                        <input checked id="purple-checkbox" type="checkbox" v-model="hasColors" class="!tw-w-4 !tw-h-4 !tw-text-purple-600 !tw-bg-gray-100 !tw-border-gray-300 !tw-rounded focus:!tw-ring-purple-500 dark:focus:!tw-ring-purple-600 dark:!tw-ring-offset-gray-800 focus:!tw-ring-2 dark:!tw-bg-gray-700 dark:!tw-border-gray-600">
+                        <input :disabled="!!variations.length" id="purple-checkbox" type="checkbox" v-model="hasColors" class="!tw-w-4 !tw-h-4 !tw-text-purple-600 !tw-bg-gray-100 !tw-border-gray-300 !tw-rounded focus:!tw-ring-purple-500 dark:focus:!tw-ring-purple-600 dark:!tw-ring-offset-gray-800 focus:!tw-ring-2 dark:!tw-bg-gray-700 dark:!tw-border-gray-600">
                     </div>
                   </div>
                   <div class="tw-ml-2 tw-text-sm">
@@ -185,7 +185,7 @@
             <div class="md:tw-border-t-0 tw-border-t tw-border-solid tw-border-neutral-300 dark:tw-border-neutral-700 md:tw-col-span-6 tw-col-span-12 tw-px-3 tw-py-3">
                 <div class="tw-flex">
                   <div class="tw-flex tw-items-center tw-h-5">
-                    <input id="helper-checkbox-1"  type="checkbox" v-model="samePrice" class="!tw-caret-violet-500 tw-w-4 tw-h-4 tw-text-violet-600 tw-bg-gray-100 tw-border-gray-300 tw-rounded focus:tw-ring-violet-500 dark:focus:tw-ring-violet-600 dark:tw-ring-offset-gray-800 focus:tw-ring-2 dark:tw-bg-gray-700 dark:tw-border-gray-600">
+                    <input :disabled="!!variations.length" id="helper-checkbox-1"  type="checkbox" v-model="samePrice" class="!tw-caret-violet-500 tw-w-4 tw-h-4 tw-text-violet-600 tw-bg-gray-100 tw-border-gray-300 tw-rounded focus:tw-ring-violet-500 dark:focus:tw-ring-violet-600 dark:tw-ring-offset-gray-800 focus:tw-ring-2 dark:tw-bg-gray-700 dark:tw-border-gray-600">
                   </div>
                   <div class="tw-ml-2 tw-text-sm">
                       <label for="helper-checkbox-1" class="tw-font-medium tw-text-gray-900 dark:tw-text-gray-300">Same price</label>
@@ -195,7 +195,7 @@
                 <div v-if="samePrice" class="tw-col-span-12 md:tw-col-span-6 tw-flex tw-flex-col tw-text-neutral-600 tw-mt-2 dark:tw-text-neutral-200 tw-text-md">
                   <label class="tw-text-sm">Set price</label>
 
-                  <input v-model="price" :class="{ '!tw-border-red-400': !true }" type="number" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="0">
+                  <input :readonly="!!variations.length" v-model="price" :class="{ '!tw-border-red-400': !true }" type="number" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="0">
                 </div>
                 
             </div>
@@ -270,7 +270,7 @@
                   <thead class="tw-text-xs  tw-w-full tw-text-gray-700 dark:tw-text-gray-300 tw-uppercase tw-bg-gray-50 dark:tw-bg-neutral-900">
                       <tr>
                           
-                          <th v-for="column in ['id', 'size', 'color', 'quantity', 'actions']" :key="column" :class="[column == 'actions' && '!tw-w-[100px]', column == 'name' && 'tw-w-[150px]', column == 'sizes' && 'tw-min-w-[400px]']" scope="col" class="tw-px-6 tw-w-fit tw-py-3 text-truncate">
+                          <th v-for="column in ['id', 'size', 'color', 'quantity', 'price', 'actions']" :key="column" :class="[column == 'actions' && '!tw-w-[100px]', column == 'name' && 'tw-w-[150px]', column == 'sizes' && 'tw-min-w-[400px]']" scope="col" class="tw-px-6 tw-w-fit tw-py-3 text-truncate">
                               <div class="tw-w-fit tw-flex tw-whitespace-nowrap">
                                   {{ column }}
                               </div>
@@ -296,6 +296,9 @@
                           </td>
                           <td class="tw-px-6 tw-py-2 tw-max-w-[120px] tw-truncate">
                               {{ item.quantity }}
+                          </td>
+                          <td class="tw-px-6 tw-py-2 tw-max-w-[120px] tw-truncate">
+                              {{ item.price }}
                           </td>
                           <td class="tw-flex tw-items-center tw-px-6 tw-py-2 tw-space-x-3">
                               <div>
@@ -452,7 +455,8 @@ export default {
         color_id: selectedColor.id,
         size: selectedSize,
         color: selectedColor,
-        quantity: this.quantity
+        quantity: this.quantity,
+        price: this.price
       }
 
       this.variations.push(variation)
@@ -460,6 +464,11 @@ export default {
       if(this.sizes.length > 0) {
         this.size_id = this.sizes[0].id
       }
+
+      if(!this.samePrice) {
+        this.price = 0
+      }
+
       this.quantity = 0;
 
       this.reset('variations')

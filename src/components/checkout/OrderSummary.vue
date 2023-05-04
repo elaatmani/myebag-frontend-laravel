@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <div class="tw-p-5">
+  <div class="tw-h-fit">
+    <div class="tw-p-5 tw-h-fit">
         <h1>Order Summary</h1>
-        <div class="tw-mt-3 tw-py-5 tw-flex tw-flex-col tw-gap-3 tw-mb-5 tw-border-y tw-border-neutral-400/20 tw-border-solid">
+        <div :class="[pay ? 'tw-border-y tw-mb-5 tw-py-5 ': 'tw-border-t tw-pt-5']" class="tw-mt-3 tw-flex tw-flex-col tw-gap-3 tw-border-neutral-400/20 tw-border-solid">
             <div class="tw-flex tw-items-center tw-justify-between tw-text-sm">
                 <span class="dark:tw-text-neutral-400 tw-text-neutral-600">Subtotal</span>
-                <span>$310,10</span>
+                <span>${{ total }}</span>
             </div>
             <div class="tw-flex tw-items-center tw-justify-between tw-text-sm">
                 <span class="dark:tw-text-neutral-400 tw-text-neutral-600">Shipping</span>
@@ -13,56 +13,73 @@
             </div>
             <div class="tw-flex tw-items-center tw-justify-between tw-text-md tw-mt-3">
                 <span class="dark:tw-text-neutral-200 tw-text-neutral-800 tw-font-bold">Total</span>
-                <span class="tw-text-primary tw-font-black">$315,10</span>
+                <span class="tw-text-violet-500 tw-font-black">${{total + 5}}</span>
             </div>
         </div>
-        <div>
-            <!-- <router-link :to="{ name: 'checkout' }" class="tw-w-full"> -->
-                <button @click="placeOrder" class="tw-w-full tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-primary tw-text-white">
-                   <v-icon class="tw-animate-spin" v-if="isLoading" >mdi-loading</v-icon>
-                  
-                  <span>
-                    Pay <span class="tw-mr-2">$315,10</span>
-                  </span>
-                </button>
-              <!-- </router-link> -->
-        </div>
+
+        <router-link v-if="pay" :to="{ name: isLoggedIn ? 'checkout' : 'login'}" class="tw-w-full tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-primary tw-text-white">        
+            <span>
+                Proceed to Pay
+            </span>
+        </router-link>
+
     </div>
   </div>
 </template>
 
 <script>
-import Order from '@/api/Order'
 export default {
+
+    props: {
+        pay: {
+            required: false,
+            default: true
+        }
+    },
+
 
     data() {
         return {
-            isLoading: false
+            isLoading: false,
+
+            tab: 1,
+
+            tabs: [
+                {
+                    id: 1,
+                    component: 'proceed-to-pay'
+                },
+                {
+                    id: 2,
+                    component: 'pay-with'
+                }
+            ]
         }
     },
 
     computed: {
         cart() {
             return this.$store.getters['cart/cart']
+        },
+        total() {
+            let total = 0;
+
+            this.cart.forEach(item => {
+                total += (item.variation.price * item.quantity)
+            });
+
+            return total;
+        },
+
+        isLoggedIn() {
+            return this.$store.getters['user/isLoggedIn']
         }
     },
 
     methods: {
-        placeOrder() {
-            this.isLoading = true
-            console.log(this.cart);
-            Order.create(
-                { items: this.cart }
-            )
-            .then(
-                res => {
-                    console.log(res.data);
-                },
-                this.$handleApiError
-            )
-            .finally(
-                () => this.isLoading = false
-            )
+        handleUpdate(id) {
+            console.log('updated with: ', id);
+            this.tab = id
         }
     }
 }

@@ -8,6 +8,7 @@ import cart from './modules/cart'
 import product from './modules/product'
 import category from './modules/category'
 import order from './modules/order'
+import checkout from './modules/checkout'
 
 export default createStore({
   state: {
@@ -27,6 +28,7 @@ export default createStore({
     cart,
     product,
     category,
-    order
+    order,
+    checkout
   }
 })

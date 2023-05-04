@@ -1,0 +1,58 @@
+<template>
+  <div>
+    <h2>Select Payment Method</h2>
+    <div class="tw-grid tw-grid-cols-12 tw-mt-2 tw-gap-5">
+        <div class="md:tw-col-span-4 tw-col-span-12">
+            <div @click="handleMethodChange(1)" :class="[method == 1 ? '!tw-text-violet-500 !tw-border-violet-500' : 'hover:tw-shadow']" class="tw-flex tw-flex-col tw-duration-300 tw-items-center tw-justify-center tw-gap-3 tw-text-neutral-600 dark:tw-text-neutral-300 tw-min-h-[150px] tw-p-5 tw-rounded tw-border tw-border-solid dark:tw-border-neutral-700 tw-border-neutral-200 tw-cursor-pointer">
+                <icon class="tw-text-5xl" icon="bi:credit-card-fill" />
+                <p>Credit or debit card</p>
+            </div>
+        </div>
+        <div class="md:tw-col-span-4 tw-col-span-12">
+            <div @click="handleMethodChange(2)" :class="[method == 2 ? '!tw-text-violet-500 !tw-border-violet-500' : 'hover:tw-shadow']" class="tw-flex tw-flex-col tw-items-center tw-justify-center   tw-gap-3 tw-text-neutral-600 dark:tw-text-neutral-300 tw-duration-300 tw-min-h-[150px] tw-p-5 tw-rounded tw-border tw-border-solid dark:tw-border-neutral-700 tw-border-neutral-200 tw-cursor-pointer">
+                <icon class="tw-text-5xl" icon="simple-icons:paypal" />
+                <p>PayPal</p>
+            </div>
+        </div>
+        <div class="md:tw-col-span-4 tw-col-span-12">
+            <div @click="handleMethodChange(3)" :class="[method == 3 ? '!tw-text-violet-500 !tw-border-violet-500' : 'hover:tw-shadow']" class="tw-flex tw-flex-col tw-items-center tw-justify-center tw-duration-300 tw-gap-3 tw-text-neutral-600 dark:tw-text-neutral-300 tw-min-h-[150px] tw-p-5 tw-rounded tw-border tw-border-solid dark:tw-border-neutral-700 tw-border-neutral-200 tw-cursor-pointer">
+                <icon class="tw-text-5xl" icon="fluent:money-hand-20-regular" />
+                <p>Cash on delivery</p>
+            </div>
+        </div>
+    </div>
+    <div class="tw-mt-5 tw-flex tw-justify-end">
+        <button v-if="method != 2"  class="tw-w-fit  tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-violet-500 tw-text-white">
+            Pay
+        </button>
+        <div v-if="method == 2">
+            <PaypalGateway @order-completed="nextStep" />
+        </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import PaypalGateway from '@/components/checkout/gateways/PaypalGateway'
+export default {
+    components: { PaypalGateway },
+    data() {
+        return {
+            method: 1
+        }
+    },
+
+    methods: {
+        handleMethodChange(method) {
+            this.method = method
+        },
+        nextStep() {
+        this.$emit('updateStep', 4)
+      },
+    }
+}
+</script>
+
+<style>
+
+</style>

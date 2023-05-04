@@ -73,12 +73,14 @@
 import ProfileTab from '@/components/profile/ProfileTab';
 import SecurityTab from '@/components/profile/SecurityTab';
 import SettingsTab from '@/components/profile/SettingsTab';
+import AddressTab from '@/components/profile/AddressTab';
 
 
 export default {
   name: 'ProfileView',
   components: { 
     profile: ProfileTab,
+    address: AddressTab,
     security: SecurityTab,
     settings: SettingsTab
   },
@@ -89,8 +91,9 @@ export default {
         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         tabs: [
           { id: 1, component: 'profile', name: 'Account', icon: 'ph:user' },
-          { id: 2, component: 'security', name: 'Security', icon: 'ph:lock' },
-          { id: 3, component: 'settings', name: 'Settings', icon: 'ph:gear-six' },
+          { id: 2, component: 'address', name: 'Address', icon: 'ph:map-pin' },
+          { id: 3, component: 'security', name: 'Security', icon: 'ph:lock' },
+          { id: 4, component: 'settings', name: 'Settings', icon: 'ph:gear-six' },
         ]
     }
   },

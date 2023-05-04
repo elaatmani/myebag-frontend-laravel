@@ -278,6 +278,14 @@ export default {
 
         addToCart() {
 
+            if(this.size == 0) {
+                this.$alert({
+                    type: 'info',
+                    body: 'Please select a size'
+                })
+                return false;
+            }
+
             const id = this.cart.map(i => i.id).sort().slice(-1)[0] || 1;
 
             const item = {
