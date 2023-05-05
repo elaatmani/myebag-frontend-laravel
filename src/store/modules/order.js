@@ -9,7 +9,7 @@ export default {
     name: 'order',
     state: initialState,
     getters: {
-        order: state => state.orders,
+        orders: state => state.orders,
         newOrdersCount: state => state.newOrdersCount,
     },
     mutations: {

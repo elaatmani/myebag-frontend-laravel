@@ -102,6 +102,7 @@ export default {
             this.$emit('orderCompleted', 4)
         },
         createOrder() {
+            this.$emit('processing', true)
             const order = {
                 total: this.total,
                 items: this.cart.map(i => {
@@ -124,6 +125,7 @@ export default {
                             body: 'Order completed !',
                             type: 'success'
                         })
+                        this.$emit('processing', false)
                         this.nextStep()
                     }
                 },

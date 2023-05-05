@@ -6,7 +6,7 @@
       <div class="tw-grid tw-grid-cols-12 tw-p-3 tw-pb-0 tw-gap-2">
         <div class="tw-col-span-12">
           <div>
-            <OrdersTable :isLoaded="isLoaded" :allItems="[]" />
+            <OrdersTable :is-loaded="isLoaded" :all-items="orders" />
           </div>
         </div>
       </div>
@@ -40,10 +40,15 @@ export default {
         res => {
           if(res.data.code == 'SUCCESS') {
             this.$store.dispatch('order/setOrders', res.data.data.orders)
-            console.log(res.data);
+            console.log(res.data.data.orders);
+            console.log(res.data.data);
+            console.log(this.orders);
           }
         },
-        this.$handleApiError
+        (err) => {
+          this.$handleApiError(err)
+          this.$store.dispatch('order/setOrders', [])
+        }
       )
       .finally(
         () => this.isLoaded = true

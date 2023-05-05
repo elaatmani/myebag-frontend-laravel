@@ -38,7 +38,7 @@
             <thead class="tw-text-xs  tw-w-full tw-text-gray-700 dark:tw-text-gray-300 tw-uppercase tw-bg-gray-50 dark:tw-bg-neutral-900">
                 <tr>
                     
-                    <th v-for="column in columns" :key="column" :class="[column == 'actions' && '!tw-w-[100px]', column == 'name' && 'tw-w-[150px]']" scope="col" class="tw-px-6 tw-py-3 text-truncate">
+                    <th v-for="column in columns" :key="column" :class="''" scope="col" class="tw-px-6 tw-py-3 text-truncate">
                         <div class="tw-w-fit tw-flex tw-whitespace-nowrap">
                             {{ column }}
                         </div>
@@ -48,22 +48,39 @@
             <tbody v-if="items.length > 0">
                 <tr v-for="item in items" :key="item.id" :class="[items[items.length - 1].id == item.id && '!tw-border-b-0']" class="tw-bg-white dark:tw-bg-neutral-800 tw-border-b dark:tw-border-b-neutral-700 tw-whitespace-nowrap hover:tw-bg-gray-50 dark:hover:tw-bg-black/30">
                     
-                    <td class="tw-px-6 tw-py-4 tw-w-[20px]">
+                    <td class="tw-px-6 tw-py-2 tw-w-[20px]">
                         {{ item.id }}
                     </td>
-                    <th scope="row" class="tw-px-6 tw-py-2 tw-font-medium tw-w-[36px] tw-h-[36px]  tw-whitespace-nowrap ">
-                        <!-- <div class="tw-w-[35px] tw-h-[35px] tw-bg-primary/20 tw-overflow-hidden tw-rounded-lg">
-                            <img class="tw-w-full tw-object-cover tw-h-full" :src="$backend(item.image)" alt="">
-                        </div> -->
+                    <td class="tw-px-6 tw-py-2 tw-w-[20px]">
+                        {{ item.created_at.split('T')[0] }}
+                    </td>
+                    <th scope="row" class="tw-px-6 tw-py-2 tw-font-light">
+                        {{ item.user.firstname + ' ' + item.user.lastname }}
                     </th>
-                    <td class="tw-px-6 tw-py-4 tw-max-w-[200px] tw-truncate">
-                        <!-- {{ item.name }} -->
+                    <td class="tw-px-6 tw-py-2">
+                        <div class="tw-flex tw-items-center tw-gap-2">
+                            <icon class="tw-text-lg" :icon="getProviderIcon(item.payment_detail?.provider)" />
+                            <p class="tw-text-sm">{{ item.payment_detail?.provider }}</p>
+                        </div>
                     </td>
-                    <td class="tw-px-6 tw-py-4 tw-max-w-[300px] tw-truncate">
-                        <!-- {{ item.description }} -->
+                    <td class="tw-px-6 tw-py-2 tw-max-w-[300px] tw-truncate tw-text-green-400 dark:tw-text-green-500">
+                        ${{ item.payment_detail?.amount }}
                     </td>
-                    <td class="tw-flex tw-items-center tw-px-6 tw-py-4 tw-space-x-3">
-                        <!-- <CategoryActions :category="item" /> -->
+                    <td class="tw-px-6 tw-py-2 tw-space-x-3">
+                        <div :class="[getStatus(item.status).text, getStatus(item.status).bg]" class="tw-flex tw-items-center tw-gap-2 tw-w-fit tw-px-2 tw-py-1 tw-rounded">
+                            <icon :icon="getStatus(item.status).icon" />
+                            <p>{{ getStatus(item.status).name }}</p>
+                        </div>
+                    </td>
+                    <td class="tw-px-6 tw-py-2 tw-space-x-3">
+                        <div class="tw-flex tw-items-center tw-gap-2">
+                            <button class="tw-px-2 tw-py-1 tw-w-[25px] tw-h-[25px] tw-border tw-border-solid tw-border-blue-500/20 hover:tw-bg-blue-500/10 hover:tw-border-blue-500/70 tw-duration-300 tw-text-blue-500/80 tw-rounded-md tw-flex tw-items-center tw-justify-center">
+                                <v-icon size="x-small" >mdi-eye-outline</v-icon>
+                            </button>
+                            <button class="tw-p-1 tw-w-[25px] tw-h-[25px] tw-border tw-border-solid tw-border-violet-500/20 hover:tw-bg-violet-500/10 hover:tw-border-violet-500/70 tw-duration-300 tw-text-violet-500/80 tw-rounded-md tw-flex tw-items-center tw-justify-center">
+                                <icon class="!tw-text-xl" icon="ph:gear-six" />
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 
@@ -92,7 +109,6 @@
                 </option>
             </select>
             <v-icon size="x-small" class="tw-absolute tw-pointer-events-none tw-top-1/2 -tw-translate-y-1/2 tw-right-1">mdi-chevron-down</v-icon>
-            <!-- <v-select :hide-details="true" :items="allowedLimit" variant="outlined" density="compact" color="primary-color"></v-select> -->
         </div>
         <div class="d-flex align-center">
             <div class="text-caption tw-h-fit mr-2 font-weight-bold tw-text-zinc-700 dark:tw-text-neutral-200">{{ prevRange + 1 }} - {{ (currentPage == pageCount ?  allItems.length : nextRange) }} of {{  allItems.length }} items </div>
@@ -109,6 +125,7 @@
 </template>
 
 <script>
+import order_status from '@/config/order_status'
 
 export default {
     props: ['allItems', 'isLoaded'],
@@ -116,6 +133,7 @@ export default {
 
     data() {
         return {
+            order_status,
             allowedLimit: [5, 10, 20, 50, 100],
             currentPage: 1,
             paginationLimit: 10,
@@ -126,7 +144,7 @@ export default {
 
             toDate: new Date(),
 
-            columns: [ 'id', 'date', 'product','name', 'quantity', 'price', 'status', 'actions' ],
+            columns: [ 'id', 'date', 'name', 'payment', 'total', 'status', 'actions' ],
         }
     },
 
@@ -161,6 +179,26 @@ export default {
     },
 
     methods: {
+        getStatus(status) {
+            status = ['process', 'shipped', 'completed'].includes(status) ? status : 'process';
+            return this.order_status.find(i => i.value == status)
+        },
+
+        getProviderIcon(provider) {
+            switch (provider) {
+                case 'paypal':
+                    return 'ph:paypal-logo';
+
+                case 'credit-card':
+                    return 'ph:credit-card';
+
+                case 'cod':
+                    return 'fluent:money-hand-20-regular';
+
+                default:
+                    return 'ph:currency-circle-dollar';
+            }
+        }
     }
 }
 </script>

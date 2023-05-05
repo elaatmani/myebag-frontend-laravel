@@ -11,7 +11,7 @@
         </div>
 
         <div class="tw-grid tw-grid-cols-12 tw-mt-10 tw-gap-5">
-            <div class="md:tw-col-span-8 tw-col-span-12">
+            <div :class="[step == 4 && 'md:!tw-col-span-12']" class="md:tw-col-span-8 tw-col-span-12">
                 <v-window v-model="step">
                     <v-window-item
                         v-for="(t) in tabs" :key="t.id"
@@ -21,7 +21,7 @@
                     </v-window-item>
                 </v-window>
             </div>
-            <div class="md:tw-col-span-4 tw-col-span-12 md:tw-pt-7">
+            <div v-if="step != 4" :class="[step == 1 && '!tw-block']" class="md:tw-col-span-4 tw-col-span-12 md:tw-pt-7 tw-hidden md:tw-block">
                 <OrderSummary :pay="false" class="tw-border tw-border-solid dark:tw-border-neutral-700 tw-rounded" />
             </div>
         </div>
