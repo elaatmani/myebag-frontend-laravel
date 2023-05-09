@@ -69,7 +69,7 @@
                 </div>
                 <v-spacer class="md:tw-hidden"></v-spacer>
               <div class="tw-flex md:tw-justify-end tw-justify-between tw-items-end">
-                <p>$200</p>
+                <p>${{ product.variations[0].price || 0 }}</p>
                 <div class="md:tw-hidden">
                     <button class="tw-p-2 dark:tw-bg-neutral-800 tw-bg-white tw-rounded-full tw-border dark:tw-border-neutral-600 tw-border-neutral-200 tw-border-solid">
                         <icon icon="mdi:chevron-right" />

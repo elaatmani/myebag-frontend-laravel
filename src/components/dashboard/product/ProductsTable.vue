@@ -159,7 +159,6 @@ export default {
             let img = false
             images.forEach(image => {
                 if(image.order == 1) {
-                    console.log(image);
                     img = image
                 }
             })

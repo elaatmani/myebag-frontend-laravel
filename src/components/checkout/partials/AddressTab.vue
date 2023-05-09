@@ -92,8 +92,8 @@
 
     </div>
     <div class="tw-mt-5 tw-flex tw-justify-end">
-      <button @click="nextStep" class="tw-w-fit  tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-violet-500 tw-text-white">
-          Continue
+      <button @click="handleNext" class="tw-w-fit  tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-violet-500 tw-text-white">
+          Next
       </button>
     </div>
   </div>
@@ -114,11 +114,31 @@ export default {
         address_line_2: '',
         zip_code: '',
         city: '',
-        country: ''
+        country: '',
+
+        form: {
+          firstname: {
+            valid: true,
+            message: ''
+          },
+          lastname: {
+            valid: true,
+            message: ''
+          },
+          address_line_1: {
+            valid: true,
+            message: ''
+          },
+          zip_code: '',
+        }
       }
     },
 
     methods: {
+      handleNext() {
+        
+        this.nextStep()
+      },
       nextStep() {
         this.$emit('updateStep', 3)
       },

@@ -5,9 +5,9 @@
             <div class="tw-text-xl tw-capitalize">
                 {{ title }}
             </div>
-            <div>
+            <div v-if="!!showMore">
                 <v-hover v-slot="{isHovering, props}">
-                    <router-link v-bind="props" to="/" class="tw-text-sm tw-text-primary dark:tw-text-secondary">
+                    <router-link v-bind="props" :to="showMore" class="tw-text-sm tw-text-primary dark:tw-text-secondary">
                         <span>See More</span>
                         <v-icon :class="isHovering ? 'tw-translate-x-1' : 'tw-translate-x-0'" class="tw-ml-1 tw-duration-300" size="small" >mdi-arrow-right</v-icon>
                     </router-link>
@@ -35,6 +35,14 @@ export default {
         products: {
             required: false,
             default: []
+        },
+        showMore: {
+            required: false,
+            default: false
+        },
+        category: {
+            required: false,
+            default: null
         }
     },
     components: { ProductCard },

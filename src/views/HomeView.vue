@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="tw-pb-6">
       <div v-if="!isReady">
         <loading />
       </div>

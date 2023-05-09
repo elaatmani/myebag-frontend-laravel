@@ -11,11 +11,12 @@
         </div>
 
         <div class="tw-grid tw-grid-cols-12 tw-mt-10 tw-gap-5">
-            <div :class="[step == 4 && 'md:!tw-col-span-12']" class="md:tw-col-span-8 tw-col-span-12">
-                <v-window v-model="step">
+            <div :class="[step == 4 && 'md:!tw-col-span-12']" class="md:tw-col-span-8 tw-col-span-12 tw-h-full">
+                <v-window v-model="step" class="tw-h-full">
                     <v-window-item
                         v-for="(t) in tabs" :key="t.id"
                         :value="t.id"
+                        class="tw-h-full"
                     >
                         <component @update-step="handleUpdateStep" :is="t.component" />
                     </v-window-item>

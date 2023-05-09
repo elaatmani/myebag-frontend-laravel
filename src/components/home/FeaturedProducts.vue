@@ -3,7 +3,8 @@
     <ProductsContainer
       v-for="item in featured"
       :key="item.id"
-      :products="item.products"
+      :show-more="'/categories/'+item.id"
+      :products="item.products.slice(0, 4)"
       :title="item.name"
     />
   </div>

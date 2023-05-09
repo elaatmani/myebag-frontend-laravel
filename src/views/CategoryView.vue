@@ -1,13 +1,19 @@
 <template>
   <div>
-
-    <loading></loading>
+    <div v-if="!isLoaded">
+      <loading></loading>
+    </div>
+    <div v-if="isLoaded && !!category" class="tw-min-h-screen">
+      <ProductsContainer :title="category.name" :products="category.products" />
+    </div>
   </div>
 </template>
 
 <script>
 import Category from '@/api/Category';
+import ProductsContainer from '@/components/product/ProductsContainer.vue';
 export default {
+  components: { ProductsContainer },
   data() {
     return {
       isLoaded: false,
@@ -29,12 +35,20 @@ export default {
 
   methods: {
     getCategory() {
+      this.isLoaded = false;
       return Category.get(this.id)
       .then(
         res => {
-          console.log(res.data);
+          if(res.data.code == 'SUCCESS') {
+            this.category = res.data.data.category
+          }
         },
         this.$handleApiError
+      )
+      .finally(
+        () => {
+          this.isLoaded = true
+        }
       )
     }
   },

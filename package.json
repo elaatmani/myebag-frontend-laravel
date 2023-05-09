@@ -17,6 +17,7 @@
     "roboto-fontface": "*",
     "sass": "^1.58.0",
     "sass-loader": "^13.2.0",
+    "stripe": "^12.4.0",
     "vue": "^3.2.13",
     "vue-chartjs": "^5.2.0",
     "vue-number-animation": "^1.1.2",

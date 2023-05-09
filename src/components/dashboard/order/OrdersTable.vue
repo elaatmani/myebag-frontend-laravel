@@ -52,20 +52,23 @@
                         {{ item.id }}
                     </td>
                     <td class="tw-px-6 tw-py-2 tw-w-[20px]">
-                        {{ item.created_at.split('T')[0] }}
+                        <div class="tw-text-xs">
+                            <p>{{ formatDate(item.created_at).date }}</p>
+                            <!-- <p class="tw-text-xs">{{ formatDate(item.created_at).time }}</p> -->
+                        </div>
                     </td>
                     <th scope="row" class="tw-px-6 tw-py-2 tw-font-light">
                         {{ item.user.firstname + ' ' + item.user.lastname }}
                     </th>
                     <td class="tw-px-6 tw-py-2">
-                        <div class="tw-flex tw-items-center tw-gap-2">
-                            <icon class="tw-text-lg" :icon="getProviderIcon(item.payment_detail?.provider)" />
-                            <p class="tw-text-sm">{{ item.payment_detail?.provider }}</p>
+                        <div :class="[item.payment_detail?.provider == 'cod' && 'dark:tw-text-yellow-300 dark:tw-bg-yellow-300/10 tw-text-yellow-600 tw-bg-yellow-600/10']" class="tw-flex tw-items-center tw-gap-2 tw-px-2 tw-py-1 tw-rounded tw-w-full tw-max-w-[100px] tw-justify-between dark:tw-text-emerald-300 dark:tw-bg-emerald-300/10 tw-text-emerald-600 tw-bg-emerald-600/10">
+                            <p class="tw-text-sm">$ {{ item.payment_detail?.amount }}</p>
+                            <icon class="tw-text-xl" :icon="getProviderIcon(item.payment_detail?.provider)" />
                         </div>
                     </td>
-                    <td class="tw-px-6 tw-py-2 tw-max-w-[300px] tw-truncate tw-text-green-400 dark:tw-text-green-500">
+                    <!-- <td class="tw-px-6 tw-py-2 tw-max-w-[300px] tw-truncate tw-text-green-400 dark:tw-text-green-500">
                         ${{ item.payment_detail?.amount }}
-                    </td>
+                    </td> -->
                     <td class="tw-px-6 tw-py-2 tw-space-x-3">
                         <div :class="[getStatus(item.status).text, getStatus(item.status).bg]" class="tw-flex tw-items-center tw-gap-2 tw-w-fit tw-px-2 tw-py-1 tw-rounded">
                             <icon :icon="getStatus(item.status).icon" />
@@ -144,7 +147,7 @@ export default {
 
             toDate: new Date(),
 
-            columns: [ 'id', 'date', 'name', 'payment', 'total', 'status', 'actions' ],
+            columns: [ 'id', 'date', 'name', 'payment', 'status', 'actions' ],
         }
     },
 
@@ -189,7 +192,7 @@ export default {
                 case 'paypal':
                     return 'ph:paypal-logo';
 
-                case 'credit-card':
+                case 'stripe':
                     return 'ph:credit-card';
 
                 case 'cod':
@@ -198,6 +201,16 @@ export default {
                 default:
                     return 'ph:currency-circle-dollar';
             }
+        },
+
+        formatDate(d) {
+            let date = d.split('T')[0]
+            let time = d.split('T')[1].split('.')[0]
+
+            date = date.split('-').reverse().join('.')
+            time = time.split(':')
+
+            return  {date: date, time: `${time[0]}:${time[1]}`}
         }
     }
 }

@@ -1,5 +1,11 @@
 <template>
-    <div>
+    <div class="tw-flex tw-items-start tw-justify-end tw-gap-2">
+        <button
+          @click="$emit('cancel')"
+          class="tw-w-fit tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-neutral-200 tw-text-neutral-700 dark:tw-bg-neutral-600 dark:tw-text-neutral-300"
+        >
+          Cancel
+        </button>
         <div v-if="!isReady" class="tw-w-full tw-h-[45px]s tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-yellow-500 tw-text-white">
             <v-icon class="tw-animate-spin tw-text-white">mdi-loading</v-icon>
         </div>
@@ -14,7 +20,7 @@ import { paypalClientId } from '@/config/app'
 import Order from '@/api/Order'
 export default {
 
-    emits: ['orderCompleted'],
+    emits: ['orderCompleted', 'cancel'],
 
     data() {
         return {
