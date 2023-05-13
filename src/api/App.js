@@ -5,7 +5,17 @@ class App {
     
     async index() {
         await Csrf.getCookie();
-        return Api.get('api/initial')
+        return Api.get('api/initial/app')
+    }
+
+    async dashboard() {
+        await Csrf.getCookie();
+        return Api.get('api/initial/dashboard')
+    }
+
+    async user() {
+        await Csrf.getCookie();
+        return Api.get('api/initial/user')
     }
 
 }

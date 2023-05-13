@@ -66,9 +66,6 @@
                             <icon class="tw-text-xl" :icon="getProviderIcon(item.payment_detail?.provider)" />
                         </div>
                     </td>
-                    <!-- <td class="tw-px-6 tw-py-2 tw-max-w-[300px] tw-truncate tw-text-green-400 dark:tw-text-green-500">
-                        ${{ item.payment_detail?.amount }}
-                    </td> -->
                     <td class="tw-px-6 tw-py-2 tw-space-x-3">
                         <div :class="[getStatus(item.status).text, getStatus(item.status).bg]" class="tw-flex tw-items-center tw-gap-2 tw-w-fit tw-px-2 tw-py-1 tw-rounded">
                             <icon :icon="getStatus(item.status).icon" />

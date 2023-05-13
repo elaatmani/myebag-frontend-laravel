@@ -126,6 +126,12 @@ export default [
                 to: 'dashboard/settings/sizes',
                 module: 'settings'
             },
+            {
+                id: 3,
+                name: 'Order Status',
+                to: 'dashboard/settings/orders/status',
+                module: 'settings'
+            },
         ]
     },
     // {

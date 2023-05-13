@@ -29,6 +29,7 @@ import Alert from '@/components/AlertVue'
 import Size from '@/api/Size'
 import Color from '@/api/Color'
 import Category from '@/api/Category'
+import App from '@/api/App'
 
 export default {
     components: { Header, Sidebar, Alert },
@@ -101,13 +102,35 @@ export default {
         .then(
           res => {
             if(res.data.code == 'SUCCESS') {
-              this.$store.dispatch('category/setCategories', res.data.data.categories)
+              
               return res.data
             }
           },
           err => {
             this.$handleApiError(err)
             return err
+          }
+        )
+      },
+
+      getState() {
+        App.dashboard()
+        .then(
+          res => {
+            if(res.data.code == 'SUCCESS') {
+              this.$store.dispatch('app/setSizes', res.data.data.sizes)
+              this.$store.dispatch('app/setColors', res.data.data.colors)
+              this.$store.dispatch('category/setCategories', res.data.data.categories);
+              this.$store.dispatch('app/setOrderStatuses', res.data.data.order_statuses);
+
+              this.isDataReady = true
+              
+              console.log(res.data);
+              return res.data
+            }
+          },
+          err => {
+            this.$handleApiError(err)
           }
         )
       },
@@ -132,7 +155,8 @@ export default {
         return false;
       }
 
-      this.getData()
+      // this.getData()
+      this.getState()
     }
 
 }

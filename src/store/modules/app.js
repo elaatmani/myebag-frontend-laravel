@@ -3,6 +3,7 @@ let initialState = {
     IsSidebarActive: false,
     sizes: [],
     colors: [],
+    orderStatuses: [],
     featured: [],
     categories: [],
     isReady: false
@@ -17,6 +18,7 @@ export default {
         sizes: state => state.sizes,
         colors: state => state.colors,
         categories: state => state.categories,
+        orderStatuses: state => state.orderStatuses,
         featured: state => state.featured,
         isReady: state => state.isReady,
     },
@@ -48,6 +50,18 @@ export default {
 
         ADD_COLOR: (state, payload) => {
             state.colors.push(payload)
+        },
+
+        SET_ORDER_STATUSES: (state, payload) => {
+            state.orderStatuses = payload
+        },
+
+        REMOVE_ORDER_STATUS: (state, payload) => {
+            state.orderStatuses = state.orderStatuses.filter(c => c.id !== payload)
+        },
+
+        ADD_ORDER_STATUS: (state, payload) => {
+            state.orderStatuses.push(payload)
         },
 
         SET_FEATURED: (state, payload) => {
@@ -86,6 +100,18 @@ export default {
 
         addColor: ({commit}, payload) => {
             commit('ADD_COLOR', payload)
+        },
+
+        setOrderStatuses: ({commit}, payload) => {
+            commit('SET_ORDER_STATUSES', payload)
+        },
+
+        removeOrderStatus: ({commit}, payload) => {
+            commit('REMOVE_ORDER_STATUS', payload)
+        },
+
+        addOrderStatus: ({commit}, payload) => {
+            commit('ADD_ORDER_STATUS', payload)
         },
 
         setFeatured: ({commit}, payload) => {

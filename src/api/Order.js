@@ -18,6 +18,22 @@ class Order {
         return Api.post('api/orders', order)
     }
 
+    // Order Statuses
+    async statuses() {
+        await Csrf.getCookie();
+        return Api.get('api/orders/statuses')
+    }
+
+    async createStatus(status) {
+        await Csrf.getCookie();
+        return Api.post('api/orders/statuses', status)
+    }
+
+    async deleteStatus(id) {
+        await Csrf.getCookie();
+        return Api.delete('api/orders/statuses/' + id)
+    }
+
 }
 
 export default new Order();

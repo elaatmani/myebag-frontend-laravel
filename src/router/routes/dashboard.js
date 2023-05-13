@@ -24,6 +24,7 @@ import CreateCategoryView from '@/views/dashboard/category/CreateCategoryView'
 import GeneralView from '@/views/dashboard/settings/GeneralView'
 import ColorsView from '@/views/dashboard/settings/ColorsView'
 import SizesView from '@/views/dashboard/settings/SizesView'
+import OrderStatusView from '@/views/dashboard/settings/OrderStatusView'
 
 
 export default [
@@ -177,6 +178,18 @@ export default [
                 meta: {
                     requireAuth: true,
                     title: "Sizes",
+                },
+            },
+
+
+            {
+                name: "dashboard/settings/orders/status",
+                path: "orders/status",
+                module: 'settings',
+                component: OrderStatusView,
+                meta: {
+                    requireAuth: true,
+                    title: "Order Status",
                 },
             },
 
