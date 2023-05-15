@@ -61,13 +61,14 @@
                         {{ item.user.firstname + ' ' + item.user.lastname }}
                     </th>
                     <td class="tw-px-6 tw-py-2">
-                        <div v-if="item.payment_detail?.status" class="tw-flex tw-items-center tw-gap-2 tw-px-2 tw-py-1 tw-rounded tw-w-full tw-max-w-[100px] tw-justify-between dark:tw-text-emerald-300 dark:tw-bg-emerald-300/10 tw-text-emerald-600 tw-bg-emerald-600/10">
-                            <p class="tw-text-sm">$ {{ item.payment_detail?.amount }}</p>
-                            <icon class="tw-text-xl" :icon="getProviderIcon(item.payment_detail?.provider)" />
-                        </div>
-                        <div v-if="item.payment_detail?.status == 0" :class="[item.payment_detail?.status == 0 && 'dark:!tw-text-pink-300 dark:!tw-bg-pink-300/10 !tw-text-pink-600 !tw-bg-pink-600/10']" class="tw-flex tw-items-center tw-gap-2 tw-px-2 tw-py-1 tw-rounded tw-w-full tw-max-w-[100px] tw-justify-between dark:tw-text-emerald-300 dark:tw-bg-emerald-300/10 tw-text-emerald-600 tw-bg-emerald-600/10">
-                            <p class="tw-text-sm">$ {{ item.payment_detail?.amount }}</p>
-                            <icon class="tw-text-xl" :icon="getProviderIcon(item.payment_detail?.provider)" />
+                        <div>
+                            <div v-if="item.payment_detail?.status" class="tw-flex tw-items-center tw-gap-2 tw-px-2 tw-py-1 tw-rounded tw-w-full tw-max-w-[100px] tw-justify-between dark:tw-text-emerald-300 dark:tw-bg-emerald-300/10 tw-text-emerald-600 tw-bg-emerald-600/10">
+                                <p class="tw-text-sm">$ {{ item.payment_detail?.amount }}</p>
+                                <icon class="tw-text-xl" :icon="getProviderIcon(item.payment_detail?.provider)" />
+                            </div>
+                            <div  v-if="item.payment_detail?.status == 0">
+                                <ConfirmPayment :order="item" />
+                            </div>
                         </div>
                     </td>
                     <td class="tw-px-6 tw-py-2 tw-space-x-3">
@@ -130,11 +131,12 @@
 import OrderTableActions from '@/components/dashboard/order/OrderTableActions'
 import StatusTabs from '@/components/dashboard/order/tabs/StatusTabs'
 import OrderStatus from '@/components/dashboard/order/OrderStatus'
+import ConfirmPayment from '@/components/dashboard/order/ConfirmPayment'
 
 export default {
     props: ['allItems', 'isLoaded'],
 
-    components: {OrderTableActions, StatusTabs, OrderStatus},
+    components: {OrderTableActions, StatusTabs, OrderStatus, ConfirmPayment},
 
     data() {
         return {

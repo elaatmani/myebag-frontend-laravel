@@ -99,7 +99,7 @@ export default {
     },
 
     users() {
-      return this.$store.getters['user/users']
+      return this.$store.getters['user/users'].filter(u => u.is_admin == 0);
     },
 
     products() {

@@ -24,7 +24,7 @@
 
     <!-- Dropdown menu -->
     <div :class="{ 'tw-hidden': !isOpen }"
-      class="tw-z-[20] tw-mt-1 tw-border dark:tw-border-neutral-700 tw-border-white  tw-overflow-hidden tw-bg-white dark:tw-bg-neutral-900 tw-absolute tw-top-full tw-left-0 tw-divide-y tw-divide-gray-100 tw-rounded-lg tw-shadow tw-w-full">
+      class="tw-z-[20] tw-mt-1 tw-border dark:tw-border-neutral-700 tw-border-white  tw-overflow-hidden tw-bg-white dark:tw-bg-neutral-900 tw-absolute tw-top-full tw-left-0 tw-divide-y tw-divide-gray-100 tw-rounded-lg tw-shadow tw-min-w-fit tw-w-full">
       <ul class="tw-text-sm tw-space-y-1 tw-p-1 tw-text-gray-700 tw-max-h-[250px] tw-overflow-y-auto">
         <li @click="handleChange(option)" v-for="option in options" :key="option.id" class="tw-cursor-pointer">
           <a class="tw-py-1 tw-whitespace-nowrap tw-px-2 tw-flex tw-items-center tw-gap-2 tw-font-bold tw-rounded tw-capitalize tw-text-xs" :style="{ background: option.background_color, color: option.text_color }">{{ option.name.toLocaleLowerCase()

@@ -42,21 +42,21 @@ export default [
             },
         ]
     },
-    // {
-    //     id: 7,
-    //     name: 'Discounts',
-    //     icon: 'ph:ticket',
-    //     hasChildren: true,
-    //     module: 'discounts',
-    //     children: [
-    //         {
-    //             id: 1,
-    //             name: 'All discounts',
-    //             to: 'products/index',
-    //             module: 'discounts'
-    //         },
-    //     ]
-    // },
+    {
+        id: 7,
+        name: 'Discounts',
+        icon: 'ph:ticket',
+        hasChildren: true,
+        module: 'discounts',
+        children: [
+            {
+                id: 1,
+                name: 'All discounts',
+                to: 'products/index',
+                module: 'discounts'
+            },
+        ]
+    },
     {
         id: 3,
         name: 'Categories',
