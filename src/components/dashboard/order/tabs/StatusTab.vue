@@ -31,7 +31,7 @@ export default {
             return this.$store.getters['order/orders']
         },
         count() {
-            return this.orders.filter(o => o.id == this.status?.id).length
+            return this.orders.filter(o => o?.order_status?.id == this.status?.id).length
         }
     },
 

@@ -73,10 +73,12 @@ export default {
           res => {
             if (res.data.code == 'SUCCESS') {
               const featured = res.data.data.featured || [];
+              const orderStatuses = res.data.data.order_statuses || [];
               const sizes = res.data.data.sizes || [];
               const colors = res.data.data.colors || [];
 
               this.$store.dispatch('app/setFeatured', featured)
+              this.$store.dispatch('app/setOrderStatuses', orderStatuses)
               this.$store.dispatch('app/setSizes', sizes)
               this.$store.dispatch('app/setColors', colors)
               this.$store.dispatch('app/setIsReady', true)

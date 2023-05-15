@@ -1,6 +1,6 @@
 
 let initialState = {
-    address: ''
+    address: {}
 }
 
 export default {
@@ -11,13 +11,13 @@ export default {
         address: state => state.address
     },
     mutations: {
-        SET_MODE: (state, payload) => {
-            state.isDarkMode = payload
+        SET_ADDRESS: (state, payload) => {
+            state.address = payload
         }
     },
     actions: {
-        setMode: ({commit}, payload) => {
-            commit('SET_MODE', payload)
+        setAddress: ({commit}, payload) => {
+            commit('SET_ADDRESS', payload)
         }
     }
 }

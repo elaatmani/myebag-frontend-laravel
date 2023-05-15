@@ -58,9 +58,12 @@
                         {{ item.is_admin ? 'Admin' : 'User' }}
                     </td>
                     <td class="tw-px-5 tw-py-3">
-                        <div class="tw-flex tw-items-center tw-justify-center">
+                        <div v-if="!item.google_id" class="tw-flex tw-items-center tw-justify-center">
                             <icon v-if="!!item.email_verified_at" icon="ph:check-circle" class="tw-text-xl tw-text-emerald-500" />
                             <icon v-if="!item.email_verified_at" icon="ph:warning-circle" class="tw-text-xl tw-text-yellow-500" />
+                        </div>
+                        <div v-if="!!item.google_id" class="tw-flex tw-items-center tw-justify-center">
+                            <icon icon="flat-color-icons:google" class="tw-text-xl" />
                         </div>
                     </td>
                     <td class="tw-px-6 tw-py-3 tw-space-x-3">

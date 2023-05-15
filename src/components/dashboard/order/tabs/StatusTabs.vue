@@ -7,8 +7,8 @@
 
         <li class="tw-mr-2">
           <button
-          @click="selected = 0"
-            :class="[selected == 0 && 'dark:tw-text-violet-400 tw-text-violet-500 dark:tw-border-violet-400 tw-border-b-2 tw-border-violet-600', selected != 0 && 'hover:tw-border-gray-300 dark:hover:tw-text-gray-300 hover:tw-text-gray-600']"
+          @click="$emit('update:filter', 0)"
+            :class="[filter == 0 && 'dark:tw-text-violet-400 tw-text-violet-500 dark:tw-border-violet-400 tw-border-b-2 tw-border-violet-600', filter != 0 && 'hover:tw-border-gray-300 dark:hover:tw-text-gray-300 hover:tw-text-gray-600']"
             class="tw-flex tw-items-center tw-gap-2 tw-px-4 tw-py-2 tw-border-solid tw-border-b-2 tw-border-transparent tw-rounded-t-lg tw-duration-200"
             >
             <span>All</span>
@@ -20,7 +20,7 @@
         <StatusTab
           v-for="s in adminStatuses"
           :key="s.id"
-          :selected="selected"
+          :selected="filter"
           :status="s"
           @clicked="changeTab"
         />
@@ -34,9 +34,11 @@
 import StatusTab from '@/components/dashboard/order/tabs/StatusTab'
 export default {
     components: {StatusTab},
+    props: ['filter'],
+
     data() {
         return {
-            selected: 0,
+            // selected: 0,
         }
     },
 
@@ -54,7 +56,8 @@ export default {
 
     methods: {
       changeTab(status) {
-        this.selected = status.id
+        this.$emit('update:filter', status.id)
+        // this.selected = status.id
       }
     }
 };

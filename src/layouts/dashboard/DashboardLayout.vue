@@ -75,6 +75,9 @@ export default {
             if(res.data.code == 'SUCCESS') {
               this.$store.dispatch('app/setSizes', res.data.data.sizes)
               this.$store.dispatch('app/setColors', res.data.data.colors)
+              this.$store.dispatch('product/setProducts', res.data.data.products)
+              this.$store.dispatch('user/setUsers', res.data.data.users)
+              // this.$store.dispatch('product/setFetched', true)
               this.$store.dispatch('category/setCategories', res.data.data.categories);
               this.$store.dispatch('app/setOrderStatuses', res.data.data.order_statuses);
               this.$store.dispatch('app/setIsReady', true);
@@ -92,7 +95,7 @@ export default {
         )
       },
 
-      subscribeToPusher() {
+      subscribeToEvents() {
         let Pusher = window.Pusher
         var pusher = new Pusher('493c0271d5ff1b957dac', {
           cluster: 'eu'
@@ -102,7 +105,10 @@ export default {
         
         this.orderChannel.bind('new-order', (data) => {
           this.$store.dispatch('order/addOrder', data.order)
-          console.log(data);
+          this.$alert({
+            type: 'success',
+            body: 'New Order !'
+          })
         });
 
         this.isSubscribed = true
@@ -117,7 +123,7 @@ export default {
 
       this.getState()
       if(!this.isSubscribed) {
-        // this.subscribeToPusher()
+        // this.subscribeToEvents()
       }
     }
 

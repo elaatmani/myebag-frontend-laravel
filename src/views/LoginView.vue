@@ -184,7 +184,29 @@ export default {
     async handleCredentialResponse(response) {
          const userData = parseJwt(response.credential);
 
-         console.log(userData);
+         this.isLoading = true
+      User.login_google({
+        google_id: userData.sub,
+        google_jwt: userData
+      })
+      .then((response) => {
+        const data = response.data
+        if(data?.code == 'SUCCESS') {
+          const user = data.data.user;
+          this.$store.dispatch('user/setUser', user);
+          this.$store.dispatch('user/setIsLoggedIn', true);
+          this.$store.dispatch('user/setIsAdmin', user.is_admin == 1);
+          this.$router.push({ 'name': 'home' });
+          
+        }
+
+      })
+      .catch(error => {
+        this.$handleApiError(error);
+      }) 
+      .finally(() => {
+        this.isLoading = false
+      })
     },
 
     createFakeGoogleWrapper() {

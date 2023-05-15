@@ -30,6 +30,19 @@ export default {
             state.orders.unshift(payload)
         },
 
+        UPDATE_ORDER: (state, payload) => {
+            state.orders = state.orders.map(
+                o => {
+                    console.log(payload);
+                    if(o.id == payload.id) {
+                        console.log('found');
+                        return payload
+                    }
+                    return o
+                }
+            )
+        },
+
         SET_ORDER_DETAILS: (state, payload) => {
             state.orderDetails = payload
         },
@@ -47,6 +60,10 @@ export default {
 
         setOrders: ({commit}, payload) => {
             commit('SET_ORDERS', payload)
+        },
+
+        updateOrder: ({commit}, payload) => {
+            commit('UPDATE_ORDER', payload)
         },
 
         addOrder: ({commit}, payload) => {

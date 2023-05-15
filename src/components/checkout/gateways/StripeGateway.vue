@@ -103,19 +103,11 @@ export default {
 
             return total + this.shipping
         },
+        address() {
+            return this.$store.getters['checkout/address']
+        }
   },
 
-  watch: {
-    // dark() {
-    //   this.paymentElement.update({
-    //     appearance: {
-    //       theme: this.dark ? "night" : "stripe",
-    //       variables: this.dark ? this.darkVariables : this.lightVariables,
-    //       rules: this.rules,
-    //     },
-    //   });
-    // },
-  },
 
   methods: {
     loadScript() {
@@ -209,6 +201,7 @@ export default {
           provider: "stripe",
           status: status,
         },
+        shipping_address: this.address
       };
       
       Order.create(order).then((res) => {

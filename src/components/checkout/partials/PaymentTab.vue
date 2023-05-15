@@ -65,13 +65,10 @@
           <StripeGateway @cancel="choosed = false" @processing="handleProcessing" @order-completed="nextStep" />
         </div>
 
-        <button
-          v-if="method == 3"
-          @click="pay"
-          class="tw-w-fit tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-violet-500 tw-text-white"
-        >
-          Pay
-        </button>
+        <div v-if="method == 3">
+          <CashOnDeliveryGateway @cancel="choosed = false" @processing="handleProcessing" @order-completed="nextStep" />
+        </div>
+
       </div>
       </v-slide-y-transition>
 
@@ -89,9 +86,10 @@
 <script>
 import PaypalGateway from "@/components/checkout/gateways/PaypalGateway";
 import StripeGateway from '@/components/checkout/gateways/StripeGateway'
+import CashOnDeliveryGateway from '@/components/checkout/gateways/CashOnDeliveryGateway'
 
 export default {
-  components: { PaypalGateway, StripeGateway },
+  components: { PaypalGateway, StripeGateway, CashOnDeliveryGateway },
   data() {
     return {
       choosed: false,

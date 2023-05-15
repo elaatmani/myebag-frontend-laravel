@@ -46,6 +46,9 @@ export default {
 
             return total + this.shipping
         },
+        address() {
+            return this.$store.getters['checkout/address']
+        }
     },
 
     methods: {
@@ -121,7 +124,8 @@ export default {
                     amount: this.total,
                     provider: 'paypal',
                     status: true
-                }
+                },
+                shipping_address: this.address
             }
             Order.create(order)
             .then(

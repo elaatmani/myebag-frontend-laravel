@@ -2,7 +2,7 @@
   <div class="tw-pb-3">
 
     <div class="tw-mt-">
-        <StatusTabs />
+        <StatusTabs v-model:filter="filter" />
     </div>
     
     <div class="tw-grid tw-grid-cols-12 mb-4 mt-3 tw-duration-300 tw-p-2 tw-rounded-md tw-bg-neutral-400/10">
@@ -25,14 +25,10 @@
             <vue-date-picker class="tw-flex-1" :dark="dark" v-model="fromDate"></vue-date-picker>
             <p class="tw-text-xs">To</p>
             <vue-date-picker class="tw-flex-1" :dark="dark" v-model="toDate"></vue-date-picker>
-            <!-- <div class="tw-py-2 tw-flex-1 tw-px-2 tw-text-neutral-600  tw-flex tw-gap-2 tw-items-center dark:tw-text-neutral-300 tw-rounded dark:tw-bg-neutral-800 tw-bg-white tw-cursor-pointer tw-duration-300 tw-h-fit">
-                <icon class="tw-text-lg" icon="ph:calendar-blank" />
-                <p class="tw-text-xs">31 Jul 2023</p>
-            </div> -->
         </div>
     </div>
     </div>
-    <div class="tw-relative tw-min-h-fit dark:tw-border-neutral-700 tw-border !tw-rounded-lg tw-border-neutral-200/80 tw-max-h-[600px] tw-overflow-x-auto  sm:tw-rounded-lg">
+    <div class="tw-relative tw-min-h-fit tw-h-fit dark:tw-border-neutral-700 tw-border !tw-rounded-lg tw-border-neutral-200/80 tw-max-h-[600px]  sm:tw-rounded-lg"> <!-- tw-overflow-x-auto -->
         
         <div v-if="!isLoaded" class="tw-min-h-[150px] tw-flex tw-items-center tw-justify-center">
             <loading-dash class="tw-scale-50"></loading-dash>
@@ -65,7 +61,11 @@
                         {{ item.user.firstname + ' ' + item.user.lastname }}
                     </th>
                     <td class="tw-px-6 tw-py-2">
-                        <div :class="[item.payment_detail?.provider == 'cod' && 'dark:tw-text-yellow-300 dark:tw-bg-yellow-300/10 tw-text-yellow-600 tw-bg-yellow-600/10']" class="tw-flex tw-items-center tw-gap-2 tw-px-2 tw-py-1 tw-rounded tw-w-full tw-max-w-[100px] tw-justify-between dark:tw-text-emerald-300 dark:tw-bg-emerald-300/10 tw-text-emerald-600 tw-bg-emerald-600/10">
+                        <div v-if="item.payment_detail?.status" class="tw-flex tw-items-center tw-gap-2 tw-px-2 tw-py-1 tw-rounded tw-w-full tw-max-w-[100px] tw-justify-between dark:tw-text-emerald-300 dark:tw-bg-emerald-300/10 tw-text-emerald-600 tw-bg-emerald-600/10">
+                            <p class="tw-text-sm">$ {{ item.payment_detail?.amount }}</p>
+                            <icon class="tw-text-xl" :icon="getProviderIcon(item.payment_detail?.provider)" />
+                        </div>
+                        <div v-if="item.payment_detail?.status == 0" :class="[item.payment_detail?.status == 0 && 'dark:!tw-text-pink-300 dark:!tw-bg-pink-300/10 !tw-text-pink-600 !tw-bg-pink-600/10']" class="tw-flex tw-items-center tw-gap-2 tw-px-2 tw-py-1 tw-rounded tw-w-full tw-max-w-[100px] tw-justify-between dark:tw-text-emerald-300 dark:tw-bg-emerald-300/10 tw-text-emerald-600 tw-bg-emerald-600/10">
                             <p class="tw-text-sm">$ {{ item.payment_detail?.amount }}</p>
                             <icon class="tw-text-xl" :icon="getProviderIcon(item.payment_detail?.provider)" />
                         </div>
@@ -75,9 +75,10 @@
                             <icon :icon="getStatus(item.status).icon" />
                             <p>{{ getStatus(item.status).name }}</p>
                         </div> -->
-                        <div :style="{color: item.order_status.text_color, background: item.order_status.background_color}" class="tw-flex tw-w-fit tw-text-xs tw-font-medium tw-h-[25px] tw-min-w-[20px] tw-items-center tw-rounded tw-px-2 tw-py-1">
-                            {{ item.order_status.name }}
-                        </div>
+                        <OrderStatus type="admin" :order="item" />
+                    </td>
+                    <td class="tw-px-6 tw-py-2 tw-space-x-3">
+                        <OrderStatus type="user" :order="item" />
                     </td>
                     <td class="tw-px-6 tw-py-2 tw-space-x-3">
                         <OrderTableActions :key="item.id" :order="item" />
@@ -100,7 +101,7 @@
     </div>
 
     <!-- Pagination -->
-    <div v-if="allItems.length > 10" class="mt-5 tw-flex tw-justify-between">
+    <div v-if="filteredItems.length > 10" class="mt-5 tw-flex tw-justify-between">
         <div class="d-flex align-center tw-relative">
             <div class="text-body-2 tw-h-fit mr-2 tw-text-zinc-700 dark:tw-text-neutral-200">Show per page: </div>
             <select v-model="paginationLimit"  class="tw-py-1 tw-outline-none  focus:tw-border-primary tw-text-sm tw-px-2 tw-w-[60px] tw-border tw-rounded-lg tw-border-solid tw-border-neutral-500">
@@ -111,7 +112,7 @@
             <v-icon size="x-small" class="tw-absolute tw-pointer-events-none tw-top-1/2 -tw-translate-y-1/2 tw-right-1">mdi-chevron-down</v-icon>
         </div>
         <div class="d-flex align-center">
-            <div class="text-caption tw-h-fit mr-2 font-weight-bold tw-text-zinc-700 dark:tw-text-neutral-200">{{ prevRange + 1 }} - {{ (currentPage == pageCount ?  allItems.length : nextRange) }} of {{  allItems.length }} items </div>
+            <div class="text-caption tw-h-fit mr-2 font-weight-bold tw-text-zinc-700 dark:tw-text-neutral-200">{{ prevRange + 1 }} - {{ (currentPage == pageCount ?  filteredItems.length : nextRange) }} of {{  filteredItems.length }} items </div>
             <div>
             <v-btn @click="currentPage = n" :ripple="false" variant="flat" class="mr-1" icon rounded="lg" :color="n == currentPage ? 'primary' : 'grey'" density="comfortable"  v-for="n in pageCount" :key="n">
                 <span class="tw-text-white">{{ n }}</span>
@@ -128,17 +129,19 @@
 // import order_status from '@/config/order_status'
 import OrderTableActions from '@/components/dashboard/order/OrderTableActions'
 import StatusTabs from '@/components/dashboard/order/tabs/StatusTabs'
+import OrderStatus from '@/components/dashboard/order/OrderStatus'
 
 export default {
     props: ['allItems', 'isLoaded'],
 
-    components: {OrderTableActions, StatusTabs},
+    components: {OrderTableActions, StatusTabs, OrderStatus},
 
     data() {
         return {
             allowedLimit: [5, 10, 20, 50, 100],
             currentPage: 1,
             paginationLimit: 10,
+            filter: 0,
 
             filters: false,
             fromDatePopup: false,
@@ -146,7 +149,7 @@ export default {
 
             toDate: new Date(),
 
-            columns: [ 'id', 'date', 'name', 'payment', 'status', 'actions' ],
+            columns: [ 'id', 'date', 'name', 'payment', 'status', 'user status', 'actions' ],
         }
     },
 
@@ -158,6 +161,9 @@ export default {
                     body: 'Orders list is empty!'
                 })
             }
+        },
+        filter(v) {
+            console.log('filter updated: ', v);
         }
     },
 
@@ -169,10 +175,22 @@ export default {
             return (this.currentPage) * this.paginationLimit
         },
         pageCount() {
-            return Math.ceil(this.allItems.length / this.paginationLimit)
+            return Math.ceil(this.filteredItems.length / this.paginationLimit)
         },
         items() {
-            return this.allItems.slice(this.prevRange, this.nextRange)
+            return this.filteredItems.slice(this.prevRange, this.nextRange)
+        },
+
+        filteredItems() {
+            return this.allItems.filter(i => {
+                if(this.filter == 0 ) return true;
+
+                if(i.order_status.id != this.filter) {
+                    return false
+                }
+
+                return true;
+            })
         },
 
         dark() {
