@@ -59,19 +59,31 @@
                 </div>
 
                 <div class="tw-col-span-12 md:tw-col-span-6 tw-flex tw-gap-2 tw-items-center">
+                    <div class="tw-flex tw-items-center tw-w-full tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
+                        <label class="tw-relative tw-inline-flex tw-items-center tw-cursor-pointer tw-w-fit -tw-rotate-90 ">
+                            <input type="checkbox" v-model="type" class="tw-sr-only tw-peer">
+                            <div class="tw-w-11 tw-h-6 tw-bg-gray-200 peer-focus:tw-outline-none  tw-rounded-full tw-peer dark:tw-bg-neutral-600 peer-checked:after:tw-translate-x-full peer-checked:after:tw-border-white after:tw-content-[''] after:tw-absolute after:tw-top-[2px] after:tw-left-[2px] after:tw-bg-white after:tw-border-gray-300 after:tw-border after:tw-rounded-full after:tw-h-5 after:tw-w-5 after:tw-transition-all dark:tw-border-gray-600"></div>
+                        </label>
+                        <label class="tw-flex tw-flex-col tw-justify-center tw-gap-1">
+
+                            <span :class="[type ? 'tw-text-neutral-700 dark:tw-text-neutral-200' : 'tw-text-neutral-400 dark:tw-text-neutral-500']" class="tw-ml-1 tw-text-sm tw-font-medium tw-duration-300">Admin</span>
+                            <span :class="[!type ? 'tw-text-neutral-700 dark:tw-text-neutral-200' : 'tw-text-neutral-400 dark:tw-text-neutral-500']" class="tw-ml-1 tw-text-sm tw-font-medium tw-duration-300">User</span>
+                        </label>
+                    </div>
                     <div class="tw-flex tw-justify-center tw-w-full tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
                         <label class="tw-relative tw-inline-flex tw-items-center tw-cursor-pointer">
-                            <input type="checkbox" value="" class="tw-sr-only tw-peer">
+                            <input type="checkbox" v-model="markAsPaid" class="tw-sr-only tw-peer">
                             <div class="tw-w-11 tw-h-6 tw-bg-gray-200 peer-focus:tw-outline-none peer-focus:tw-ring-4 peer-focus:tw-ring-violet-300 dark:peer-focus:tw-ring-violet-300/50 tw-rounded-full tw-peer dark:tw-bg-neutral-600 peer-checked:after:tw-translate-x-full peer-checked:after:tw-border-white after:tw-content-[''] after:tw-absolute after:tw-top-[2px] after:tw-left-[2px] after:tw-bg-white after:tw-border-gray-300 after:tw-border after:tw-rounded-full after:tw-h-5 after:tw-w-5 after:tw-transition-all dark:tw-border-gray-600 peer-checked:tw-bg-violet-500"></div>
                             <span class="tw-ml-3 tw-text-sm tw-font-medium tw-text-neutral-700 dark:tw-text-neutral-200">Mark as Paid</span>
                         </label>
                     </div>
+                    
                 </div>
 
                 <div class="tw-col-span-12 md:tw-col-span-6 tw-flex tw-gap-2 tw-items-center">
                     <div class="tw-flex tw-justify-center tw-w-full tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
                         <label class="tw-text-sm" for="email">Preview</label>
-                        <div :style="{color: textColor, background: backgroundColor}" class="tw-flex tw-w-fit tw-text-sm tw-h-[30px] tw-min-w-[20px] tw-items-center tw-rounded tw-px-2 tw-py-1">
+                        <div :style="{color: textColor, background: backgroundColor}" class="tw-flex tw-w-fit tw-text-sm tw-h-[30px] tw-min-w-[60px] tw-items-center tw-rounded tw-px-2 tw-py-1">
                             {{ name }}
                         </div>
                     </div>
@@ -105,6 +117,7 @@ export default {
             backgroundColor: '#FFFFFF',
             textColor: '#000000',
             markAsPaid: false,
+            type: true,
 
             form: {
                 name: {
@@ -150,7 +163,8 @@ export default {
                 send_notification: false,
                 mark_as_paid: this.markAsPaid,
                 text_color: this.textColor,
-                background_color: this.backgroundColor
+                background_color: this.backgroundColor,
+                type: this.type ? 'admin' : 'user'
             }
             this.isLoading = true
             

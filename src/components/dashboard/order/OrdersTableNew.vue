@@ -1,11 +1,10 @@
 <template>
   <div class="tw-pb-3">
-
-    <div class="tw-mt-">
-        <StatusTabs />
-    </div>
     
-    <div class="tw-grid tw-grid-cols-12 mb-4 mt-3 tw-duration-300 tw-p-2 tw-rounded-md tw-bg-neutral-400/10">
+        <div class="tw-mt-">
+            <OrdersTableTabs />
+        </div>
+    <div class="tw-grid tw-grid-cols-12 mb-4 tw-duration-300 tw-p-2 tw-rounded-b-md tw-bg-neutral-400/10">
         <div class="tw-flex tw-items-center tw-gap-2 tw-justify-between tw-col-span-12 tw-max-h-fit" >
             <div class="tw-relative tw-w-full tw-max-w-[550pxd] tw-flex-grow-1">
                 <icon icon="ph:magnifying-glass" class="tw-text-xl tw-text-neutral-400 tw-absolute tw-top-1/2 tw-left-3 -tw-translate-y-1/2" />
@@ -25,20 +24,20 @@
             <vue-date-picker class="tw-flex-1" :dark="dark" v-model="fromDate"></vue-date-picker>
             <p class="tw-text-xs">To</p>
             <vue-date-picker class="tw-flex-1" :dark="dark" v-model="toDate"></vue-date-picker>
-            <!-- <div class="tw-py-2 tw-flex-1 tw-px-2 tw-text-neutral-600  tw-flex tw-gap-2 tw-items-center dark:tw-text-neutral-300 tw-rounded dark:tw-bg-neutral-800 tw-bg-white tw-cursor-pointer tw-duration-300 tw-h-fit">
-                <icon class="tw-text-lg" icon="ph:calendar-blank" />
-                <p class="tw-text-xs">31 Jul 2023</p>
-            </div> -->
         </div>
     </div>
     </div>
-    <div class="tw-relative tw-min-h-fit dark:tw-border-neutral-700 tw-border !tw-rounded-lg tw-border-neutral-200/80 tw-max-h-[600px] tw-overflow-x-auto  sm:tw-rounded-lg">
+    <div class="tw-relative tw-min-h-fit dark:tw-border-neutral-700 tw-border !tw-rounded-lg tw-border-neutral-200/80 tw-max-h-[600px]   sm:tw-rounded-lg">
         
         <div v-if="!isLoaded" class="tw-min-h-[150px] tw-flex tw-items-center tw-justify-center">
             <loading-dash class="tw-scale-50"></loading-dash>
         </div>
+
+        <div>
+            <OrderCard />
+        </div>
         
-        <table v-if="isLoaded" class="tw-w-full  tw-relative tw-text-sm tw-text-left !tw-rounded-lg tw-text-gray-500 dark:tw-text-neutral-200">
+        <table v-if="isLoaded && false" class="tw-w-full  tw-relative tw-text-sm tw-text-left !tw-rounded-lg tw-text-gray-500 dark:tw-text-neutral-200">
             <thead class="tw-text-xs  tw-w-full tw-text-gray-700 dark:tw-text-gray-300 tw-uppercase tw-bg-gray-50 dark:tw-bg-neutral-900">
                 <tr>
                     
@@ -125,17 +124,19 @@
 </template>
 
 <script>
-// import order_status from '@/config/order_status'
+import order_status from '@/config/order_status'
 import OrderTableActions from '@/components/dashboard/order/OrderTableActions'
-import StatusTabs from '@/components/dashboard/order/tabs/StatusTabs'
+import OrdersTableTabs from '@/components/dashboard/order/OrdersTableTabs'
+import OrderCard from '@/components/dashboard/order/OrderCard'
 
 export default {
     props: ['allItems', 'isLoaded'],
 
-    components: {OrderTableActions, StatusTabs},
+    components: {OrderTableActions, OrdersTableTabs, OrderCard},
 
     data() {
         return {
+            order_status,
             allowedLimit: [5, 10, 20, 50, 100],
             currentPage: 1,
             paginationLimit: 10,
@@ -181,6 +182,10 @@ export default {
     },
 
     methods: {
+        getStatus(status) {
+            status = ['process', 'shipped', 'completed'].includes(status) ? status : 'process';
+            return this.order_status.find(i => i.value == status)
+        },
 
         getProviderIcon(provider) {
             switch (provider) {

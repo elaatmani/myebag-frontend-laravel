@@ -26,9 +26,6 @@
 import Header from '@/layouts/dashboard/partials/AppHeader'
 import Sidebar from '@/layouts/dashboard/partials/AppSidebar'
 import Alert from '@/components/AlertVue'
-import Size from '@/api/Size'
-import Color from '@/api/Color'
-import Category from '@/api/Category'
 import App from '@/api/App'
 
 export default {
@@ -37,7 +34,9 @@ export default {
     data() {
         return {
             drawer: true,
-            isDataReady: false
+            // isDataReady: false,
+            orderChannel: null,
+            isSubscribed: false
         }
     },
 
@@ -61,57 +60,13 @@ export default {
         },
         isAdmin() {
           return this.$store.getters['user/isAdmin']
+        },
+        isDataReady() {
+          return this.$store.getters['app/isReady']
         }
     },
 
     methods: {
-      getSizes() {
-        return Size.all()
-        .then(
-          res => {
-            if(res.data.code == 'SUCCESS') {
-              this.$store.dispatch('app/setSizes', res.data.data.sizes)
-              return res.data
-            }
-          },
-          err => {
-            this.$handleApiError(err)
-            return err
-          }
-        )
-      },
-
-      getColors() {
-        return Color.all()
-        .then(
-          res => {
-            if(res.data.code == 'SUCCESS') {
-              this.$store.dispatch('app/setColors', res.data.data.colors)
-              return res.data
-            }
-          },
-          err => {
-            this.$handleApiError(err)
-            return err
-          }
-        )
-      },
-
-      getCategories() {
-        return Category.all()
-        .then(
-          res => {
-            if(res.data.code == 'SUCCESS') {
-              
-              return res.data
-            }
-          },
-          err => {
-            this.$handleApiError(err)
-            return err
-          }
-        )
-      },
 
       getState() {
         App.dashboard()
@@ -122,8 +77,10 @@ export default {
               this.$store.dispatch('app/setColors', res.data.data.colors)
               this.$store.dispatch('category/setCategories', res.data.data.categories);
               this.$store.dispatch('app/setOrderStatuses', res.data.data.order_statuses);
+              this.$store.dispatch('app/setIsReady', true);
+              
 
-              this.isDataReady = true
+              // this.isDataReady = true
               
               console.log(res.data);
               return res.data
@@ -135,17 +92,20 @@ export default {
         )
       },
 
-      getData() {
-        this.isDataReady = false;
-        Promise.allSettled([this.getColors(), this.getSizes(), this.getCategories()])
-        .then(
-          res => {
-            if(res.every(i => i.status == 'fulfilled')) {
-              this.isDataReady = true
-              console.log(res);
-            }
-          }
-        )
+      subscribeToPusher() {
+        let Pusher = window.Pusher
+        var pusher = new Pusher('493c0271d5ff1b957dac', {
+          cluster: 'eu'
+        });
+
+        this.orderChannel = pusher.subscribe('order');
+        
+        this.orderChannel.bind('new-order', (data) => {
+          this.$store.dispatch('order/addOrder', data.order)
+          console.log(data);
+        });
+
+        this.isSubscribed = true
       }
     },
 
@@ -155,8 +115,10 @@ export default {
         return false;
       }
 
-      // this.getData()
       this.getState()
+      if(!this.isSubscribed) {
+        // this.subscribeToPusher()
+      }
     }
 
 }

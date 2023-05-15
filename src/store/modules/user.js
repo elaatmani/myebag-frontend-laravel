@@ -6,7 +6,8 @@ const isLoggedIn = localStorage.getItem('isLoggedIn');
 const initialState = {
     user: !user ? null : JSON.parse(user),
     isLoggedIn: !isLoggedIn ? null : JSON.parse(isLoggedIn),
-    isAdmin: !user ? null : JSON.parse(user)?.is_admin == 1
+    isAdmin: !user ? null : JSON.parse(user)?.is_admin == 1,
+    users: []
 };
 
 // const initialStateTest = {

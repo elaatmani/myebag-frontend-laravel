@@ -43,8 +43,18 @@
                         {{ item.id }}
                     </td>
                     <td class="tw-px-6 tw-py-2 tw-max-w-[100px] tw-truncate">
-                        <div :style="{color: item.text_color, background: item.background_color}" class="tw-flex tw-w-fit tw-text-sm tw-h-[30px] tw-min-w-[20px] tw-items-center tw-rounded tw-px-2 tw-py-1">
+                        <div :style="{color: item.text_color, background: item.background_color}" class="tw-flex tw-w-fit tw-text-xs tw-font-medium tw-h-[25px] tw-min-w-[20px] tw-items-center tw-rounded tw-px-2 tw-py-1">
                             {{ item.name }}
+                        </div>
+                    </td>
+                    <td class="tw-w-[20px]">
+                        <div class="tw-capitalize tw-py-1 tw-w-[70px]  tw-px-4 tw-text-xs tw-font-medium tw-flex tw-justify-center tw-items-center tw-rounded"
+                            :class="[
+                            item.type == 'user' && 'tw-bg-blue-500/10 tw-text-blue-500',
+                            item.type == 'admin' && 'tw-bg-green-500/10 tw-text-green-500'
+                            ]"
+                        >
+                            {{ item.type }}
                         </div>
                     </td>
                     <td class="tw-px-6 tw-py-2 tw-max-w-[120px] tw-truncate">
@@ -56,7 +66,7 @@
                         </div>
                     </td>
                     <td class="tw-flex tw-items-center tw-px-6 tw-py-2 tw-space-x-3">
-                        <OrderStatusActions :status="item" />
+                        <OrderStatusActions :key="item.id" :status="item" />
                     </td>
                 </tr>
                 
@@ -119,7 +129,7 @@ export default {
 
             createStatusPopup: false,
 
-            columns: [ 'id', 'name', 'Mark as Paid', 'actions'],
+            columns: [ 'id', 'name', 'type', 'Mark as Paid', 'actions'],
         }
     },
 

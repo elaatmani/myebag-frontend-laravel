@@ -12,6 +12,7 @@ import FeaturedProductsView from '@/views/dashboard/product/FeaturedProductsView
 
 // Orders
 import IndexOrdersView from '@/views/dashboard/order/IndexOrdersView'
+import ShowOrderView from '@/views/dashboard/order/ShowOrderView'
 
 // Users
 import IndexUsersView from '@/views/dashboard/user/IndexUsersView'
@@ -99,6 +100,16 @@ export default [
                     module: 'orders',
                     requireAuth: true,
                     title: 'Orders'
+                }
+            },
+            {
+                name: 'orders/show',
+                path: 'orders/:id',
+                component: ShowOrderView,
+                meta: {
+                    module: 'orders',
+                    requireAuth: true,
+                    title: 'Order Details'
                 }
             },
 
@@ -194,7 +205,7 @@ export default [
             },
 
             {
-                name: 'catch-all',
+                name: 'dashboard-catch-all',
                 path: ':pathMatch(.*)',
                 beforeEnter: (to, from, next) => {
                     return next({ name: 'dashboard/404' })

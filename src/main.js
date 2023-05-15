@@ -1,24 +1,27 @@
-import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
-import { loadFonts } from './plugins/webfontloader'
 import globalConfig from './plugins/globalConfig'
 import alert from './plugins/alert'
 import apiErrorHandler  from './plugins/apiErrorHandler'
 import VueNumber from 'vue-number-animation'
-import { Icon } from '@iconify/vue';
 import Popup from '@/components/PopupVue'
 import Loading from '@/components/LoadingVue'
 import LoadingDashboard from '@/components/LoadingDashboard'
 import Loader from '@/components/loaders/LoaderOne'
 import DatePicker from '@/components/DatePicker'
-
+import Pusher from "pusher-js";
 import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
+import { createApp } from 'vue'
+import { loadFonts } from './plugins/webfontloader'
+import { Icon } from '@iconify/vue';
 
+import '@vuepic/vue-datepicker/dist/main.css'
 import '@/assets/css/main.css'
+
+// Enable pusher logging - remove in production
+Pusher.logToConsole = true;
 
 loadFonts()
 

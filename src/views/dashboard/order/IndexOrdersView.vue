@@ -6,30 +6,36 @@
       <div class="tw-grid tw-grid-cols-12 tw-p-3 tw-pb-0 tw-gap-2">
         <div class="tw-col-span-12">
           <div>
-            <OrdersTable :is-loaded="isLoaded" :all-items="orders" />
+            <OrdersTable :is-loaded="fetched" :all-items="orders" />
           </div>
         </div>
       </div>
     </div>
+    
+    <OrderDetails />
   </div>
 </template>
 
 <script>
 import OrdersTable from '@/components/dashboard/order/OrdersTable.vue'
+import OrderDetails from '@/components/dashboard/order/OrderDetails'
+
 import Order from '@/api/Order'
 
 export default {
-  components: { OrdersTable },
+  components: { OrdersTable, OrderDetails },
 
   data() {
     return {
-      isLoaded: false
     }
   },
 
   computed: {
     orders() {
       return this.$store.getters['order/orders']
+    },
+    fetched() {
+      return this.$store.getters['order/fetched']
     }
   },
 
@@ -40,9 +46,6 @@ export default {
         res => {
           if(res.data.code == 'SUCCESS') {
             this.$store.dispatch('order/setOrders', res.data.data.orders)
-            console.log(res.data.data.orders);
-            console.log(res.data.data);
-            console.log(this.orders);
           }
         },
         (err) => {
@@ -51,14 +54,15 @@ export default {
         }
       )
       .finally(
-        () => this.isLoaded = true
+        () => this.$store.dispatch('order/setFetched', true)
       )
-
     }
   },
 
   mounted() {
-    this.getOrders()
+    if(!this.fetched) {
+      this.getOrders()
+    }
   }
 }
 </script>

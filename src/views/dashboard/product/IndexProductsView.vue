@@ -6,7 +6,7 @@
       <div class="tw-grid tw-grid-cols-12 tw-p-3 tw-gap-2">
         
         <div class="tw-col-span-12">
-          <ProductsTable :isLoaded="isLoaded" :allItems="products" />
+          <ProductsTable :isLoaded="fetched" :allItems="products" />
         </div>
       </div>
     </div>
@@ -22,19 +22,22 @@ export default {
 
   data() {
     return {
-      isLoaded: false,
     }
   },
 
   computed: {
     products() {
       return this.$store.getters['product/products']
-    }
+    },
+
+    fetched() {
+      return this.$store.getters['product/fetched']
+    },
   },
 
   methods: {
     getProducts() {
-      this.isLoaded = false
+      this.fetched = false
       Product.all()
       .then(
         res => {
@@ -46,14 +49,16 @@ export default {
       )
       .finally(
         () => {
-          this.isLoaded = true
+          this.$store.dispatch('product/setFetched', true)
         }
       )
     }
   },
   
   mounted() {
-    this.getProducts()
+    if(!this.fetched) {
+      this.getProducts()
+    }
   }
 }
 </script>

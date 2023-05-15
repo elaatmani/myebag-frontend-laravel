@@ -521,11 +521,22 @@ export default {
       Product.create(product)
       .then(
         res => {
-          console.log(res.data);
-          this.$alert({
-            type: 'success',
-            body: 'Product Created Successfully'
-          })
+          if(res.data.code == 'SUCCESS') {
+            this.$alert({
+              type: 'success',
+              body: 'Product Created Successfully'
+            })
+            this.$store.dispatch('product/addProduct', res.data.data.product);
+
+            this.product.name = '';
+            this.product.description = '';
+            this.variations = [];
+            this.images = [];
+            this.samePrice = false;
+            this.hasColors = true;
+            
+          }
+
         },
         this.$handleApiError
       )

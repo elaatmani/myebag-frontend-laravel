@@ -8,7 +8,7 @@
             <span class="dark:tw-font-thin">{{ link.name }}</span>
         </div>
         <div :class="[isActive && '!tw-bg-white !tw-text-primary']" class="tw-py-1 tw-font-bold tw-px-2 tw-text-white tw-bg-emerald-400 tw-text-xs tw-rounded-md  dark:tw-text-neutral-800">
-            <span v-if="isLoaded">
+            <span v-if="fetched">
               {{ ordersCount }}
             </span>
             <span v-else class="">
@@ -29,7 +29,6 @@ export default {
 
     data() {
       return {
-        isLoaded: false
       }
     },
 
@@ -38,31 +37,37 @@ export default {
         return this.$route.name == this.link.to
       },
       ordersCount() {
-        return this.$store.getters['order/newOrdersCount']
-      }
+        return this.$store.getters['order/orders'].filter(i => i.order_status.id == 1).length
+      },
+      fetched() {
+          return this.$store.getters['order/fetched']
+        }
     },
 
     methods: {
-    getOrders() {
+      getOrders() {
       Order.all()
       .then(
         res => {
           if(res.data.code == 'SUCCESS') {
             this.$store.dispatch('order/setOrders', res.data.data.orders)
-            this.$store.dispatch('order/setNewOrdersCount', res.data.data.orders.length)
           }
         },
-        this.$handleApiError
+        (err) => {
+          this.$handleApiError(err)
+          this.$store.dispatch('order/setOrders', [])
+        }
       )
       .finally(
-        () => this.isLoaded = true
+        () => this.$store.dispatch('order/setFetched', true)
       )
-
     }
   },
 
   mounted() {
-    this.getOrders()
+    if(this.$route.name != 'orders/index' && !this.fetched) {
+      this.getOrders()
+    }
   }
 }
 </script>
