@@ -28,13 +28,14 @@
         </div>
     </div>
     </div>
-    <div class="tw-relative tw-min-h-fit tw-h-fit dark:tw-border-neutral-700 tw-border !tw-rounded-lg tw-border-neutral-200/80 tw-max-h-[600px]  sm:tw-rounded-lg"> <!-- tw-overflow-x-auto -->
+    <div class="">
+        <div class="tw-overflow-x-auto tw-relative tw-min-h-fit tw-h-fit dark:tw-border-neutral-700 tw-border !tw-rounded-lg tw-border-neutral-200/80 tw-max-h-[600px] sm:tw-rounded-lg"> <!-- tw-overflow-x-auto -->
         
         <div v-if="!isLoaded" class="tw-min-h-[150px] tw-flex tw-items-center tw-justify-center">
             <loading-dash class="tw-scale-50"></loading-dash>
         </div>
         
-        <table v-if="isLoaded" class="tw-w-full  tw-relative tw-text-sm tw-text-left !tw-rounded-lg tw-text-gray-500 dark:tw-text-neutral-200">
+        <table v-if="isLoaded" class="tw-w-full  tw-relative tw-text-sm tw-text-left !tw-rounded-lg tw-text-gray-500 dark:tw-text-neutral-200 tw-h-fit">
             <thead class="tw-text-xs  tw-w-full tw-text-gray-700 dark:tw-text-gray-300 tw-uppercase tw-bg-gray-50 dark:tw-bg-neutral-900">
                 <tr>
                     
@@ -99,6 +100,7 @@
                 </tr>
             </tbody>
         </table>
+    </div>
     </div>
 
     <!-- Pagination -->
