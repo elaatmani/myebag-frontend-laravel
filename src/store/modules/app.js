@@ -1,6 +1,8 @@
 
 let initialState = {
     IsSidebarActive: false,
+    primary: 'violet',
+    secondary: 'emerald',
     sizes: [],
     colors: [],
     orderStatuses: [],
@@ -15,6 +17,8 @@ export default {
     state: initialState,
     getters: {
         IsSidebarActive: state => state.IsSidebarActive,
+        primary: state => state.primary,
+        secondary: state => state.secondary,
         sizes: state => state.sizes,
         colors: state => state.colors,
         categories: state => state.categories,
@@ -26,6 +30,14 @@ export default {
         
         SET_IS_SIDEBAR_ACTIVE: (state, payload) => {
             state.IsSidebarActive = payload
+        },
+
+        SET_PRIMARY: (state, payload) => {
+            state.primary = payload
+        },
+
+        SET_SECONDARY: (state, payload) => {
+            state.secondary = payload
         },
 
         SET_SIZES: (state, payload) => {
@@ -80,6 +92,14 @@ export default {
 
         setSizes: ({commit}, payload) => {
             commit('SET_SIZES', payload)
+        },
+
+        setPrimary: ({commit}, payload) => {
+            commit('SET_PRIMARY', payload)
+        },
+
+        setSecondary: ({commit}, payload) => {
+            commit('SET_SECONDARY', payload)
         },
 
         removeSize: ({commit}, payload) => {

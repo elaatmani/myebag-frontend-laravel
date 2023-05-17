@@ -116,18 +116,24 @@ export default [
             },
             {
                 id: 2,
+                name: 'Payment methods',
+                to: 'dashboard/settings/general',
+                module: 'settings'
+            },
+            {
+                id: 3,
                 name: 'Colors',
                 to: 'dashboard/settings/colors',
                 module: 'settings'
             },
             {
-                id: 3,
+                id: 4,
                 name: 'Sizes',
                 to: 'dashboard/settings/sizes',
                 module: 'settings'
             },
             {
-                id: 3,
+                id: 5,
                 name: 'Order Status',
                 to: 'dashboard/settings/orders/status',
                 module: 'settings'

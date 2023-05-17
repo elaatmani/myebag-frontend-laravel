@@ -45,8 +45,6 @@
                   <v-icon size="small" class="tw-absolute tw-top-1/2 -tw-translate-y-1/2 tw-pointer-events-none tw-right-3">mdi-chevron-down</v-icon>
                 </div>
               </div>
-
-
             </div>
 
             <div class="tw-flex tw-flex-col mt-5 tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
@@ -65,9 +63,6 @@
                 </span>
               </div>
             </div>
-
-            
-
           </div>
 
         </div>
