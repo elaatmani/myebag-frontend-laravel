@@ -8,7 +8,7 @@
         </button>
     <button
         @click="createOrder"
-        class="tw-w-fit tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-violet-500 tw-text-white"
+        class="tw-w-fit tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-[rgb(var(--primary))] tw-text-white"
     >
         
         Pay
@@ -33,10 +33,15 @@ export default {
             let total = 0;
 
             this.cart.forEach(item => {
-                total += (item.variation.price * item.quantity)
+                let price = item.variation.price;
+                if(item.product.is_discount_active) {
+                    price *= (item.product.discount_percentage / 100)
+                }
+                
+                total += (price * item.quantity)
             });
 
-            return total + this.shipping
+            return total + this.shipping;
         },
         address() {
             return this.$store.getters['checkout/address']

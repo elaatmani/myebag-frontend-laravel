@@ -8,11 +8,11 @@
         <li class="tw-mr-2">
           <button
           @click="$emit('update:filter', 0)"
-            :class="[filter == 0 && 'dark:tw-text-violet-400 tw-text-violet-500 dark:tw-border-violet-400 tw-border-b-2 tw-border-violet-600', filter != 0 && 'hover:tw-border-gray-300 dark:hover:tw-text-gray-300 hover:tw-text-gray-600']"
+            :class="[filter == 0 && 'dark:tw-text-[rgb(var(--primary))] tw-text-[rgb(var(--primary))] dark:tw-border-[rgb(var(--primary))] tw-border-b-2 tw-border-[rgb(var(--primary))]', filter != 0 && 'hover:tw-border-gray-300 dark:hover:tw-text-gray-300 hover:tw-text-gray-600']"
             class="tw-flex tw-items-center tw-gap-2 tw-px-4 tw-py-2 tw-border-solid tw-border-b-2 tw-border-transparent tw-rounded-t-lg tw-duration-200"
             >
             <span>All</span>
-            <div class="tw-p-1 tw-px-2 tw-text-xs tw-bg-violet-500 tw-rounded tw-text-white">{{ orders.length }}</div>
+            <div class="tw-p-1 tw-px-2 tw-text-xs tw-bg-[rgb(var(--primary))] tw-rounded tw-text-white">{{ orders.length }}</div>
             </button
           >
         </li>

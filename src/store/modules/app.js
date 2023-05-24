@@ -1,13 +1,25 @@
+import { hexToRgb } from "@/helpers/methods"
 
 let initialState = {
     IsSidebarActive: false,
-    primary: 'violet',
-    secondary: 'emerald',
+    primary: {
+        "name": "violet",
+        "light": "#8b5cf6",
+        "dark": "#a78bfa",
+        "main": "#8b5cf6"
+    },
+    secondary: {
+        "name": "emerald",
+        "light": "#10b981",
+        "dark": "#34d399",
+        "main": "#10b981"
+    },
     sizes: [],
     colors: [],
     orderStatuses: [],
     featured: [],
     categories: [],
+    options: [],
     isReady: false
 }
 
@@ -16,14 +28,32 @@ export default {
     name: 'app',
     state: initialState,
     getters: {
+        primary: state => {
+            return {
+                name: state.primary.name,
+                main: hexToRgb(state.primary.main),
+                light: hexToRgb(state.primary.light),
+                dark: hexToRgb(state.primary.dark)
+            }
+        },
+        secondary: state => {
+            return {
+                name: state.secondary.name,
+                main: hexToRgb(state.secondary.main),
+                light: hexToRgb(state.secondary.light),
+                dark: hexToRgb(state.secondary.dark)
+            }
+        },
+
+        primaryRaw: state => state.primary,
+        secondaryRaw: state => state.secondary,
         IsSidebarActive: state => state.IsSidebarActive,
-        primary: state => state.primary,
-        secondary: state => state.secondary,
         sizes: state => state.sizes,
         colors: state => state.colors,
         categories: state => state.categories,
         orderStatuses: state => state.orderStatuses,
         featured: state => state.featured,
+        options: state => state.options,
         isReady: state => state.isReady,
     },
     mutations: {
@@ -33,11 +63,22 @@ export default {
         },
 
         SET_PRIMARY: (state, payload) => {
-            state.primary = payload
+
+            state.primary = {
+                name: payload.name,
+                main: payload.main,
+                light: payload.light,
+                dark: payload.dark,
+            }
         },
 
         SET_SECONDARY: (state, payload) => {
-            state.secondary = payload
+            state.secondary = {
+                name: payload.name,
+                main: payload.main,
+                light: payload.light,
+                dark: payload.dark,
+            }
         },
 
         SET_SIZES: (state, payload) => {
@@ -78,6 +119,21 @@ export default {
 
         SET_FEATURED: (state, payload) => {
             state.featured = payload
+        },
+
+        SET_OPTIONS: (state, payload) => {
+            state.options = payload
+        },
+
+        UPDATE_OPTION: (state, payload) => {
+            state.options = state.options.map(
+                i => {
+                    if(i.id == payload.id) {
+                        return {...payload}
+                    }
+                    return i
+                }
+            )
         },
 
         SET_IS_READY: (state, payload) => {
@@ -136,6 +192,14 @@ export default {
 
         setFeatured: ({commit}, payload) => {
             commit('SET_FEATURED', payload)
+        },
+
+        setOptions: ({commit}, payload) => {
+            commit('SET_OPTIONS', payload)
+        },
+
+        updateOption: ({commit}, payload) => {
+            commit('UPDATE_OPTION', payload)
         },
 
         setIsReady: ({commit}, payload) => {

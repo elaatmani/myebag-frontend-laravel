@@ -5,14 +5,14 @@
         <div class="tw-flex tw-items-center tw-gap-2 tw-justify-between tw-col-span-12">
             <div class="tw-relative tw-w-full tw-max-w-[550pxd] tw-flex-grow-1">
                 <icon icon="ph:magnifying-glass" class="tw-text-xl tw-text-neutral-400 tw-absolute tw-top-1/2 tw-left-3 -tw-translate-y-1/2" />
-                <input class="tw-outline-none tw-h-[38px] tw-rounded-lg tw-text-sm tw-text-neutral-500 dark:tw-text-neutral-300 tw-bg-white dark:tw-bg-neutral-800 tw-duration-300 focus:tw-border-primary hover:tw-border-primary/40 dark:hover:tw-border-purple-500/40 dark:focus:tw-border-purple-500 tw-border-neutral-200 dark:tw-border-neutral-600 tw-border-solid tw-border tw-py-2 tw-px-3 tw-pl-10 tw-w-full" type="text" placeholder="Search for ID, Name, SKU..." />
+                <input class="tw-outline-none tw-h-[38px] tw-rounded-lg tw-text-sm tw-text-neutral-500 dark:tw-text-neutral-300 tw-bg-white dark:tw-bg-neutral-800 tw-duration-300 focus:tw-border-[rgb(var(--primary))] hover:tw-border-[rgba(var(--primary),.4)] dark:hover:tw-border-[rgba(var(--primary),.4)] dark:focus:tw-border-[rgb(var(--primary))] tw-border-neutral-200 dark:tw-border-neutral-600 tw-border-solid tw-border tw-py-2 tw-px-3 tw-pl-10 tw-w-full" type="text" placeholder="Search for ID, Name, SKU..." />
             </div>
             <div class="tw-flex md:tw-justify-end tw-justify-center tw-items-center tw-gap-2">
                 <button @click="filters = !filters" class="tw-p-2 tw-h-[38px] tw-rounded-lg dark:tw-text-neutral-300 tw-bg-white dark:tw-bg-neutral-800 tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-600 tw-flex tw-items-center tw-justify-center tw-gap-2">
                     <icon class="tw-text-lg" :icon="filters ? 'material-symbols:filter-list-off-rounded' : 'material-symbols:filter-list-rounded'" />
                     <span class="tw-hidden md:tw-block tw-text-sm">Filters</span>
                 </button>
-                <button class="tw-p-2 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded-lg dark:tw-text-neutral-300 tw-text-white tw-bg-primary dark:tw-bg-primary tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-600 tw-flex tw-items-center tw-justify-center tw-gap-2">
+                <button class="tw-p-2 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded-lg dark:tw-text-neutral-300 tw-text-white tw-bg-[rgb(var(--primary))] dark:tw-bg-[rgb(var(--primary))] tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-600 tw-flex tw-items-center tw-justify-center tw-gap-2">
                     <icon class="tw-text-lg" icon="mdi:plus" />
                     <span class="tw-hidden md:tw-block tw-text-sm">Create</span>
                 </button>
@@ -46,7 +46,7 @@
                         {{ item.id }}
                     </td>
                     <th scope="row" class="tw-px-6 tw-py-2 tw-font-medium tw-w-[36px] tw-h-[36px]  tw-whitespace-nowrap ">
-                        <div class="tw-w-[35px] tw-h-[35px] tw-bg-primary/20 tw-overflow-hidden tw-rounded-lg">
+                        <div class="tw-w-[35px] tw-h-[35px] tw-bg-[rgba(var(--primary),.2)] tw-overflow-hidden tw-rounded-lg">
                             <img class="tw-w-full tw-object-cover tw-h-full" :src="$backend(item.image)" alt="">
                         </div>
                     </th>
@@ -80,7 +80,7 @@
     <div v-if="allItems.length > 10" class="mt-5 tw-flex tw-justify-between">
         <div class="d-flex align-center tw-relative">
             <div class="text-body-2 tw-h-fit mr-2 tw-text-zinc-700 dark:tw-text-neutral-200">Show per page: </div>
-            <select v-model="paginationLimit"  class="tw-py-1 tw-outline-none  focus:tw-border-primary tw-text-sm tw-px-2 tw-w-[60px] tw-border tw-rounded-lg tw-border-solid tw-border-neutral-500">
+            <select v-model="paginationLimit"  class="tw-py-1 tw-outline-none  focus:tw-border-[rgb(var(--primary))] tw-text-sm tw-px-2 tw-w-[60px] tw-border tw-rounded-lg tw-border-solid tw-border-neutral-500">
                 <option v-for="o in allowedLimit" :key="o" :value="o" class="dark:tw-text-black">
                     {{ o }}
                 </option>
@@ -91,7 +91,7 @@
         <div class="d-flex align-center">
             <div class="text-caption tw-h-fit mr-2 font-weight-bold tw-text-zinc-700 dark:tw-text-neutral-200">{{ prevRange + 1 }} - {{ (currentPage == pageCount ?  allItems.length : nextRange) }} of {{  allItems.length }} items </div>
             <div>
-            <v-btn @click="currentPage = n" :ripple="false" variant="flat" class="mr-1" icon rounded="lg" :color="n == currentPage ? 'primary' : 'grey'" density="comfortable"  v-for="n in pageCount" :key="n">
+            <v-btn @click="currentPage = n" :ripple="false" variant="flat" class="mr-1" icon rounded="lg" :color="n == currentPage ? $primaryRaw.value.main : 'grey'" density="comfortable"  v-for="n in pageCount" :key="n">
                 <span class="tw-text-white">{{ n }}</span>
             </v-btn>
             </div>

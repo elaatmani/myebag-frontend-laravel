@@ -41,10 +41,15 @@ export default {
             let total = 0;
 
             this.cart.forEach(item => {
-                total += (item.variation.price * item.quantity)
+                let price = item.variation.price;
+                if(item.product.is_discount_active) {
+                    price *= (item.product.discount_percentage / 100)
+                }
+                
+                total += (price * item.quantity)
             });
 
-            return total + this.shipping
+            return total + this.shipping;
         },
         address() {
             return this.$store.getters['checkout/address']

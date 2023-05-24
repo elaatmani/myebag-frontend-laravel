@@ -41,9 +41,9 @@
                 v-for="tab in tabs"
                 :key="tab.id"
                 :value="tab.component"
-                :color="isDarkMode ? 'secondary' : 'primary'"
+                :color="$primaryRaw.value.main"
                 class="tw-capitalize"
-                :slider-color="isDarkMode ? 'secondary' : 'primary'"
+                :slider-color="$primaryRaw.value.main"
 
                 
               >
@@ -79,10 +79,10 @@ import AddressTab from '@/components/profile/AddressTab';
 export default {
   name: 'ProfileView',
   components: { 
-    profile: ProfileTab,
-    address: AddressTab,
-    security: SecurityTab,
-    settings: SettingsTab
+    'profile-tab': ProfileTab,
+    'address-tab': AddressTab,
+    'security-tab': SecurityTab,
+    'settings-tab': SettingsTab
   },
 
   data() {
@@ -90,10 +90,10 @@ export default {
         model: 'profile',
         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         tabs: [
-          { id: 1, component: 'profile', name: 'Account', icon: 'ph:user' },
-          { id: 2, component: 'address', name: 'Address', icon: 'ph:map-pin' },
-          { id: 3, component: 'security', name: 'Security', icon: 'ph:lock' },
-          { id: 4, component: 'settings', name: 'Settings', icon: 'ph:gear-six' },
+          { id: 1, component: 'profile-tab', name: 'Account', icon: 'ph:user' },
+          // { id: 2, component: 'address-tab', name: 'Address', icon: 'ph:map-pin' },
+          { id: 3, component: 'security-tab', name: 'Security', icon: 'ph:lock' },
+          // { id: 4, component: 'settings-tab', name: 'Settings', icon: 'ph:gear-six' },
         ]
     }
   },

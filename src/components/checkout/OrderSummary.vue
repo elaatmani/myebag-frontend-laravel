@@ -13,11 +13,11 @@
             </div>
             <div class="tw-flex tw-items-center tw-justify-between tw-text-md tw-mt-3">
                 <span class="dark:tw-text-neutral-200 tw-text-neutral-800 tw-font-bold">Total</span>
-                <span class="tw-text-violet-500 tw-font-black">${{total + 5}}</span>
+                <span class="tw-text-[rgb(var(--primary))] tw-font-black">${{total}}</span>
             </div>
         </div>
 
-        <router-link v-if="pay" :to="{ name: isLoggedIn ? 'checkout' : 'login'}" class="tw-w-full tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-primary tw-text-white">        
+        <router-link v-if="pay" :to="{ name: isLoggedIn ? 'checkout' : 'login'}" class="tw-w-full tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-[rgb(var(--primary))] tw-text-white">        
             <span>
                 Proceed to Pay
             </span>
@@ -61,14 +61,22 @@ export default {
         cart() {
             return this.$store.getters['cart/cart']
         },
+        shipping() {
+            return 5
+        },
         total() {
             let total = 0;
 
             this.cart.forEach(item => {
-                total += (item.variation.price * item.quantity)
+                let price = item.variation.price;
+                if(item.product.is_discount_active) {
+                    price *= (item.product.discount_percentage / 100)
+                }
+                
+                total += (price * item.quantity)
             });
 
-            return total;
+            return total + this.shipping;
         },
 
         isLoggedIn() {

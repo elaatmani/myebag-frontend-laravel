@@ -16,7 +16,7 @@
                     </div>
                     <div class="tw-flex tw-items-center tw-justify-between tw-text-md tw-mt-3">
                         <span class="dark:tw-text-neutral-200 tw-text-neutral-800 tw-font-bold">Total</span>
-                        <span class="tw-text-violet-500 tw-font-black">${{total + 5}}</span>
+                        <span class="tw-text-[rgb(var(--primary))] tw-font-black">${{total}}</span>
                     </div>
                 </div>
             </div>
@@ -46,12 +46,15 @@ export default {
         order() {
             return this.$store.getters['order/orderDetails']
         },
+        shipping() {
+            return 5
+        },
         total() {
             let total = 0;
             this.order.order_items.forEach(element => {
                 total += element.product_variation.price * element.quantity
             });
-            return total
+            return total + 5
         }
     },
 

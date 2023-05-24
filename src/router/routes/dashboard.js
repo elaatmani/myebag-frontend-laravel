@@ -9,6 +9,7 @@ import NotFound from '@/views/dashboard/NotFound'
 import IndexProductsView from '@/views/dashboard/product/IndexProductsView';
 import CreateProductView from '@/views/dashboard/product/CreateProductView';
 import FeaturedProductsView from '@/views/dashboard/product/FeaturedProductsView';
+import UpdateProductView from '@/views/dashboard/product/UpdateProductView';
 
 // Orders
 import IndexOrdersView from '@/views/dashboard/order/IndexOrdersView'
@@ -23,6 +24,7 @@ import CreateCategoryView from '@/views/dashboard/category/CreateCategoryView'
 
 // Settings
 import GeneralView from '@/views/dashboard/settings/GeneralView'
+import PaymentView from '@/views/dashboard/settings/PaymentView'
 import ColorsView from '@/views/dashboard/settings/ColorsView'
 import SizesView from '@/views/dashboard/settings/SizesView'
 import OrderStatusView from '@/views/dashboard/settings/OrderStatusView'
@@ -78,6 +80,16 @@ export default [
                     module: 'products',
                     requireAuth: true,
                     title: "Create product",
+                }
+            },
+            {
+                name: 'products/update',
+                path: 'products/update/:id',
+                component: UpdateProductView,
+                meta: {
+                    module: 'products',
+                    requireAuth: true,
+                    title: "Update product",
                 }
             },
             {
@@ -167,6 +179,17 @@ export default [
                 meta: {
                     requireAuth: true,
                     title: "Settings",
+                },
+            },
+
+            {
+                name: "dashboard/settings/payment",
+                path: "settings/payment",
+                module: 'settings',
+                component: PaymentView,
+                meta: {
+                    requireAuth: true,
+                    title: "Payment Methods",
                 },
             },
 

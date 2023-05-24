@@ -41,20 +41,34 @@
                       class="tw-w-full tw-h-full tw-relative tw-rounded tw-overflow-hidden"
                     >
                       <img
-                        :src="$backend(item.product.images.find(i => i.order == 1)?.path || item.product.images[0].path)"
+                        :src="
+                          $backend(
+                            item.product.images.find((i) => i.order == 1)
+                              ?.path || item.product.images[0].path
+                          )
+                        "
                         class="tw-w-full tw-absolute tw-opacity-60 tw-top-0 tw-left-0 tw-blur-md tw-h-full tw-object-contain"
                         alt=""
                       />
                       <img
-                        :src="$backend(item.product.images.find(i => i.order == 1)?.path || item.product.images[0].path)"
+                        :src="
+                          $backend(
+                            item.product.images.find((i) => i.order == 1)
+                              ?.path || item.product.images[0].path
+                          )
+                        "
                         class="tw-w-full tw-h-full tw-object-contain tw-relative tw-z-10"
                         alt=""
                       />
                     </div>
                   </div>
                   <div class="tw-col-span-10">
-                    <div class="tw-flex tw-flex-col tw-px-2 ">
-                      <router-link :to="'/products/' + item.product.id" class="tw-text-sm hover:tw-underline tw-truncate">{{ item.product.name }}</router-link>
+                    <div class="tw-flex tw-flex-col tw-px-2">
+                      <router-link
+                        :to="'/products/' + item.product.id"
+                        class="tw-text-sm hover:tw-underline tw-truncate"
+                        >{{ item.product.name }}</router-link
+                      >
                       <div class="tw-flex tw-items-center tw-justify-between">
                         <p class="tw-text-xs tw-mt-1">
                           {{ item.quantity }} x ${{ item?.variation?.price }}
@@ -63,8 +77,11 @@
                           <span>Size: </span>
                           <span>{{ item.size.value }}</span>
                         </p>
-                        <button @click="handleDelete(item.id)" class="tw-px-2 tw-py-1 tw-w-[25px] tw-h-[25px] tw-border tw-border-solid tw-border-red-500/20 hover:tw-bg-red-500/10 hover:tw-border-red-500/70 tw-duration-300 tw-text-red-500/80 tw-rounded-md tw-flex tw-items-center tw-justify-center">
-                            <v-icon size="x-small" >mdi-delete-outline</v-icon>
+                        <button
+                          @click="handleDelete(item.id)"
+                          class="tw-px-2 tw-py-1 tw-w-[25px] tw-h-[25px] tw-border tw-border-solid tw-border-red-500/20 hover:tw-bg-red-500/10 hover:tw-border-red-500/70 tw-duration-300 tw-text-red-500/80 tw-rounded-md tw-flex tw-items-center tw-justify-center"
+                        >
+                          <v-icon size="x-small">mdi-delete-outline</v-icon>
                         </button>
                       </div>
                     </div>
@@ -73,19 +90,24 @@
               </div>
             </div>
 
-            <div class="tw-p-2 tw-flex tw-justify-between tw-text-sm tw-border-t tw-border-solid tw-border-t-neutral-400/20 tw-my-2">
+            <div
+              class="tw-p-2 tw-flex tw-justify-between tw-text-sm tw-border-t tw-border-solid tw-border-t-neutral-400/20 tw-my-2"
+            >
               <div>
-                {{ cart.length }} {{ cart.length == 1 ? 'Item' : 'Items' }}
+                {{ cart.length }} {{ cart.length == 1 ? "Item" : "Items" }}
               </div>
               <div v-if="cart.length > 0" class="">
                 <span>Total: </span>
-                <span>${{total}}</span>
+                <span>${{ total }}</span>
               </div>
             </div>
 
             <div v-if="cart.length > 0" class="tw-px-2 tw-mt-2">
               <router-link :to="{ name: 'cart' }" class="tw-w-full">
-                <button @click="hideMenu" class="tw-w-full tw-font-medium tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-primary tw-text-white">
+                <button
+                  @click="hideMenu"
+                  class="tw-w-full tw-font-medium tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-[rgb(var(--primary))] tw-text-white"
+                >
                   Checkout
                 </button>
               </router-link>
@@ -115,12 +137,12 @@ export default {
     total() {
       let total = 0;
 
-      this.cart.forEach(item => {
-        total += (item.variation.price * item.quantity)
+      this.cart.forEach((item) => {
+        total += item.variation.price * item.quantity;
       });
 
-      return total
-    }
+      return total;
+    },
   },
   methods: {
     showMenu() {
@@ -133,7 +155,7 @@ export default {
       this.isActive = !this.isActive;
     },
     handleDelete(id) {
-      this.$store.dispatch('cart/removeItem', id)
+      this.$store.dispatch("cart/removeItem", id);
     },
   },
   mounted() {

@@ -7,9 +7,11 @@ export default function (to, from) {
 
     const isLoggedIn = store.getters['user/isLoggedIn'];
     const isAdmin = store.getters['user/isAdmin'];
+    const options = store.getters['app/options'];
+    const name = options.find(o => o.option_name == 'name')?.option_value || appName;
 
     // change page title
-    document.title = to.meta.title + ' | ' + appName;
+    document.title = to.meta.title + ' | ' + name;
 
     // handle login path
     if (isLoggedIn && to.name === 'login') {

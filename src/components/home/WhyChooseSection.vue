@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="tw-font-extrabold tw-text-center tw-text-xl">Why Choose <span class="tw-text-primary">Us ?</span></div>
+    <div class="tw-font-extrabold tw-text-center tw-text-xl">Why Choose <span :class="['tw-text-[rgb(var(--primary))]']">Us ?</span></div>
     <div class="tw-grid tw-grid-cols-12 tw-mt-8 tw-px-5">
         <div class="md:tw-col-span-4 tw-col-span-12 tw-flex tw-py-5 md:tw-justify-center tw-items-center tw-gap-5">
             <div class="tw-p-3 tw-rounded-full tw-bg-violet-500/20 tw-text-violet-500">

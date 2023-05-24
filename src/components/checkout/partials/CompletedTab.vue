@@ -8,7 +8,7 @@
       <ShoppingCart :all-items="items" />
     </div>
     <div class="tw-flex tw-justify-end">
-      <router-link :to="{ name: 'home'}" class="tw-w-fit tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-primary tw-text-white">        
+      <router-link :to="{ name: 'home'}" class="tw-w-fit tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-[rgb(var(--primary))] tw-text-white">        
             <span>
                 Continue Shopping
             </span>

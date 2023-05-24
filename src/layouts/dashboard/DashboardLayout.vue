@@ -75,17 +75,14 @@ export default {
             if(res.data.code == 'SUCCESS') {
               this.$store.dispatch('app/setSizes', res.data.data.sizes)
               this.$store.dispatch('app/setColors', res.data.data.colors)
+              this.$store.dispatch('app/setOptions', res.data.data.options);
+              this.$store.dispatch('app/setOrderStatuses', res.data.data.order_statuses);
               this.$store.dispatch('product/setProducts', res.data.data.products)
               this.$store.dispatch('user/setUsers', res.data.data.users)
               // this.$store.dispatch('product/setFetched', true)
               this.$store.dispatch('category/setCategories', res.data.data.categories);
-              this.$store.dispatch('app/setOrderStatuses', res.data.data.order_statuses);
               this.$store.dispatch('app/setIsReady', true);
               
-
-              // this.isDataReady = true
-              
-              console.log(res.data);
               return res.data
             }
           },

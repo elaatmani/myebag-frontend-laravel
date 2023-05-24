@@ -2,13 +2,13 @@
   <div>
     <label class="tw-text-sm">Logo</label>
     <div
-      class="tw-grid tw-grid-cols-12 tw-gap-2 tw-border dark:tw-border-neutral-700 tw-border-neutral-200 tw-rounded tw-p-2 tw-my-2"
+      class="tw-grid tw-grid-cols-12 tw-gap-2 tw-border tw-border-dashed dark:tw-border-neutral-600 tw-border-neutral-300 tw-rounded tw-p-2 tw-my-2"
     >
     <div class="tw-col-span-12 tw-flex tw-items-center tw-justify-between tw-flex-wrap tw-gap-5">
       <div>
         <label class="tw-text-xs">Light Logo</label>
         <div
-          class="tw-w-[100px] tw-aspect-square tw-mt-2 tw-rounded tw-flex tw-items-center tw-justify-center tw-p-2 tw-border tw-border-dashed tw-border-neutral-500"
+          class="tw-w-[100px] tw-aspect-square tw-mt-2 tw-rounded tw-flex tw-items-center tw-justify-center tw-p-2 tw-border tw-border-dashed dark:tw-border-neutral-600 tw-border-neutral-300"
         >
           <img
             class="tw-w-full tw-object-contain"
@@ -20,7 +20,7 @@
       <div>
         <label class="tw-text-xs">Dark Logo</label>
         <div
-          class="tw-w-[100px] tw-aspect-square tw-mt-2 tw-rounded tw-flex tw-items-center tw-justify-center tw-p-2 tw-border tw-border-dashed tw-border-neutral-500"
+          class="tw-w-[100px] tw-aspect-square tw-mt-2 tw-rounded tw-flex tw-items-center tw-justify-center tw-p-2 tw-border tw-border-dashed dark:tw-border-neutral-600 tw-border-neutral-300"
         >
           <img
             class="tw-w-full tw-object-contain"
@@ -32,7 +32,7 @@
       <div>
         <label class="tw-text-xs">Favicon</label>
         <div
-          class="tw-w-[100px] tw-aspect-square tw-mt-2 tw-rounded tw-flex tw-items-center tw-justify-center tw-p-2 tw-border tw-border-dashed tw-border-neutral-500"
+          class="tw-w-[100px] tw-aspect-square tw-mt-2 tw-rounded tw-flex tw-items-center tw-justify-center tw-p-2 tw-border tw-border-dashed dark:tw-border-neutral-600 tw-border-neutral-300"
         >
           <img
             class="tw-w-full tw-object-contain"

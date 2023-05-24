@@ -10,14 +10,14 @@
         <div class="tw-flex tw-items-center tw-gap-2 tw-justify-between tw-col-span-12">
             <div class="tw-relative tw-w-full tw-max-w-[550pxd] tw-flex-grow-1">
                 <icon icon="ph:magnifying-glass" class="tw-text-xl tw-text-neutral-400 tw-absolute tw-top-1/2 tw-left-3 -tw-translate-y-1/2" />
-                <input class="tw-outline-none tw-h-[38px] tw-rounded-lg tw-text-sm tw-text-neutral-500 dark:tw-text-neutral-300 tw-bg-white dark:tw-bg-neutral-800 tw-duration-300 focus:tw-border-primary hover:tw-border-primary/40 dark:hover:tw-border-purple-500/40 dark:focus:tw-border-purple-500 tw-border-neutral-200 dark:tw-border-neutral-600 tw-border-solid tw-border tw-py-2 tw-px-3 tw-pl-10 tw-w-full" type="text" placeholder="Search for ID, Name, Size..." />
+                <input class="tw-outline-none tw-h-[38px] tw-rounded-lg tw-text-sm tw-text-neutral-500 dark:tw-text-neutral-300 tw-bg-white dark:tw-bg-neutral-800 tw-duration-300 focus:tw-border-primary hover:tw-border-primary/40 dark:hover:tw-border-[rgba(var(--primary),.4)] dark:focus:tw-border-[rgb(var(--primary))] tw-border-neutral-200 dark:tw-border-neutral-600 tw-border-solid tw-border tw-py-2 tw-px-3 tw-pl-10 tw-w-full" type="text" placeholder="Search for ID, Name, Size..." />
             </div>
             <div class="tw-flex md:tw-justify-end tw-gap-2 tw-justify-center tw-items-center">
                 <button @click="filters = !filters" class="tw-p-2 tw-h-[38px] tw-rounded-lg dark:tw-text-neutral-300 tw-bg-white dark:tw-bg-neutral-800 tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-600 tw-flex tw-items-center tw-justify-center tw-gap-2">
                     <icon class="tw-text-lg" :icon="filters ? 'material-symbols:filter-list-off-rounded' : 'material-symbols:filter-list-rounded'" />
                     <span class="tw-hidden md:tw-block tw-text-sm">Filters</span>
                 </button>
-                <button @click="createSizePopup = true" class="tw-p-2 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded-lg tw-bg-violet-500 tw-border tw-border-solid tw-border-tansparent hover:tw-border-violet-600 dark:tw-border-neutral-600 dark:hover:tw-border-violet-400 hover:tw-bg-violet-500 dark:hover:tw-bg-violet-500 tw-duration-200 tw-text-white tw-flex tw-items-center tw-justify-center tw-gap-2">
+                <button @click="createSizePopup = true" class="tw-p-2 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded-lg tw-bg-[rgb(var(--primary))] tw-border tw-border-solid tw-border-tansparent hover:tw-border-[rgb(var(--primary-dark))] dark:tw-border-neutral-600 dark:hover:tw-border-[rgb(var(--primary-light))] hover:tw-bg-[rgb(var(--primary))] dark:hover:tw-bg-[rgb(var(--primary))] tw-duration-200 tw-text-white tw-flex tw-items-center tw-justify-center tw-gap-2">
                     <icon class="tw-text-lg" icon="mdi:plus" />
                     <span class="tw-hidden md:tw-block tw-text-sm">Create</span>
                 </button>
@@ -47,7 +47,7 @@
                     </td>
                     <td class="tw-px-6 tw-py-2 tw-max-w-[120px] tw-truncate">
                         <div class="tw-flex tw-items-center tw-flex-wrap tw-gap-2">
-                            <div v-for="size in item.sizes" :key="size.id" class="tw-rounded tw-bg-primary/10 tw-text-primary dark:tw-text-violet-500 tw-px-3 tw-border tw-border-solid tw-border-primary/20 tw-font-medium dark:tw-border-primary/30 ">
+                            <div v-for="size in item.sizes" :key="size.id" class="tw-rounded tw-bg-[rgba(var(--primary),.1)] tw-text-[rgb(var(--primary))] dark:tw-text-[rgb(var(--primary))] tw-px-3 tw-border tw-border-solid tw-border-[rgba(var(--primary),.2)] tw-font-medium dark:tw-border-[rgba(var(--primary),.3)] ">
                                 <span class="tw-text-sm">
                                     {{ size.value }}
                                 </span>

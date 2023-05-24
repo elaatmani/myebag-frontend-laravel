@@ -12,16 +12,3 @@
     opacity: 0 !important;
 }
 
-::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-    width: 15px;
-    background: #6354a4;
-}
-
-::-webkit-scrollbar-track {
-    background-color: rgba(0,0,0,.7);
-}

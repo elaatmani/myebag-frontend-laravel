@@ -19,7 +19,7 @@
                     <td class="tw-px-3 tw-py-2 tw-w-[20px]">
                         <div class="tw-flex tw-gap-2">
                             <div>
-                                <div class="tw-w-[70px] tw-flex tw-items-center tw-h-[70px] tw-bg-primary/20 tw-overflow-hidden tw-rounded">
+                                <div class="tw-w-[70px] tw-flex tw-items-center tw-h-[70px] tw-bg-[rgba(var(--primary),.2)] tw-overflow-hidden tw-rounded">
                                     <img class="tw-w-full tw-object-cover" :title="item?.product?.name" :src="$backend(primaryImage(item?.product.images)?.path)" alt="">
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
     <div v-if="allItems.length > 10" class="mt-5 tw-flex tw-justify-between">
         <div class="d-flex align-center tw-relative">
             <div class="text-body-2 tw-h-fit mr-2 tw-text-zinc-700 dark:tw-text-neutral-200">Show per page: </div>
-            <select v-model="paginationLimit"  class="tw-py-1 tw-outline-none  focus:tw-border-primary tw-text-sm tw-px-2 tw-w-[60px] tw-border tw-rounded-lg tw-border-solid tw-border-neutral-500">
+            <select v-model="paginationLimit"  class="tw-py-1 tw-outline-none  focus:tw-border-[rgb(var(--primary))] tw-text-sm tw-px-2 tw-w-[60px] tw-border tw-rounded-lg tw-border-solid tw-border-neutral-500">
                 <option v-for="o in allowedLimit" :key="o" :value="o" class="dark:tw-text-black">
                     {{ o }}
                 </option>
@@ -76,7 +76,7 @@
         <div class="d-flex align-center">
             <div class="text-caption tw-h-fit mr-2 font-weight-bold tw-text-zinc-700 dark:tw-text-neutral-200">{{ prevRange + 1 }} - {{ (currentPage == pageCount ?  allItems.length : nextRange) }} of {{  allItems.length }} items </div>
             <div>
-            <v-btn @click="currentPage = n" :ripple="false" variant="flat" class="mr-1" icon rounded="lg" :color="n == currentPage ? 'primary' : 'grey'" density="comfortable"  v-for="n in pageCount" :key="n">
+            <v-btn @click="currentPage = n" :ripple="false" variant="flat" class="mr-1" icon rounded="lg" :color="n == currentPage ? primary.main : 'grey'" density="comfortable"  v-for="n in pageCount" :key="n">
                 <span class="tw-text-white">{{ n }}</span>
             </v-btn>
             </div>
@@ -106,6 +106,10 @@ export default {
     computed: {
         prevRange() {
             return (this.currentPage - 1) * this.paginationLimit
+        },
+
+        primary() {
+        return this.$store.getters['app/primaryRaw'];
         },
 
         nextRange() {

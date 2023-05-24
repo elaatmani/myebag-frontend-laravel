@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tw-scale-75">
     <div class="custom-loader"></div>
   </div>
 </template>
@@ -11,62 +11,18 @@ export default {
 </script>
 
 <style scoped>
-    .custom-loader {
-  width: 40px;
-  height: 20px;
-  --c:radial-gradient(farthest-side,#0ea5e9 93%,#0000);
-  background:
-    var(--c) 0    0,
-    var(--c) 50%  0;
-  background-size:8px 8px;
-  background-repeat: no-repeat;
-  position: relative;
-  clip-path: inset(-200% -100% 0 0);
-  animation: db6-0 1.5s linear infinite;
-}
-.custom-loader:before {
-  content: "";
-  position: absolute;
-  width: 8px;
-  height: 12px;
-  background:#6354a4;
-  left:-16px;
-  top:0;
-  animation: 
-    db6-1 1.5s linear infinite,
-    db6-2 0.5s cubic-bezier(0,200,.8,200) infinite;
-}
-.custom-loader:after {
-  content: "";
-  position: absolute;
-  inset:0 0 auto auto;
-  width:8px;
-  height: 8px;
+.custom-loader {
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background:#0ea5e9; 
-  animation: db6-3 1.5s  linear infinite;
+  background: 
+    radial-gradient(farthest-side,rgb(var(--primary)) 94%,#0000) top/8px 8px no-repeat,
+    conic-gradient(#0000 30%,rgb(var(--primary)));
+  -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 8px),#000 0);
+  animation:s3 1s infinite linear;
 }
 
-@keyframes db6-0 {
-  0%,30%  {background-position: 0  0   ,50% 0   }
-  33%     {background-position: 0  100%,50% 0   }
-  41%,63% {background-position: 0  0   ,50% 0   }
-  66%     {background-position: 0  0   ,50% 100%}
-  74%,100%{background-position: 0  0   ,50% 0   }
-}
-
-@keyframes db6-1 {
-  90%  {transform:translateY(0)}
-  95%  {transform:translateY(15px)}
-  100% {transform:translateY(15px);left:calc(100% - 8px)}
-}
-
-@keyframes db6-2 {
-  100% {top:-0.1px}
-}
-
-@keyframes db6-3 {
-  0%,80%,100% {transform:translate(0)}
-  90%         {transform:translate(26px)}
+@keyframes s3{ 
+  100%{transform: rotate(1turn)}
 }
 </style>

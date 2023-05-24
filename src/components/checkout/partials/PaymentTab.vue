@@ -1,7 +1,7 @@
 <template>
   <div class="tw-h-full">
     <div v-if="processing" class="tw-h-full tw-flex tw-items-center tw-justify-center tw-min-h-[200px]">
-      <v-icon class="tw-animate-spin tw-text-violet-500">mdi-loading</v-icon>
+      <v-icon class="tw-animate-spin tw-text-[rgb(var(--primary))]">mdi-loading</v-icon>
     </div>
     <div v-show="!processing" class="tw-flex tw-flex-col tw-h-full">
       <h2>Select Payment Method</h2>
@@ -11,7 +11,7 @@
             @click="!choosed && handleMethodChange(1)"
             :class="[
               method == 1
-                ? '!tw-text-violet-500 !tw-border-violet-500'
+                ? '!tw-text-[rgb(var(--primary))] !tw-border-[rgb(var(--primary))]'
                 : 'hover:tw-shadow',
                 choosed ? 'tw-opacity-80 hover:!tw-shadow-none' : 'tw-cursor-pointer'
             ]"
@@ -26,7 +26,7 @@
             @click="!choosed && handleMethodChange(2)"
             :class="[
               method == 2
-                ? '!tw-text-violet-500 !tw-border-violet-500'
+                ? '!tw-text-[rgb(var(--primary))] !tw-border-[rgb(var(--primary))]'
                 : 'hover:tw-shadow',
                 choosed ? 'tw-opacity-80 hover:!tw-shadow-none' : 'tw-cursor-pointer'
             ]"
@@ -41,7 +41,7 @@
             @click="!choosed && handleMethodChange(3)"
             :class="[
               method == 3
-                ? '!tw-text-violet-500 !tw-border-violet-500'
+                ? '!tw-text-[rgb(var(--primary))] !tw-border-[rgb(var(--primary))]'
                 : 'hover:tw-shadow',
                 choosed ? 'tw-opacity-80 hover:!tw-shadow-none' : 'tw-cursor-pointer'
             ]"
@@ -74,7 +74,7 @@
 
       <div v-if="!choosed" @click="choosed = true" class="tw-mt-5 tw-flex tw-justify-end">
         <button
-          class="tw-w-fit tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-violet-500 tw-text-white"
+          class="tw-w-fit tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-[rgb(var(--primary))] tw-text-white"
         >
           Confirm
         </button>

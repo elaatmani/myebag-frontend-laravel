@@ -13,7 +13,7 @@
             </div>
             <div class="tw-flex tw-items-center tw-justify-between tw-text-md tw-mt-3">
                 <span class="dark:tw-text-neutral-200 tw-text-neutral-800 tw-font-bold">Total</span>
-                <span class="tw-text-primary tw-font-black">$315,10</span>
+                <span class="tw-text-[rgb(var(--primary))] tw-font-black">$315,10</span>
             </div>
         </div>
 

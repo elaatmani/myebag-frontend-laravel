@@ -117,7 +117,7 @@ export default [
             {
                 id: 2,
                 name: 'Payment methods',
-                to: 'dashboard/settings/general',
+                to: 'dashboard/settings/payment',
                 module: 'settings'
             },
             {

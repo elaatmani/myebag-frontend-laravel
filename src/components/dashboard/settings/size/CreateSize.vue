@@ -7,7 +7,7 @@
                 <div class="tw-col-span-12 tw-h-fit">
                     <div class="tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
                         <label class="tw-text-sm" for="email">Name</label>
-                        <input @keyup="reset('name')" v-model="name" :class="{ '!tw-border-red-400': !form.name.valid }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="Size type name" type="text">
+                        <input @keyup="reset('name')" v-model="name" :class="{ '!tw-border-red-400': !form.name.valid }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-my-2 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-[rgb(var(--primary))] focus:tw-border-[rgb(var(--primary))]" placeholder="Size type name" type="text">
                         <div class="tw-text-xs tw-text-neutral-400" :class="[!form.name.valid && '!tw-text-red-400']">
                             <span v-if="!form.name.valid">
                             {{ form.name.message }}
@@ -23,8 +23,8 @@
                     <div class="tw-flex tw-justify-center tw-w-full tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
                         <label class="tw-text-sm" for="email">Size name</label>
                         <div class="tw-flex tw-items-center tw-gap-2 tw-my-2 ">
-                            <input @keyup="reset('sizeName')" @keydown="reset('sizes')" @keyup.enter="handleAdd" v-model="sizeName" :class="{ '!tw-border-red-400': !form.sizeName.valid }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-purple-500 focus:tw-border-purple-500" placeholder="Size name" type="text">
-                            <button @click="handleAdd" class="tw-p-2 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded-lg dark:tw-text-neutral-300 tw-text-white tw-bg-violet-500 tw-border tw-border-solid tw-border-tansparent hover:tw-border-violet-600 dark:tw-border-neutral-900 dark:hover:tw-border-violet-400 hover:tw-bg-violet-500 dark:hover:tw-bg-violet-500 tw-duration-200 tw-flex tw-items-center tw-justify-center tw-gap-2">
+                            <input @keyup="reset('sizeName')" @keydown="reset('sizes')" @keyup.enter="handleAdd" v-model="sizeName" :class="{ '!tw-border-red-400': !form.sizeName.valid }" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-[rgb(var(--primary))] focus:tw-border-[rgb(var(--primary))]" placeholder="Size name" type="text">
+                            <button @click="handleAdd" class="tw-p-2 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded-lg dark:tw-text-neutral-300 tw-text-white tw-bg-[rgb(var(--primary))] tw-border tw-border-solid tw-border-tansparent hover:tw-border-[rgb(var(--primary-dark))] dark:tw-border-neutral-900 dark:hover:tw-border-[rgb(var(--primary-light))] hover:tw-bg-[rgb(var(--primary))] dark:hover:tw-bg-[rgb(var(--primary))] tw-duration-200 tw-flex tw-items-center tw-justify-center tw-gap-2">
                                 <icon class="tw-text-lg" icon="mdi:plus" />
                                 <span class="tw-hidden md:tw-block tw-text-sm">Add</span>
                             </button>
@@ -48,7 +48,7 @@
                         <p>Add some sizes to create a custom type !</p>
                     </div>
                     <div v-if="sizes.length > 0" class="tw-flex tw-flex-wrap tw-gap-3">
-                        <div v-for="s in sizes" :key="s.id" class="tw-relative tw-px-4 tw- tw-text-sm tw-py-1 tw-font-medium tw-bg-violet-500/20 tw-border tw-border-solid tw-border-violet-500/50 tw-rounded tw-text-violet-500">
+                        <div v-for="s in sizes" :key="s.id" class="tw-relative tw-px-4 tw- tw-text-sm tw-py-1 tw-font-medium tw-bg-[rgb(var(--primary))]/20 tw-border tw-border-solid tw-border-[rgb(var(--primary))]/50 tw-rounded tw-text-[rgb(var(--primary))]">
                             <span>
                                 {{ s.value }}
                             </span>
@@ -66,7 +66,7 @@
             <button @click="cancel" class="tw-py-2 tw-px-7 tw-rounded tw-text-sm tw-border tw-border-solid tw-border-tansparent dark:tw-border-neutral-900 hover:tw-border-neutral-400 dark:hover:tw-border-neutral-500 hover:tw-bg-black/20 tw-bg-neutral-300  dark:tw-bg-neutral-600  tw-duration-200  tw-text-neutral-900 dark:tw-text-neutral-300">
                 Cancel
             </button>
-            <button @click="handleCreate" class="tw-py-2 tw-px-7 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded dark:tw-text-neutral-300 tw-text-white tw-bg-violet-500 tw-border tw-border-solid tw-border-tansparent hover:tw-border-violet-600 dark:tw-border-neutral-900 dark:hover:tw-border-violet-400 hover:tw-bg-violet-500 dark:hover:tw-bg-violet-500 tw-duration-200 tw-flex tw-items-center tw-justify-center">
+            <button @click="handleCreate" class="tw-py-2 tw-px-7 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded dark:tw-text-neutral-300 tw-text-white tw-bg-[rgb(var(--primary))] tw-border tw-border-solid tw-border-tansparent hover:tw-border-[rgb(var(--primary-dark))] dark:tw-border-neutral-900 dark:hover:tw-border-[rgb(var(--primary-light))] hover:tw-bg-[rgb(var(--primary))] dark:hover:tw-bg-[rgb(var(--primary))] tw-duration-200 tw-flex tw-items-center tw-justify-center">
                 <v-icon size="small" class="tw-duration-300 tw-animate-spin tw-overflow-hidden tw-max-w-0 tw-mr-0" :class="[isLoading && '!tw-max-w-[50px] !tw-mr-3']">mdi-loading</v-icon>
                 <span>Create</span>
             </button>

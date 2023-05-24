@@ -9,6 +9,8 @@ export default {
 
         app.config.globalProperties.$primary = computed(() => app.config.globalProperties.$store.getters['app/primary'])
         app.config.globalProperties.$secondary = computed(() =>app.config.globalProperties.$store.getters['app/secondary'])
+        app.config.globalProperties.$primaryRaw = computed(() => app.config.globalProperties.$store.getters['app/primaryRaw'])
+        app.config.globalProperties.$secondaryRaw = computed(() =>app.config.globalProperties.$store.getters['app/secondaryRaw'])
         
         // app.config.globalProperties.$getPrimaryClasses = (type = 'bg', shade = 500) => {
         //     return `tw-${type}-${app.config.globalProperties.$primary.value}-${shade}`

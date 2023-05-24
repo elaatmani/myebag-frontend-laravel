@@ -81,6 +81,7 @@ export default {
               this.$store.dispatch('app/setOrderStatuses', orderStatuses)
               this.$store.dispatch('app/setSizes', sizes)
               this.$store.dispatch('app/setColors', colors)
+              this.$store.dispatch('app/setOptions', res.data.data.options);
               this.$store.dispatch('app/setIsReady', true)
 
             }

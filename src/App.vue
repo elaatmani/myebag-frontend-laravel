@@ -16,9 +16,31 @@ export default {
     //
   }),
 
+  watch: {
+    primary: {
+      deep: true,
+      handler() {
+        this.mountVariables()
+      }
+    },
+    secondary: {
+      deep: true,
+      handler() {
+        this.mountVariables()
+      }
+    },
+
+  },
+
   computed: {
     isLoggedIn() {
       return this.$store.getters['user/isLoggedIn']
+    },
+    primary() {
+      return this.$primary.value.main
+    },
+    secondary() {
+      return this.$secondary.value.main
     }
   },
 
@@ -38,6 +60,14 @@ export default {
           this.$handleApiError(err)
         }
       )
+    },
+    mountVariables() {
+      document.documentElement.style.setProperty('--primary', this.$primary.value.main)
+      document.documentElement.style.setProperty('--primary-dark', this.$primary.value.dark)
+      document.documentElement.style.setProperty('--primary-light', this.$primary.value.light)
+      document.documentElement.style.setProperty('--secondary', this.$secondary.value.main)
+      document.documentElement.style.setProperty('--secondary-dark', this.$secondary.value.dark)
+      document.documentElement.style.setProperty('--secondary-light', this.$secondary.value.light)
     }
   },
 
@@ -46,12 +76,14 @@ export default {
       console.log('checking...');
       this.check();
     }
+
+    this.mountVariables()
     
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss"  >
   @font-face {
     font-family: "Nunito";
     src: url("@/assets/font/Nunito-VariableFont_wght.ttf");
@@ -66,5 +98,26 @@ export default {
       font-family: $font-family, sans-serif !important;
     }
     font-family: $font-family, sans-serif !important;
+  }
+</style>
+
+<style>
+  /* :root {
+    --primary: v-bind($primary.value.main);
+    --secondary: v-bind($secondary.value.main) 
+  } */
+
+ ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+      width: 15px;
+      background: rgb(var(--primary));
+  }
+
+  ::-webkit-scrollbar-track {
+      background-color: rgba(0,0,0,.7);
   }
 </style>

@@ -1,16 +1,16 @@
 <template>
   <div>
-    <label class="tw-text-sm" :class="[getColorClasses(primary)]">Colors</label>
+    <label class="tw-text-sm">Colors</label>
 
     <div
-      class="tw-border tw-space-y-3 dark:tw-border-neutral-700 tw-border-neutral-200 tw-p-2 tw-my-2"
+      class="tw-border tw-space-y-3 tw-rounded tw-border-dashed dark:tw-border-neutral-600 tw-border-neutral-300 tw-p-2 tw-my-2"
     >
       <div>
         <label class="tw-text-xs">Primary color</label>
         <div class="tw-flex tw-gap-2 tw-flex-wrap tw-mt-2">
           <div v-for="c in Object.keys(colors)" :key="c">
             <div
-              @click="handleClickPrimary({ name: c, light: colors[c][500], dark: colors[c][400] })"
+              @click="handleClickPrimary({ name: c, light: colors[c][400], dark: colors[c][600], main: colors[c][500] })"
               :class="[
                 c == primary.name && 'tw-ring dark:tw-ring-white tw-ring-black',
               ]"
@@ -26,7 +26,7 @@
         <div class="tw-flex tw-gap-2 tw-flex-wrap tw-mt-2">
           <div v-for="c in Object.keys(colors)" :key="c">
             <div
-              @click="handleClickSecondary({name: c, light: colors[c][500], dark: colors[c][400] })"
+              @click="handleClickSecondary({name: c, light: colors[c][400], dark: colors[c][600], main: colors[c][500] })"
               :class="[
                 c == secondary.name && 'tw-ring dark:tw-ring-white tw-ring-black',
               ]"
@@ -43,18 +43,21 @@
 <script>
 import colors from "tailwindcss/colors";
 
+
 export default {
   data() {
     return {
       primary: {
           "name": "violet",
           "light": "#8b5cf6",
-          "dark": "#a78bfa"
+          "dark": "#a78bfa",
+          "main": "#8b5cf6"
       },
       secondary: {
           "name": "emerald",
           "light": "#10b981",
-          "dark": "#34d399"
+          "dark": "#34d399",
+          "main": "#10b981"
       },
     };
   },

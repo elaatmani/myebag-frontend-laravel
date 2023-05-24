@@ -18,6 +18,16 @@ class User {
         return Api.post('api/auth/login', {email, password})
     }
 
+    async update(user) {
+        await Csrf.getCookie();
+        return Api.post('api/users/update/info', user)
+    }
+
+    async updatePassword(user) {
+        await Csrf.getCookie();
+        return Api.post('api/users/update/password', user)
+    }
+
     async login_google({google_id, google_jwt}) {
         await Csrf.getCookie();
         return Api.post('api/auth/login_google', {google_id, google_jwt})

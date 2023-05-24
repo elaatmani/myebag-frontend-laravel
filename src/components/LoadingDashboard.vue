@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="false">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -571,11 +571,30 @@
       </circle>
     </svg>
   </div>
+  <div class="tw-scale-75">
+    <div>
+      <div class="custom-loader"></div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {};
 </script>
 
-<style>
+<style scoped>
+.custom-loader {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: 
+    radial-gradient(farthest-side,rgb(var(--primary)) 94%,#0000) top/8px 8px no-repeat,
+    conic-gradient(#0000 30%,rgb(var(--primary)));
+  -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 8px),#000 0);
+  animation:s3 1s infinite linear;
+}
+
+@keyframes s3{ 
+  100%{transform: rotate(1turn)}
+}
 </style>

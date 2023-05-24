@@ -30,3 +30,16 @@ export function parseJwt (token) {
 
     return JSON.parse(jsonPayload);
 }
+
+export function hexToRgb(hex) {
+    // Remove the hash symbol if present
+    hex = hex.replace('#', '');
+
+    // Convert the hex value to RGB
+    const bigint = parseInt(hex, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+
+    return`${r}, ${g}, ${b}`;
+}

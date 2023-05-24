@@ -6,6 +6,7 @@
           v-bind="props"
           class="
             tw-rounded-lg tw-shadow-lg
+            tw-relative
             dark:tw-shadow-none
             tw-shadow-neutral-300/10 tw-border tw-border-neutral-200
             dark:tw-border-neutral-700
@@ -14,6 +15,9 @@
             tw-h-[130px] tw-grid tw-grid-cols-12 tw-grid-rows-3
           "
         >
+        <div v-if="price.discount" class="tw-absolute tw-top-1 tw-left-1 tw-p-1 tw-bg-emerald-500 tw-text-white tw-z-10 tw-text-xs tw-uppercase tw-rounded">
+          {{product.discount_percentage}}% Off
+        </div>
           <div
             class="
               md:tw-col-span-12
@@ -68,8 +72,11 @@
                 <p class="tw-text-sm tw-text-neutral-400 dark:tw-text-neutral-400">{{ product.category.name }}</p>
                 </div>
                 <v-spacer class="md:tw-hidden"></v-spacer>
-              <div class="tw-flex md:tw-justify-end tw-justify-between tw-items-end">
-                <p>${{ product.variations[0].price || 0 }}</p>
+              <div class="tw-relative tw-flex md:tw-justify-end tw-justify-between tw-items-end">
+                <p v-if="price.discount" class="tw-line-through tw-text-xs tw-text-red-400 tw-bg-red-400/10 tw-rounded-l tw-px-1">
+                  ${{ price.old }}
+                </p>
+                <p :class="{'tw-text-emerald-500 tw-bg-emerald-500/10 tw-rounded tw-rounded-bl-none tw-px-1': price.discount, '': !price.discount}">${{ price.current }}</p>
                 <div class="md:tw-hidden">
                     <button class="tw-p-2 dark:tw-bg-neutral-800 tw-bg-white tw-rounded-full tw-border dark:tw-border-neutral-600 tw-border-neutral-200 tw-border-solid">
                         <icon icon="mdi:chevron-right" />
@@ -87,6 +94,22 @@
 <script>
 export default {
   props: ["product"],
+
+  computed: {
+    price() {
+      let price = this.product.variations[0].price;
+      if(this.product.is_discount_active && this.product.discount_percentage != 0) {
+        price = price - (price * (this.product.discount_percentage/100))
+      }
+      let result = {
+        discount: this.product.is_discount_active,
+        current: price,
+        old: this.product.variations[0].price
+      }
+
+      return result;
+    }
+  }
 };
 </script>
 

@@ -4,7 +4,7 @@
       v-show="!isReady"
       class="tw-h-full tw-flex tw-items-center tw-justify-center tw-min-h-[100px]"
     >
-      <v-icon class="tw-animate-spin tw-text-violet-500">mdi-loading</v-icon>
+      <v-icon class="tw-animate-spin tw-text-[rgb(var(--primary))]">mdi-loading</v-icon>
     </div>
     <div v-show="isReady">
       <div id="payment-element"></div>
@@ -23,7 +23,7 @@
         <button
           @click="pay"
           :disabled="isLoading"
-          class="tw-w-fit tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-violet-500 tw-text-white"
+          class="tw-w-fit tw-font-medium tw-gap-2 tw-text-sm tw-flex tw-justify-center tw-text-center tw-py-2 tw-px-7 tw-items-center tw-rounded tw-bg-[rgb(var(--primary))] tw-text-white"
         >
           <v-icon v-if="isLoading" class="tw-animate-spin tw-text-white">mdi-loading</v-icon>
           <p v-if="!isLoading">Pay</p>
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { stripeClientSecret } from "@/config/app";
+// import { stripeClientSecret } from "@/config/app";
 // import { StripeElementsService } from 'stripe-elements'
 // import { Stripe } from 'stripe'
 import Payment from "@/api/Payment";
@@ -53,36 +53,46 @@ export default {
 
       client_secret: null,
 
-      darkVariables: {
-        colorPrimary: "#8b5cf6",
-        colorBackground: "#171717",
-        colorText: "#E5E5E5",
-        // See all possible variables below
-      },
-      lightVariables: {
-        colorPrimary: "#8b5cf6",
-        colorBackground: "#fff",
-        colorText: "#262626",
-        // See all possible variables below
-      },
+      
+    };
+  },
 
-      rules: {
+  computed: {
+    stripeClientSecret() {
+      return this.$store.getters['app/options'].find(o => o.option_name == 'stripe_test_public_key').option_value
+    },
+    primary() {
+      return this.$store.getters['app/primaryRaw'];
+    },
+    rules() {
+      return {
         ".Input": {
           boxShadow: "none",
         },
         ".Input:hover": {
           boxShadow: "none",
-          border: "1px solid #8b5cf680",
+          border: "1px solid " + this.primary.main + "60",
         },
         ".Input:focus": {
           boxShadow: "none",
-          border: "1px solid #8b5cf6",
+          border: "1px solid " + this.primary.main,
         },
-      },
-    };
-  },
-
-  computed: {
+      }
+    },
+    darkVariables() {
+      return {
+        colorPrimary: this.primary.main,
+        colorBackground: "#171717",
+        colorText: "#E5E5E5",
+      }
+    },
+    lightVariables() {
+      return {
+        colorPrimary: this.primary.main,
+        colorBackground: "#fff",
+        colorText: "#262626",
+      }
+    },
     dark() {
       return this.$store.getters["theme/isDarkMode"];
     },
@@ -95,13 +105,18 @@ export default {
         },
 
         total() {
-            let total = 0;
+          let total = 0;
 
-            this.cart.forEach(item => {
-                total += (item.variation.price * item.quantity)
-            });
+          this.cart.forEach(item => {
+              let price = item.variation.price;
+              if(item.product.is_discount_active) {
+                  price *= (item.product.discount_percentage / 100)
+              }
+              
+              total += (price * item.quantity)
+          });
 
-            return total + this.shipping
+          return total + this.shipping;
         },
         address() {
             return this.$store.getters['checkout/address']
@@ -120,7 +135,7 @@ export default {
     mountForm() {
       const Stripe = window.Stripe;
 
-      this.stripe = new Stripe(stripeClientSecret, { locale: 'en' });
+      this.stripe = new Stripe(this.stripeClientSecret, { locale: 'en' });
       console.log(this.stripe);
 
       this.elements = this.stripe.elements({
@@ -222,6 +237,7 @@ export default {
 
   mounted() {
     this.initiatPayment();
+    console.log(this.lightVariables);
   },
 };
 </script>

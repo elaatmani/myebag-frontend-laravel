@@ -22,9 +22,17 @@
         <div class="tw-text-sm">(0 reviews)</div>
     </div>
 
-    <div class="tw-text-2xl dark:tw-text-secondary tw-text-primary tw-font-bold tw-mt-4">
-        $40.00
+    <div class="tw-flex tw-gap-2 tw-items-end tw-mt-4"> 
+
+        <!-- <div class="tw-text-2xl dark:tw-text-secondary tw-text-primary tw-font-bold tw-mt-4">
+            $40.00
+        </div> -->
+        <p class="tw-text-2xl" :class="{'tw-text-emerald-500 tw-bg-emerald-500/10 tw-rounded tw-rounded-bl-none tw-px-1': price.discount, '': !price.discount}">${{ price.current }}</p>
+        <p v-if="price.discount" class="tw-line-through tw-text-sm tw-text-red-400 tw-bg-red-400/10 tw-rounded-l tw-px-1">
+            ${{ price.old }}
+        </p>
     </div>
+
 
     <div class="tw-mt-3">
 
@@ -89,8 +97,9 @@
         <div v-if="product.has_colors" class="mt-3">
             <h2>Color</h2>
             <div class="tw-mt-2 tw-flex tw-gap-2 tw-flex-wrap">
-
-                <button v-for="c in colors" :key="c.id" @click="color = c.id" :style="{backgroundColor: c.hex_code}" :class="[ c.id == color && 'tw-ring-2 dark:tw-ring-secondary tw-ring-primary']" class="
+                <!--  dark:tw-ring-secondary tw-ring-primary -->
+                <button v-for="c in colors" :key="c.id" @click="color = c.id" :class="[ c.id == color && 'tw-ring-2 tw-ring-[var(--primary)]']" class="
+                tw-bg-[rgb(var(--primary))]
                 tw-rounded-lg
                 tw-w-[30px]
                 tw-h-[30px]
@@ -174,13 +183,13 @@
                     <button
                     @click="addToCart"
                     class="
+                    tw-bg-[rgb(var(--primary))]
                     tw-w-full
                     tw-py-2 tw-px-5
                     tw-rounded-lg
                     tw-flex
                     tw-items-center
                     tw-justify-center
-                    tw-bg-primary
                     tw-gap-2
                     tw-text-white
                     tw-text-md
@@ -193,7 +202,7 @@
                         </span>
                     </button>
                 </div>
-                <div class="tw-col-span-5">
+                <div v-if="false" class="tw-col-span-5">
                     <div 
                     class="
                     tw-py-2 tw-px-5
@@ -211,7 +220,8 @@
 
                     "
                     >
-                        $100.00
+                        <p :class="{'tw-text-emerald-500 tw-bg-emerald-500/10 tw-rounded tw-rounded-bl-none tw-px-1': price.discount, '': !price.discount}">${{ price.current }}</p>
+                    
                     </div>
                 </div>
             </div>
@@ -251,6 +261,20 @@ export default {
         },
         cart() {
             return this.$store.getters['cart/cart']
+        },
+
+        price() {
+            let price = this.product.variations[0].price;
+            if(this.product.is_discount_active && this.product.discount_percentage != 0) {
+                price = price - (price * (this.product.discount_percentage/100))
+            }
+            let result = {
+                discount: this.product.is_discount_active,
+                current: price,
+                old: this.product.variations[0].price
+            }
+
+            return result;
         },
 
         selectedVariation() {

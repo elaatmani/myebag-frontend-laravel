@@ -12,7 +12,7 @@
     >
       <div v-if="isLoggedIn">
         <img
-        :src="$frontend('assets/images/avatars/2.webp')"
+        :src="$frontend(`assets/images/avatars/${avatar}.webp`)"
         class="tw-w-full"
         alt="User Prfile"
       />
@@ -72,6 +72,12 @@ export default {
   computed: {
     isLoggedIn() {
       return this.$store.getters['user/isLoggedIn']
+    },
+    user() {
+      return this.$store.getters['user/user']
+    },
+    avatar() {
+      return this.user.avatar
     }
   },
 

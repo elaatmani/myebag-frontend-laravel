@@ -6,7 +6,7 @@
     <div v-if="isLoaded" class="tw-grid tw-grid-cols-12">
       
       <div class="lg:tw-col-span-7 tw-col-span-12">
-        <ImageSlider :images="product.images" />
+        <ImageSlider :images="product.images" :product="product" />
       </div>
 
       <div class="lg:tw-col-span-5 tw-col-span-12">
