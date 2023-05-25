@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="tw-grid tw-grid-cols-12 tw-gap-5">
+    <div v-if="false" class="tw-grid tw-grid-cols-12 tw-gap-5">
       <div class="md:tw-h-[380px] sm:tw-h-[300px] tw-h-[230px] md:tw-col-span-8 tw-col-span-12 tw-bg-[#0097dc] tw-rounded-lg tw-overflow-hidden">
         <img :src="$frontend('assets/images/slider-img-1.jpg')" class="tw-w-full tw-h-full tw-object-cover"  alt="hero image">
       </div>
@@ -14,12 +14,63 @@
         </div>
       </div>
     </div>
+
+    <div>
+      <swiper
+      :slides-per-view="1"
+      :space-between="50"
+      @swiper="onSwiper"
+      @slideChange="onSlideChange"
+      :autoplay="true"
+      :speed="1000"
+      :modules="modules"
+      
+    >
+      <swiper-slide v-for="slider in sliders" :key="slider.id">
+        <div class="tw-relative tw-h-fit tw-max-h-[400px] tw-rounded-lg tw-overflow-hidden">
+          <router-link :to="slider.link">
+            <picture class="tw-w-full tw-h-full tw-object-contain tw-max-h-[400px]">
+              <source class="tw-w-full tw-max-h-[400px]" media="(min-width:650px)" :srcset="$backend(slider.desktop_image_path)">
+              <img class="tw-w-full tw-max-h-[400px]" :src="$backend(slider.mobile_image_path)">
+            </picture>
+          </router-link>
+        </div>
+      </swiper-slide>
+    </swiper>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Autoplay, EffectFade  } from 'swiper'
+import 'swiper/css';
 
+export default {
+  components: { Swiper, SwiperSlide },
+
+  data() {
+    return {
+      modules: [Autoplay, EffectFade ],
+      swiper: null
+    }
+  },
+
+  computed: {
+    sliders() {
+      return this.$store.getters['app/sliders']
+    }
+  },
+
+  methods: {
+    onSwiper(swiper) {
+      this.swiper = swiper
+      console.log(swiper);
+    },
+    onSlideChange(swiper) {
+      console.log(swiper);
+    }
+  }
 }
 </script>
 

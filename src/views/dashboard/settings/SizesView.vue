@@ -2,7 +2,7 @@
   <div>
     <h2 class="tw-text-lg">Sizes</h2>
     <p class="tw-text-sm tw-mb-3 tw-font-light tw-text-neutral-500 dark:tw-text-neutral-300">See and manage custom sizes</p>
-    <div class="tw-w-full tw-h-[500px] dark:tw-bg-neutral-800 tw-rounded-lg tw-bg-white">
+    <div class="tw-w-full tw-min-h-[500px] dark:tw-bg-neutral-800 tw-rounded-lg tw-bg-white">
       <div class="tw-grid tw-grid-cols-12 tw-p-3 tw-gap-2">
         <div class="tw-col-span-12">
           <SizesTable />

@@ -20,6 +20,8 @@ let initialState = {
     featured: [],
     categories: [],
     options: [],
+    sliders: [],
+    isHomeReady: false,
     isReady: false
 }
 
@@ -54,6 +56,8 @@ export default {
         orderStatuses: state => state.orderStatuses,
         featured: state => state.featured,
         options: state => state.options,
+        sliders: state => state.sliders,
+        isHomeReady: state => state.isHomeReady,
         isReady: state => state.isReady,
     },
     mutations: {
@@ -125,6 +129,18 @@ export default {
             state.options = payload
         },
 
+        SET_SLIDERS: (state, payload) => {
+            state.sliders = payload
+        },
+
+        ADD_SLIDER: (state, payload) => {
+            state.sliders.push(payload)
+        },
+
+        REMOVE_SLIDER: (state, payload) => {
+            state.sliders = state.sliders.filter(c => c.id !== payload)
+        },
+
         UPDATE_OPTION: (state, payload) => {
             state.options = state.options.map(
                 i => {
@@ -136,6 +152,10 @@ export default {
             )
         },
 
+        SET_IS_HOME_READY: (state, payload) => {
+            state.isHomeReady = payload
+        },
+        
         SET_IS_READY: (state, payload) => {
             state.isReady = payload
         }
@@ -198,8 +218,24 @@ export default {
             commit('SET_OPTIONS', payload)
         },
 
+        setSliders: ({commit}, payload) => {
+            commit('SET_SLIDERS', payload)
+        },
+
+        addSlider: ({commit}, payload) => {
+            commit('ADD_SLIDER', payload)
+        },
+
+        removeSlider: ({commit}, payload) => {
+            commit('REMOVE_SLIDER', payload)
+        },
+
         updateOption: ({commit}, payload) => {
             commit('UPDATE_OPTION', payload)
+        },
+
+        setIsHomeReady: ({commit}, payload) => {
+            commit('SET_IS_HOME_READY', payload)
         },
 
         setIsReady: ({commit}, payload) => {

@@ -14,7 +14,9 @@
             <router-view v-if="isDataReady"></router-view>
 
             <div v-if="!isDataReady" class="tw-h-[500px] tw-w-full tw-flex tw-items-center tw-justify-center">
-              <loading-dash class="tw-scale-50"></loading-dash>
+              <div class="tw-scale-50">
+              <loading-dash></loading-dash>
+              </div>
             </div>
         </v-container>
       </v-main>
@@ -80,6 +82,7 @@ export default {
               this.$store.dispatch('product/setProducts', res.data.data.products)
               this.$store.dispatch('user/setUsers', res.data.data.users)
               // this.$store.dispatch('product/setFetched', true)
+              this.$store.dispatch('app/setSliders', res.data.data.sliders);
               this.$store.dispatch('category/setCategories', res.data.data.categories);
               this.$store.dispatch('app/setIsReady', true);
               

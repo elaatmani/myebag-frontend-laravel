@@ -115,6 +115,12 @@ export default [
                 module: 'settings'
             },
             {
+                id: 6,
+                name: 'Sliders',
+                to: 'dashboard/settings/slider',
+                module: 'slider',
+            },
+            {
                 id: 2,
                 name: 'Payment methods',
                 to: 'dashboard/settings/payment',

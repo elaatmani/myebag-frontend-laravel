@@ -9,7 +9,7 @@
 
     <div 
     class="tw-max-h-0 tw-w-full tw-overflow-hidden tw-duration-300" 
-    :class="[ childrenMenu && 'tw-max-h-[200px]' ]" v-if="link?.hasChildren">
+    :class="[ childrenMenu && 'tw-max-h-[250px]' ]" v-if="link?.hasChildren">
       <router-link v-for="c in link.children" :key="c.id" :to="{name: c.to}" 
       :class="[isSublinkActive(c.to) && '!tw-bg-[rgb(var(--primary))] !tw-text-neutral-200 !dark:tw-text-neutral-700']" 
       class="tw-flex tw-items-center dark:tw-text-neutral-200 tw-text-neutral-700 hover:tw-pl-14  dark:tw-bg-black/30 tw-duration-200  tw-bg-neutral-100 tw-py-2 tw-px-6 tw-pl-12 tw-gap-2">

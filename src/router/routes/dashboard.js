@@ -28,6 +28,7 @@ import PaymentView from '@/views/dashboard/settings/PaymentView'
 import ColorsView from '@/views/dashboard/settings/ColorsView'
 import SizesView from '@/views/dashboard/settings/SizesView'
 import OrderStatusView from '@/views/dashboard/settings/OrderStatusView'
+import SlidersView from '@/views/dashboard/settings/SlidersView'
 
 
 export default [
@@ -179,6 +180,17 @@ export default [
                 meta: {
                     requireAuth: true,
                     title: "Settings",
+                },
+            },
+
+            {
+                name: "dashboard/settings/slider",
+                path: "settings/sliders",
+                module: 'settings',
+                component: SlidersView,
+                meta: {
+                    requireAuth: true,
+                    title: "Sliders",
                 },
             },
 

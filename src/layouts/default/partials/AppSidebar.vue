@@ -4,13 +4,17 @@
       <div class="tw-w-full tw-h-full tw-p-5 tw-backdrop-blur-3xl tw-overflow-y-auto  tw-shadow-lg tw-rounded-lg tw-border tw-border-solid tw-border-neutral-300 dark:tw-border-neutral-700 tw-duration-300 tw-opacity-0" :class="{'!tw-opacity-100': isSidebarActive}">
         <div class="tw-flex tw-flex-col tw-gap-2">
           
-          <router-link to="/" class="tw-flex tw-items-center tw-gap-2 tw-w-full tw-border tw-border-solid tw-border-neutral-600 tw-py-2 tw-px-4 tw-rounded-md">
-            <icon class="tw-text-2xl" icon="mdi:home" />
+          <router-link :to="{ name: 'home' }" class="tw-flex tw-items-center tw-gap-2 tw-w-full dark:tw-bg-white/5 tw-bg-black/5 tw-border-black/10 tw-border dark:tw-border-white/10 tw-py-2 tw-px-4 tw-rounded-md">
+            <!-- <icon class="tw-text-2xl" icon="mdi:home" /> -->
             <span>Home</span>
           </router-link>
-          <router-link to="/" class="tw-flex tw-items-center tw-gap-2 tw-w-full tw-bg-white/10 tw-py-2 tw-px-4 tw-rounded-md">
-            <icon class="tw-text-2xl" icon="mdi:home" />
-            <span>Home</span>
+          <router-link :to="{ name: 'categories' }" class="tw-flex tw-items-center tw-gap-2 tw-w-full dark:tw-bg-white/5 tw-bg-black/5 tw-border-black/10 tw-border dark:tw-border-white/10 tw-py-2 tw-px-4 tw-rounded-md">
+            <!-- <icon class="tw-text-2xl" icon="mdi:home" /> -->
+            <span>Categories</span>
+          </router-link>
+          <router-link :to="{ name: 'categories' }" class="tw-flex tw-items-center tw-gap-2 tw-w-full dark:tw-bg-white/5 tw-bg-black/5 tw-border-black/10 tw-border dark:tw-border-white/10 tw-py-2 tw-px-4 tw-rounded-md">
+            <!-- <icon class="tw-text-2xl" icon="mdi:home" /> -->
+            <span>Discover</span>
           </router-link>
         </div>
       </div>

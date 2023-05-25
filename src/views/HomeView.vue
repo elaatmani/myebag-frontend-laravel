@@ -1,19 +1,19 @@
 <template>
     <div class="tw-pb-6">
-      <div v-if="!isReady">
+      <!-- <div v-if="!isReady">
         <loading />
-      </div>
+      </div> -->
 
-      <div v-if="isReady">
+      <div>
         <HeroSection />
 
         <div class="tw-py-5"></div>
         
-        <WhyChooseSection />
+        <FeaturedProducts :featured="featured" />
 
         <div class="tw-py-5"></div>
 
-        <FeaturedProducts :featured="featured" />
+        <WhyChooseSection />
       </div>
     </div>
 </template>

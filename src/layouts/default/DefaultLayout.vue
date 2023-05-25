@@ -61,7 +61,7 @@ export default {
 
     computed: {
       isReady() {
-        return this.$store.getters['app/isReady']
+        return this.$store.getters['app/isHomeReady']
       }
     },
 
@@ -82,7 +82,9 @@ export default {
               this.$store.dispatch('app/setSizes', sizes)
               this.$store.dispatch('app/setColors', colors)
               this.$store.dispatch('app/setOptions', res.data.data.options);
-              this.$store.dispatch('app/setIsReady', true)
+              this.$store.dispatch('app/setSliders', res.data.data.sliders);
+              this.$store.dispatch('app/setIsHomeReady', true)
+              console.log(this.isReady);
 
             }
 
