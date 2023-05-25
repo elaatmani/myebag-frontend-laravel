@@ -139,6 +139,7 @@
 </template>
 
 <script>
+import App from '@/api/App'
 export default {
   props: ["paypal"],
 
@@ -234,16 +235,48 @@ export default {
 
   methods: {
     update() {
-      this.isLoading = true
+      this.isLoading = true;
 
-      setTimeout(
-        () => {
-          this.$alert({
-            body: 'Updated successfully',
-            type: 'success'
-          })
-          this.isLoading = false
-        }, 2000
+      const options = [
+        {
+          option_name: 'pay_with_paypal',
+          option_value: this.paypal.active
+        },
+        {
+          option_name: 'paypal_live_client_id',
+          option_value: this.paypal.live.clientId
+        },
+        {
+          option_name: 'paypal_live_secret_key',
+          option_value: this.paypal.live.secretKey
+        },
+        {
+          option_name: 'paypal_test_client_id',
+          option_value: this.paypal.test.clientId
+        },
+        {
+          option_name: 'paypal_test_secret_key',
+          option_value: this.paypal.test.secretKey
+        },
+        {
+          option_name: 'paypal_mode_test',
+          option_value: this.paypal.isTest
+        }
+      ]
+
+      App.updateOptions(options)
+      .then(
+        res => {
+          if(res.data.code == 'SUCCESS') {
+            this.$alert({
+              body: "Updated successfully",
+              type: "success",
+            })
+          }
+        },
+        this.$handleApiError
+      ).finally(
+        () => this.isLoading = false
       )
     }
   }

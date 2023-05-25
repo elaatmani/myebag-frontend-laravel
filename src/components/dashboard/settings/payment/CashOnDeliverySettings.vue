@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import App from '@/api/App'
 export default {
   props: ["cod"],
 
@@ -51,16 +52,28 @@ export default {
 
   methods: {
     update() {
-      this.isLoading = true
+      this.isLoading = true;
 
-      setTimeout(
-        () => {
-          this.$alert({
-            body: 'Updated successfully',
-            type: 'success'
-          })
-          this.isLoading = false
-        }, 2000
+      const options = [
+        {
+          option_name: 'pay_with_cod',
+          option_value: this.active
+        },
+      ]
+
+      App.updateOptions(options)
+      .then(
+        res => {
+          if(res.data.code == 'SUCCESS') {
+            this.$alert({
+              body: "Updated successfully",
+              type: "success",
+            })
+          }
+        },
+        this.$handleApiError
+      ).finally(
+        () => this.isLoading = false
       )
     }
   }

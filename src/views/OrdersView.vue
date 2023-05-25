@@ -31,23 +31,16 @@
           s.name.toLocaleLowerCase()
         }}</span>
       </div>
-      <!-- <div @click="selected = 1" :class="[selected == 1 && '!tw-text-neutral-900 dark:tw-bg-blue-400 tw-bg-blue-300']" class="tw-flex tw-items-center tw-gap-2 tw-duration-300 tw-cursor-pointer tw-py-1 tw-px-2 tw-rounded-full tw-border tw-border-solid tw-border-blue-400 tw-text-blue-500 dark:tw-text-blue-400">
-            <icon icon="ph:spinner-gap" />
-            <span class="tw-text-sm">In Progress</span>
-        </div>
-        <div @click="selected = 2" :class="[selected == 2 && '!tw-text-neutral-900 dark:tw-bg-gray-400 tw-bg-gray-300']" class="tw-flex tw-items-center tw-gap-2 tw-duration-300 tw-cursor-pointer tw-py-1 tw-px-2 tw-rounded-full tw-border tw-border-solid tw-border-gray-400 tw-text-gray-500 dark:tw-text-gray-400">
-            <icon icon="ph:truck" />
-            <span class="tw-text-sm">Shipping now</span>
-        </div>
-        <div @click="selected = 3" :class="[selected == 3 && '!tw-text-neutral-900 dark:tw-bg-green-400 tw-bg-green-300']" class="tw-flex tw-items-center tw-gap-2 tw-duration-300 tw-cursor-pointer tw-py-1 tw-px-2 tw-rounded-full tw-border tw-border-solid tw-border-green-400 tw-text-green-500 dark:tw-text-green-400">
-            <icon icon="ph:check-circle" />
-            <span class="tw-text-sm">Completed</span>
-        </div> -->
     </div>
 
-    <div>
+    <div v-if="!isLoaded">
+      <div class="tw-h-[200px]">
+        <loading />
+      </div>
+    </div>
+
+    <div v-if="isLoaded">
       <table
-        v-if="isLoaded"
         class="tw-w-full tw-relative tw-text-sm tw-text-left !tw-rounded-lg tw-text-gray-500 dark:tw-text-neutral-200"
       >
         <thead
@@ -110,7 +103,7 @@
             <td class="tw-px-6 tw-py-2 tw-space-x-3">
               <div>
                 <button
-                @click="showItems(item)"
+                  @click="showItems(item)"
                   class="tw-text-blue-500 dark:tw-text-blue-400 tw-underline"
                 >
                   See Details
@@ -143,11 +136,11 @@
 
 <script>
 import User from "@/api/User";
-import OrderDetails from '@/components/dashboard/order/OrderDetails'
+import OrderDetails from "@/components/dashboard/order/OrderDetails";
 // import Order from '@/api/Order'
 
 export default {
-  components: {OrderDetails},
+  components: { OrderDetails },
 
   data() {
     return {
@@ -181,7 +174,6 @@ export default {
         });
     },
     handleChange(status) {
-      console.log(status);
       this.selected = status.id;
     },
     showItems(order) {

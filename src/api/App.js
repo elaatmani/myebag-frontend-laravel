@@ -18,6 +18,11 @@ class App {
         return Api.get('api/initial/user')
     }
 
+    async updateOptions(options) {
+        await Csrf.getCookie();
+        return Api.post('api/options/updateMany', {options})
+    }
+
 }
 
 export default new App();

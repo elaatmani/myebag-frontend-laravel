@@ -6,7 +6,7 @@
     <div v-show="!processing" class="tw-flex tw-flex-col tw-h-full">
       <h2>Select Payment Method</h2>
       <div class="tw-grid tw-grid-cols-12 tw-mt-2 tw-gap-5">
-        <div class="md:tw-col-span-4 tw-col-span-12">
+        <div v-if="payWithStripe" class="md:tw-col-span-4 tw-col-span-12">
           <div
             @click="!choosed && handleMethodChange(1)"
             :class="[
@@ -21,7 +21,7 @@
             <p>Credit or debit card</p>
           </div>
         </div>
-        <div class="md:tw-col-span-4 tw-col-span-12">
+        <div v-if="payWithPaypal" class="md:tw-col-span-4 tw-col-span-12">
           <div
             @click="!choosed && handleMethodChange(2)"
             :class="[
@@ -36,7 +36,7 @@
             <p>PayPal</p>
           </div>
         </div>
-        <div class="md:tw-col-span-4 tw-col-span-12">
+        <div v-if="payWithCod" class="md:tw-col-span-4 tw-col-span-12">
           <div
             @click="!choosed && handleMethodChange(3)"
             :class="[
@@ -98,31 +98,28 @@ export default {
     };
   },
 
+  computed: {
+    options() {
+      return this.$store.getters['app/options']
+    },
+    payWithPaypal() {
+      return this.options.find(o => o.option_name == 'pay_with_paypal')?.option_value
+    },
+    payWithStripe() {
+      return this.options.find(o => o.option_name == 'pay_with_stripe')?.option_value
+    },
+    payWithCod() {
+      return this.options.find(o => o.option_name == 'pay_with_cod')?.option_value
+    }
+  },
+
   methods: {
     handleMethodChange(method) {
       this.method = method;
     },
+    
     nextStep() {
       this.$emit("updateStep", 4);
-    },
-
-    pay() {
-      switch (this.method) {
-        case 1:
-          this.payWithCard();
-          break;
-        case 3:
-          this.payWithCod();
-          break;
-      }
-    },
-
-    payWithCard() {
-      console.log("processing card...");
-    },
-
-    payWithCod() {
-      console.log("processing cod...");
     },
 
     handleProcessing(state) {
