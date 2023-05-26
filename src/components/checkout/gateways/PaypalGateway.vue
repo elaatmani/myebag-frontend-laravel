@@ -53,7 +53,11 @@ export default {
         },
         address() {
             return this.$store.getters['checkout/address']
-        }
+        },
+
+        // paypalClientId() {
+        //     return this.$store.getters['app/options'].find(o => o.option_name == 'paypal_test_client_id').option_value
+        // }
     },
 
     methods: {

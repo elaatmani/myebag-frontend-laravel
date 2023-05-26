@@ -1,19 +1,48 @@
 import { hexToRgb } from "@/helpers/methods"
 
+const defaultLogoWidth = 28;
+
+const defaultPrimary = {
+    "name": "violet",
+    "light": "#8b5cf6",
+    "dark": "#a78bfa",
+    "main": "#8b5cf6"
+}
+const defaultSecondary = {
+    "name": "emerald",
+    "light": "#10b981",
+    "dark": "#34d399",
+    "main": "#10b981"
+}
+
+function getPrimary() {
+    let color = localStorage.getItem('primaryColor');
+    if(!color) {
+        return defaultPrimary
+    }
+    return JSON.parse(color);
+}
+
+function getSecondary() {
+    let color = localStorage.getItem('secondaryColor');
+    if(!color) {
+        return defaultSecondary
+    }
+    return JSON.parse(color);
+}
+
+function getLogoWidth() {
+    let width = localStorage.getItem('logoWidth');
+    if(!width) {
+        return defaultLogoWidth
+    }
+    return parseInt(width);
+}
+
 let initialState = {
     IsSidebarActive: false,
-    primary: {
-        "name": "violet",
-        "light": "#8b5cf6",
-        "dark": "#a78bfa",
-        "main": "#8b5cf6"
-    },
-    secondary: {
-        "name": "emerald",
-        "light": "#10b981",
-        "dark": "#34d399",
-        "main": "#10b981"
-    },
+    primary: getPrimary(),
+    secondary: getSecondary(),
     sizes: [],
     colors: [],
     orderStatuses: [],
@@ -21,6 +50,7 @@ let initialState = {
     categories: [],
     options: [],
     sliders: [],
+    logoWidth: getLogoWidth(),
     isHomeReady: false,
     isReady: false
 }
@@ -58,6 +88,7 @@ export default {
         options: state => state.options,
         sliders: state => state.sliders,
         isHomeReady: state => state.isHomeReady,
+        logoWidth: state => state.logoWidth,
         isReady: state => state.isReady,
     },
     mutations: {
@@ -66,23 +97,37 @@ export default {
             state.IsSidebarActive = payload
         },
 
-        SET_PRIMARY: (state, payload) => {
+        SET_LOGO_WIDTH: (state, payload) => {
+            document.documentElement.style.setProperty('--logo-width', `${payload}px`)
+            localStorage.setItem('logoWidth', payload);
+            state.logoWidth = payload;
 
-            state.primary = {
+        },
+
+        SET_PRIMARY: (state, payload) => {
+            const color = {
                 name: payload.name,
                 main: payload.main,
                 light: payload.light,
                 dark: payload.dark,
             }
+
+            localStorage.setItem('primaryColor', JSON.stringify(color))
+
+            state.primary = color;
         },
 
         SET_SECONDARY: (state, payload) => {
-            state.secondary = {
+            const color = {
                 name: payload.name,
                 main: payload.main,
                 light: payload.light,
                 dark: payload.dark,
             }
+
+            localStorage.setItem('secondaryColor', JSON.stringify(color))
+
+            state.secondary = color;
         },
 
         SET_SIZES: (state, payload) => {
@@ -129,6 +174,18 @@ export default {
             state.options = payload
         },
 
+        UPDATE_OPTIONS: (state, payload) => {
+            state.options = state.options.map(
+                o => {
+                    const option = payload.find(i => i.option_name == o.option_name);
+                    if(option !== null) {
+                        return option;
+                    }
+                    return o;
+                }
+            )
+        },
+
         SET_SLIDERS: (state, payload) => {
             state.sliders = payload
         },
@@ -164,6 +221,10 @@ export default {
         
         setIsSidebarActive: ({commit}, payload) => {
             commit('SET_IS_SIDEBAR_ACTIVE', payload)
+        },
+
+        setLogoWidth: ({commit}, payload) => {
+            commit('SET_LOGO_WIDTH', payload)
         },
 
         setSizes: ({commit}, payload) => {
@@ -216,6 +277,10 @@ export default {
 
         setOptions: ({commit}, payload) => {
             commit('SET_OPTIONS', payload)
+        },
+
+        updateOptions: ({commit}, payload) => {
+            commit('UPDATE_OPTIONS', payload)
         },
 
         setSliders: ({commit}, payload) => {

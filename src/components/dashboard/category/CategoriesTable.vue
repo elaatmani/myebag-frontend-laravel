@@ -12,10 +12,12 @@
                     <icon class="tw-text-lg" :icon="filters ? 'material-symbols:filter-list-off-rounded' : 'material-symbols:filter-list-rounded'" />
                     <span class="tw-hidden md:tw-block tw-text-sm">Filters</span>
                 </button>
-                <button class="tw-p-2 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded-lg dark:tw-text-neutral-300 tw-text-white tw-bg-[rgb(var(--primary))] dark:tw-bg-[rgb(var(--primary))] tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-600 tw-flex tw-items-center tw-justify-center tw-gap-2">
-                    <icon class="tw-text-lg" icon="mdi:plus" />
-                    <span class="tw-hidden md:tw-block tw-text-sm">Create</span>
-                </button>
+                <router-link :to="{name: 'categories/create'}">
+                    <button class="tw-p-2 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded-lg dark:tw-text-neutral-300 tw-text-white tw-bg-[rgb(var(--primary))] dark:tw-bg-[rgb(var(--primary))] tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-600 tw-flex tw-items-center tw-justify-center tw-gap-2">
+                        <icon class="tw-text-lg" icon="mdi:plus" />
+                        <span class="tw-hidden md:tw-block tw-text-sm">Create</span>
+                    </button>
+                </router-link>
             </div>
         </div>
         <!-- <div class="tw-col-span-12 tw-max-h-0 tw-duration-500 tw-ease-in-out tw-overflow-hidden" :class="[filters && '!tw-max-h-[300px]']">

@@ -5,10 +5,7 @@
         <div class="md:tw-col-span-4 tw-col-span-12">
           <AppLogo />
           <p class="tw-mt-4 tw-text-sm">
-            Elevate your style with My Ebag. Discover the latest fashion trends
-            and get fast, reliable delivery right to your doorstep. Plus, enjoy
-            hassle-free returns and exceptional customer service. Shop now and
-            experience the ultimate shopping experience.
+            {{description}}
           </p>
         </div>
         <div class="md:tw-col-span-4 tw-col-span-12">
@@ -38,6 +35,26 @@ export default {
         {id: 3, name: 'Mastercard', image: 'assets/images/icons/mastercard.svg'},
         {id: 4, name: 'Paypal', image: 'assets/images/icons/paypal-card.svg'},
       ]
+    }
+  },
+
+  computed: {
+    options() {
+      return this.$store.getters['app/options'];
+    },
+
+    description() {
+      const option = this.options.find(o => o.option_name == "description");
+
+      if(!option) {
+        return `
+            Elevate your style with My Ebag. Discover the latest fashion trends
+            and get fast, reliable delivery right to your doorstep. Plus, enjoy
+            hassle-free returns and exceptional customer service. Shop now and
+            experience the ultimate shopping experience.
+        `
+      }
+      return option.option_value
     }
   }
 };

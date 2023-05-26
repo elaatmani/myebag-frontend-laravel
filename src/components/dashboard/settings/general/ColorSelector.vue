@@ -45,6 +45,8 @@ import colors from "tailwindcss/colors";
 
 
 export default {
+  props: ['primaryColor', 'secondaryColor'],
+
   data() {
     return {
       primary: {
@@ -85,25 +87,48 @@ export default {
         Object.entries(colors).filter(([c]) => !removed.includes(c))
       );
     },
+    options() {
+      return this.$store.getters['app/options']
+    }
   },
 
   methods: {
     handleClickPrimary(c) {
       this.primary = c;
-      this.$store.dispatch('app/setPrimary', c)
-      console.log(this.$primary.value);
+      this.$emit('update:primaryColor', c)
+      // this.$store.dispatch('app/setPrimary', c)
     },
 
     handleClickSecondary(c) {
       this.secondary = c
-      this.$store.dispatch('app/setSecondary', c)
-      console.log(this.$secondary.value);
+      this.$emit('update:secondaryColor', c)
+      // this.$store.dispatch('app/setSecondary', c)
     },
+    getOptions() {
+      const primary = {
+          "name": this.options.find(o => o.option_name == 'primary_color_name').option_value,
+          "main": this.options.find(o => o.option_name == 'primary_color_main').option_value,
+          "light": this.options.find(o => o.option_name == 'primary_color_light').option_value,
+          "dark": this.options.find(o => o.option_name == 'primary_color_dark').option_value,
+      }
+
+      const secondary = {
+          "name": this.options.find(o => o.option_name == 'secondary_color_name').option_value,
+          "main": this.options.find(o => o.option_name == 'secondary_color_main').option_value,
+          "light": this.options.find(o => o.option_name == 'secondary_color_light').option_value,
+          "dark": this.options.find(o => o.option_name == 'secondary_color_dark').option_value,
+      }
+      this.primary = primary;
+      this.secondary = secondary;
+      this.$emit('update:primaryColor', primary)
+      this.$emit('update:secondaryColor', secondary)
+      this.$store.dispatch('app/setPrimary', primary)
+      this.$store.dispatch('app/setSecondary', secondary)
+    }
   },
 
   mounted() {
-    console.table(this.colors);
-    console.log(this.$primary);
+    this.getOptions();
   }
 };
 </script>

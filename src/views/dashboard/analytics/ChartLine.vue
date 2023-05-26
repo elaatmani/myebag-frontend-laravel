@@ -39,12 +39,12 @@ export default {
             { 
                 label: 'Orders',
                 // backgroundColor: ['#6354a4'],
-                backgroundColor: ['#34d399'],
+                backgroundColor: [this.$primaryRaw.value.main],
                 data: [40, 20, 12, 30] 
             },
             { 
                 label: 'Customers',
-                backgroundColor: ['#6354a4'],
+                backgroundColor: [this.$secondaryRaw.value.main],
                 data: [10, 15, 4, 40] 
             } 
         ]

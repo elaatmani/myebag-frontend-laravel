@@ -1,6 +1,6 @@
 <template>
     <v-navigation-drawer v-model="isSidebarActive" class="dark:tw-bg-neutral-900 !tw-fixed">
-        <div class="tw-py-2 tw-px-5 tw-flex tw-items-center tw-justify-between tw-gap-2 tw-border-b tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-800">
+        <div class="tw-px-5 tw-h-[48px] tw-py-1 tw-flex tw-items-center tw-justify-between tw-gap-2 tw-border-b tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-800">
             <AppLogo />
 
             <ThemeSwitcher class="tw-scale-75" />

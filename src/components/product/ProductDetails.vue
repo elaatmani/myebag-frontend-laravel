@@ -15,7 +15,7 @@
     <h1 class="lg:tw-text-3xl tw-text-2xl tw-font-bold">
         {{ product.name }}
     </h1>
-    <div class="tw-flex tw-items-end tw-gap-2">
+    <div v-if="false" class="tw-flex tw-items-end tw-gap-2">
         <div class="tw-flex tw-items-center">
             <v-rating v-model="rating" readonly density="compact" size="small" color="yellow"></v-rating>
         </div>
@@ -87,7 +87,7 @@
         <!-- new size select -->
         <div>
             <label for="sizes" class="tw-block tw-mb-2 tw-text-sm tw-font-medium tw-text-neutral-900 dark:tw-text-white">Select a size</label>
-            <select v-model="size" id="sizes" class="tw-bg-gray-50 tw-border tw-border-solid tw-outline-none tw-border-neutral-300 tw-text-neutral-700 tw-text-sm tw-rounded-lg focus:tw-ring-violet-500 focus:tw-border-violet-500 tw-block tw-w-full tw-p-2.5 dark:tw-bg-neutral-900 dark:tw-border-neutral-600 dark:tw-placeholder-gray-400 dark:tw-text-white dark:focus:tw-ring-violet-500 dark:focus:tw-border-violet-500">
+            <select v-model="size" id="sizes" class="tw-bg-gray-50 tw-border tw-border-solid tw-outline-none tw-border-neutral-300 tw-text-neutral-700 tw-text-sm tw-rounded-lg focus:tw-ring-[rgb(var(--primary))] focus:tw-border-[rgb(var(--primary))] tw-block tw-w-full tw-p-2.5 dark:tw-bg-neutral-900 dark:tw-border-neutral-600 dark:tw-placeholder-gray-400 dark:tw-text-white dark:focus:tw-ring-[rgb(var(--primary))] dark:focus:tw-border-[rgb(var(--primary))]">
                 <option disabled value="0">Choose a size</option>
                 <option v-for="s in availableSizes" :key="s.id" :value="s.id">{{s.value}}</option>
             </select>

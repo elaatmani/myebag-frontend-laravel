@@ -1,4 +1,3 @@
-
 let initialState = {
     fetched: false,
     products: []
@@ -25,24 +24,47 @@ export default {
             state.products.unshift(payload)
         },
 
+        UPDATE_PRODUCT: (state, payload) => {
+            state.products = state.products.map(p => {
+                if (p.id == payload.id) {
+                    return payload
+                }
+                return p;
+            })
+        },
+
         DELETE_PRODUCT: (state, payload) => {
             state.products = state.products.filter(p => p.id != payload)
         }
     },
     actions: {
-        setFetched: ({commit}, payload) => {
+        setFetched: ({
+            commit
+        }, payload) => {
             commit('SET_FETCHED', payload)
         },
 
-        setProducts: ({commit}, payload) => {
+        setProducts: ({
+            commit
+        }, payload) => {
             commit('SET_PRODUCTS', payload)
         },
 
-        addProduct: ({commit}, payload) => {
+        addProduct: ({
+            commit
+        }, payload) => {
             commit('ADD_PRODUCT', payload)
         },
 
-        delete: ({commit}, payload) => {
+        updateProduct: ({
+            commit
+        }, payload) => {
+            commit('UPDATE_PRODUCT', payload)
+        },
+
+        delete: ({
+            commit
+        }, payload) => {
             commit('DELETE_PRODUCT', payload)
         }
     }

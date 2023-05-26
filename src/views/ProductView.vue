@@ -15,14 +15,14 @@
       
 
       <div class="tw-col-span-12">
-        <h1 class="tw-text-lg tw-font-medium tw-mt-5 tw-w-fit tw-border-solid tw-border-primary tw-border-b ">Description</h1>
+        <h1 class="tw-text-lg tw-font-medium tw-mt-5 tw-w-fit tw-border-solid tw-border-[rgb(var(--primary))] tw-border-b ">Description</h1>
         <p class="tw-text-sm tw-my-3">
             {{ product.description }}
         </p>
       </div>
 
-      <div class="tw-col-span-12">
-        <h1 class="tw-text-lg tw-font-medium tw-mt-5 tw-w-fit tw-border-solid tw-border-primary tw-border-b ">Reviews</h1>
+      <div v-if="false" class="tw-col-span-12">
+        <h1 class="tw-text-lg tw-font-medium tw-mt-5 tw-w-fit tw-border-solid tw-border-[rgb(var(--primary))] tw-border-b ">Reviews</h1>
         <p class="tw-text-sm tw-my-3">
         </p>
       </div>

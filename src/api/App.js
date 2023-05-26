@@ -1,4 +1,4 @@
-import Api from "./Api";
+import Api, { ApiForm } from "./Api";
 import Csrf from "./Csrf";
 
 class App {
@@ -18,9 +18,9 @@ class App {
         return Api.get('api/initial/user')
     }
 
-    async updateOptions(options) {
+    async updateOptions(options, logos = {}, hasLogo = false) {
         await Csrf.getCookie();
-        return Api.post('api/options/updateMany', {options})
+        return ApiForm.post('api/options/updateMany', {options, hasLogo, logos})
     }
 
 }

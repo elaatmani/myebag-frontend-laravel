@@ -65,7 +65,10 @@ export default {
         },
         isDataReady() {
           return this.$store.getters['app/isReady']
-        }
+        },
+        options() {
+          return this.$store.getters['app/options']
+        },
     },
 
     methods: {
@@ -84,6 +87,9 @@ export default {
               // this.$store.dispatch('product/setFetched', true)
               this.$store.dispatch('app/setSliders', res.data.data.sliders);
               this.$store.dispatch('category/setCategories', res.data.data.categories);
+              this.getColors();
+              this.setLogoSize();
+
               this.$store.dispatch('app/setIsReady', true);
               
               return res.data
@@ -112,7 +118,42 @@ export default {
         });
 
         this.isSubscribed = true
-      }
+      },
+
+      getColors() {
+      const primary = {
+        name: this.options.find((o) => o.option_name == "primary_color_name")
+          .option_value,
+        main: this.options.find((o) => o.option_name == "primary_color_main")
+          .option_value,
+        light: this.options.find((o) => o.option_name == "primary_color_light")
+          .option_value,
+        dark: this.options.find((o) => o.option_name == "primary_color_dark")
+          .option_value,
+      };
+
+      const secondary = {
+        name: this.options.find((o) => o.option_name == "secondary_color_name")
+          .option_value,
+        main: this.options.find((o) => o.option_name == "secondary_color_main")
+          .option_value,
+        light: this.options.find(
+          (o) => o.option_name == "secondary_color_light"
+        ).option_value,
+        dark: this.options.find((o) => o.option_name == "secondary_color_dark")
+          .option_value,
+      };
+
+      this.$store.dispatch("app/setPrimary", primary);
+      this.$store.dispatch("app/setSecondary", secondary);
+    },
+
+    setLogoSize() {
+      this.$store.dispatch(
+        'app/setLogoWidth',
+        this.options.find(o => o.option_name == 'logo_width').option_value
+      )
+    }
     },
 
     mounted() {

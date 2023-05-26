@@ -7,9 +7,14 @@
         <div class="tw-col-span-12 tw-grid tw-grid-cols-12 tw-max-h-0 tw-overflow-hidden tw-duration-500" :class="[filters && '!tw-max-h-[500px] !tw-overflow-visible']">
             <div class="tw-w-full tw-h-fit tw-flex tw-items-center tw-pt-2 tw-col-span-12 md:tw-col-span-6 tw-gap-2">
                 <!-- Date filter -->
-                <vue-date-picker class="tw-flex-1" :dark="dark" v-model="fromDate"></vue-date-picker>
+                <vue-date-picker :dark="dark" v-model="date" @cleared="cleared" @update:model-value="onDateRangePicked" :format="dateFilterFormat" range :preset-ranges="presetRanges">
+                    <template #yearly="{ label, range, presetDateRange }">
+                        <span @click="presetDateRange(range)">{{ label }}</span>
+                    </template>
+                </vue-date-picker>
+                <!-- <vue-date-picker class="tw-flex-1" :dark="dark" v-model="fromDate"></vue-date-picker>
                 <p class="tw-text-xs">To</p>
-                <vue-date-picker class="tw-flex-1" :dark="dark" v-model="toDate"></vue-date-picker>
+                <vue-date-picker class="tw-flex-1" :dark="dark" v-model="toDate"></vue-date-picker> -->
             </div>
         </div>
         <div class="tw-col-span-12 md:tw-col-span-6 lg:tw-col-span-3 tw-h-[100px] tw-overflow-hidden dark:tw-bg-blue-600 tw-rounded-md tw-bg-blue-400">
@@ -78,6 +83,7 @@
 import LatestOrders from '@/views/dashboard/analytics/LatestOrders'
 import ChartBar from '@/views/dashboard/analytics/ChartBar'
 import ChartLine from '@/views/dashboard/analytics/ChartLine'
+import { endOfMonth, endOfYear, startOfMonth, startOfYear, subMonths, subDays } from 'date-fns'
 export default {
   components: { LatestOrders, ChartBar, ChartLine },
 
@@ -85,7 +91,22 @@ export default {
     return {
       filters: true,
       fromDate: new Date(),
-      toDate: new Date()
+      toDate: new Date(),
+      date: ['', ''],
+
+      dateFilterFormat: 'yyyy-MM-dd',
+      formattedStartDate: '',
+      formattedEndDate: '',
+      presetRanges: [
+              { label: 'Today', range: [new Date(), new Date()] },
+              { label: 'Yesterday', range: [subDays(new Date(), 1), subDays(new Date(), 1)] },
+              { label: 'This month', range: [startOfMonth(new Date()), endOfMonth(new Date())] },
+              {
+                  label: 'Last month',
+                  range: [startOfMonth(subMonths(new Date(), 1)), endOfMonth(subMonths(new Date(), 1))],
+              },
+              { label: 'This year', range: [startOfYear(new Date()), endOfYear(new Date())] },
+          ]
     }
   },
 
@@ -94,16 +115,105 @@ export default {
             return this.$store.getters['theme/isDarkMode']
         },
 
+      filterStartDate() {
+        return this.date[0]
+      },
+
+      filterEndDate() {
+        return this.date[1]
+      },
+
     orders() {
       return this.$store.getters['order/orders']
+      .filter(o => {
+        const createdAt = new Date(o.created_at);
+        /* eslint-disable */
+        const createdAtDay = createdAt.getDate();
+        const createdAtMonth = createdAt.getMonth();
+        const createdAtYear = createdAt.getFullYear();
+
+        if (!!this.filterStartDate) {
+            const startDay = this.filterStartDate.getDate();
+            const startMonth = this.filterStartDate.getMonth();
+            const startYear = this.filterStartDate.getFullYear();
+
+            if (
+                createdAtYear < startYear ||
+                (createdAtYear === startYear && createdAtMonth < startMonth) ||
+                (createdAtYear === startYear && createdAtMonth === startMonth && createdAtDay < startDay)
+            ) {
+                return false;
+            }
+        }
+
+
+        if (!!this.filterEndDate) {
+            const endDay = this.endDate.getDate();
+            const endMonth = this.endDate.getMonth();
+            const endYear = this.endDate.getFullYear();
+
+            if (
+                createdAtYear > endYear ||
+                (createdAtYear === endYear && createdAtMonth > endMonth) ||
+                (createdAtYear === endYear && createdAtMonth === endMonth && createdAtDay > endDay)
+            ) {
+                return false;
+            }
+        }
+        return true;
+      })
     },
 
     users() {
-      return this.$store.getters['user/users'].filter(u => u.is_admin == 0);
+      return this.$store.getters['user/users']
+      .filter(o => {
+
+        // if(o.is_admin != 0) {
+        //   return false;
+        // }
+
+        const createdAt = new Date(o.created_at);
+        /* eslint-disable */
+        const createdAtDay = createdAt.getDate();
+        const createdAtMonth = createdAt.getMonth();
+        const createdAtYear = createdAt.getFullYear();
+
+        if (!!this.filterStartDate) {
+            const startDay = this.filterStartDate.getDate();
+            const startMonth = this.filterStartDate.getMonth();
+            const startYear = this.filterStartDate.getFullYear();
+
+            if (
+                createdAtYear < startYear ||
+                (createdAtYear === startYear && createdAtMonth < startMonth) ||
+                (createdAtYear === startYear && createdAtMonth === startMonth && createdAtDay < startDay)
+            ) {
+                return false;
+            }
+        }
+
+
+        if (!!this.filterEndDate) {
+            const endDay = this.filterEndDate.getDate();
+            const endMonth = this.filterEndDate.getMonth();
+            const endYear = this.filterEndDate.getFullYear();
+
+            if (
+                createdAtYear > endYear ||
+                (createdAtYear === endYear && createdAtMonth > endMonth) ||
+                (createdAtYear === endYear && createdAtMonth === endMonth && createdAtDay > endDay)
+            ) {
+                return false;
+            }
+        }
+
+        return true;
+      })
     },
 
     products() {
       return this.$store.getters['product/products']
+      
     },
 
     earnings() {
@@ -114,6 +224,21 @@ export default {
         }
       });
       return total
+    }
+  },
+
+  methods: {
+    onDateRangePicked(range) {
+        if(range) {
+            this.formattedStartDate = range[0];
+            this.formattedEndDate = range[1];
+        } else {
+            this.formattedStartDate = null;
+            this.formattedEndDate = null;
+        }
+    },
+    cleared() {
+        this.date = ['', '']
     }
   }
 

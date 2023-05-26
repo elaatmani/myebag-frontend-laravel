@@ -1,9 +1,11 @@
 <template>
   <div class="tw-h-full">
     <div class="tw-flex tw-items-center tw-gap-2">
-      <button class="tw-px-2 tw-py-1 tw-w-[25px] tw-h-[25px] tw-border tw-border-solid tw-border-blue-500/20 hover:tw-bg-blue-500/10 hover:tw-border-blue-500/70 tw-duration-300 tw-text-blue-500/80 tw-rounded-md tw-flex tw-items-center tw-justify-center">
-          <v-icon size="x-small" >mdi-eye-outline</v-icon>
-      </button>
+      <router-link :to="'/products/' + product.id">
+        <button class="tw-px-2 tw-py-1 tw-w-[25px] tw-h-[25px] tw-border tw-border-solid tw-border-blue-500/20 hover:tw-bg-blue-500/10 hover:tw-border-blue-500/70 tw-duration-300 tw-text-blue-500/80 tw-rounded-md tw-flex tw-items-center tw-justify-center">
+            <v-icon size="x-small" >mdi-eye-outline</v-icon>
+        </button>
+      </router-link>
       <router-link :to="'/dashboard/products/update/' + product.id">
           <button  class="tw-px-2 tw-py-1 tw-w-[25px] tw-h-[25px] tw-border tw-border-solid tw-border-green-500/20 hover:tw-bg-green-500/10 hover:tw-border-green-500/70 tw-duration-300 tw-text-green-500/80 tw-rounded-md tw-flex tw-items-center tw-justify-center">
             <v-icon size="x-small" >mdi-pencil-outline</v-icon>

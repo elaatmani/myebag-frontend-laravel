@@ -41,6 +41,9 @@ export default {
     },
     secondary() {
       return this.$secondary.value.main
+    },
+    logoWidth() {
+      return this.$store.getters['app/logoWidth']
     }
   },
 
@@ -68,6 +71,7 @@ export default {
       document.documentElement.style.setProperty('--secondary', this.$secondary.value.main)
       document.documentElement.style.setProperty('--secondary-dark', this.$secondary.value.dark)
       document.documentElement.style.setProperty('--secondary-light', this.$secondary.value.light)
+      document.documentElement.style.setProperty('--logo-width', `${this.logoWidth}px`);
     }
   },
 
@@ -78,6 +82,9 @@ export default {
     }
 
     this.mountVariables()
+
+    document.querySelector("[rel='icon']")
+    .href = this.$backend('storage/images/logos/logo.svg')
     
   }
 }

@@ -48,7 +48,7 @@
             </keep-alive>
         </div>
 
-        <div>
+        <div v-if="false">
             <SearchBox />
         </div>
     

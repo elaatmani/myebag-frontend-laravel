@@ -12,10 +12,12 @@
                     <icon class="tw-text-lg" :icon="filters ? 'material-symbols:filter-list-off-rounded' : 'material-symbols:filter-list-rounded'" />
                     <span class="tw-hidden md:tw-block tw-text-sm">Filters</span>
                 </button>
-                <button class="tw-p-2 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded-lg dark:tw-text-neutral-300 tw-text-white tw-bg-[rgb(var(--primary))] dark:tw-bg-[rgb(var(--primary))] tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-600 tw-flex tw-items-center tw-justify-center tw-gap-2">
-                    <icon class="tw-text-lg" icon="mdi:plus" />
-                    <span class="tw-hidden md:tw-block tw-text-sm">Create</span>
-                </button>
+                <router-link :to="{name: 'products/create'}">
+                    <button class="tw-p-2 tw-h-[38px] tw-w-fit tw-whitespace-nowrap tw-rounded-lg dark:tw-text-neutral-300 tw-text-white tw-bg-[rgb(var(--primary))] dark:tw-bg-[rgb(var(--primary))] tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-600 tw-flex tw-items-center tw-justify-center tw-gap-2">
+                        <icon class="tw-text-lg" icon="mdi:plus" />
+                        <span class="tw-hidden md:tw-block tw-text-sm">Create</span>
+                    </button>
+                </router-link>
             </div>
         </div>
         <!-- <div class="tw-col-span-12 tw-max-h-0 tw-duration-500 tw-ease-in-out tw-overflow-hidden" :class="[filters && '!tw-max-h-[300px]']">
@@ -24,7 +26,9 @@
     </div>
     <div class="tw-relative tw-min-h-fit dark:tw-border-neutral-700 tw-border !tw-rounded-lg tw-border-neutral-200/80 tw-max-h-[625px] tw-overflow-x-auto  sm:tw-rounded-lg">
         <div v-if="!isLoaded" class="tw-min-h-[150px] tw-flex tw-items-center tw-justify-center">
-            <loading-dash class="tw-scale-50"></loading-dash>
+            <div class="tw-scale-50">
+                <loading-dash></loading-dash>
+            </div>
         </div>
         <table v-else class="tw-w-full  tw-relative tw-text-sm tw-text-left !tw-rounded-lg tw-text-gray-500 dark:tw-text-neutral-200">
             <thead class="tw-text-xs  tw-w-full tw-text-gray-700 dark:tw-text-gray-300 tw-uppercase tw-bg-gray-50 dark:tw-bg-neutral-900">

@@ -3,7 +3,9 @@
       <h2 class="tw-text-lg tw-text-neutral-600 dark:tw-text-neutral-200">Update Product</h2>
       <p class="tw-text-sm tw-mb-3 tw-font-light tw-text-neutral-500 dark:tw-text-neutral-300">Edit existed product</p>
       <div v-if="!isLoaded" class="tw-h-[500px] tw-w-full tw-flex tw-items-center tw-justify-center">
-        <loading-dash class="tw-scale-50"></loading-dash>
+        <div class="tw-scale-50">
+          <loading-dash></loading-dash>
+        </div>
       </div>
       <div v-if="isLoaded" class="tw-w-full tw-h-fit tw-p-3 tw-px-4  dark:tw-bg-neutral-800 tw-rounded-lg tw-bg-white">
         <div class="tw-grid tw-grid-cols-12 md:tw-gap-10 md:tw-gap-y-5 tw-gap-y-5">
