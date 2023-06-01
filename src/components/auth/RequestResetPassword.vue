@@ -109,17 +109,20 @@ export default {
         User.sendRequestPassword(this.email)
         .then(
             res => {
+                console.log(res.data);
                 if(res.data.code == 'USER_NOT_FOUND') {
                     this.$alert({
                         type: 'warning',
                         body: 'User does not exists !'
                     })
                 }
-                if(res.data.code == 'SUCCES') {
+                if(res.data.code == 'SUCCESS') {
                     this.$alert({
                         type: 'success',
                         body: 'A password reset email has been sent !'
                     })
+                    this.email = '';
+                    this.cancel();
                 }
             }
         )

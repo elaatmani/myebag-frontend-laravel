@@ -160,19 +160,21 @@
     </keep-alive>
 
     <RequestResetPassword v-model:visible="requestPopup" />
+    <Alert />
   </div>
 </template>
 
 <script>
 import AppLogo from "@/components/AppLogo";
 import RequestResetPassword from "@/components/auth/RequestResetPassword";
+import Alert from '@/components/AlertVue'
 import User from "@/api/User";
 import { required, isStringBetween } from "@/helpers/validators";
 import { googleClientId } from "@/config/app";
 import { parseJwt } from "@/helpers/methods";
 
 export default {
-  components: { AppLogo, RequestResetPassword },
+  components: { AppLogo, RequestResetPassword, Alert },
 
   data() {
     return {
