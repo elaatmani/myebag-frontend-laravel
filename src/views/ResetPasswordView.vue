@@ -131,34 +131,18 @@ export default {
 
       this.isLoading = true
       User.setPassword({
-        email: this.user.email,
+        token: this.token,
         password: this.user.password
       })
       .then((response) => {
         const data = response.data
         if(data?.code == 'SUCCESS') {
-          const user = data.data.user;
-          this.$store.dispatch('user/setUser', user);
-          this.$store.dispatch('user/setIsLoggedIn', true);
-          this.$store.dispatch('user/setIsAdmin', user.is_admin == 1);
-          this.$router.push({ 'name': 'home' });
-          
+            this.$router.push({name: 'login'})
         }
 
       })
       .catch(error => {
         this.$handleApiError(error);
-
-        if(error.response.data?.code == 'INVALID_CREDENTIALS') {
-          this.form.email = {
-            valid: false,
-            message: 'These credentials do not match our records.'
-          }
-          this.form.password = {
-            valid: false,
-            message: ''
-          }
-        }
       }) 
       .finally(() => {
         this.isLoading = false
