@@ -58,7 +58,7 @@ class User {
         return Api.post('api/auth/verify-reset-password', {token})
     }
 
-    async passwordConfirm(data) {
+    async setPassword(data) {
         await Csrf.getCookie();
         return Api.post('api/auth/update-password', data)
     }
