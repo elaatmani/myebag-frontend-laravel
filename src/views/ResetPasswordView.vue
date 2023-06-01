@@ -1,7 +1,12 @@
 <template>
   <div>
-    <keep-alive>
-      <div class="tw-h-screen tw-min-h-[400px] md:tw-min-h-[500px] tw-max-h-[2000px]">
+    <div v-if="!isLoaded" class="tw-min-h-[600px]">
+        <div class="tw-scale-75">
+        <loading />
+        </div>
+    </div>
+
+    <div v-if="isLoaded && isValid" class="tw-h-screen tw-min-h-[400px] md:tw-min-h-[500px] tw-max-h-[2000px]">
         <div class="tw-grid tw-grid-cols-12 tw-h-full">
           <div class="md:tw-col-span-7 lg:tw-col-span-6 xl:tw-col-span-5 tw-col-span-12 tw-h-full dark:tw-bg-neutral-900 tw-py-10 tw-px-5 md:tw-px-10">
             <div  class="tw-py-5 tw-pb-0">
@@ -32,7 +37,7 @@
                     </div>
                   </div>
                   <div class="mt-2">
-                    <button @click="login" class="tw-py-3 tw-px-7 tw-w-full tw-justify-center tw-text-capitalize tw-flex tw-items-center tw-rounded tw-text-sm tw-bg-[rgb(var(--primary))] tw-text-white">
+                    <button @click="resetPassword" class="tw-py-3 tw-px-7 tw-w-full tw-justify-center tw-text-capitalize tw-flex tw-items-center tw-rounded tw-text-sm tw-bg-[rgb(var(--primary))] tw-text-white">
                       <v-icon size="small" class="tw-duration-300 tw-animate-spin tw-overflow-hidden tw-max-w-0 tw-mr-0" :class="[isLoading && '!tw-max-w-[50px] !tw-mr-3']">mdi-loading</v-icon>
                       <span>Confirm</span>
                     </button>
@@ -55,8 +60,6 @@
         
     <div class="dark:!tw-text-white dark:!tw-bg-neutral-900" ref="googleLoginBtn" />
     </div>
-
-    </keep-alive>
   </div>
 </template>
 
@@ -72,6 +75,7 @@ export default {
     return {
       isLoading: false,
       isLoaded: false,
+      isValid: false,
 
       user: {
         password: '',
@@ -97,6 +101,9 @@ export default {
     },
     token() {
         return this.$route.params.token
+    },
+    isLoggedIn() {
+        return this.$store.getters['user/isLoggedIn'];
     }
   },
 
@@ -115,11 +122,10 @@ export default {
 
     },
 
-    login() {
+    resetPassword() {
       this.validateForm();
 
       if (!this.isFormValid) {
-        console.log('form not valid');
         return false;
       }
 
@@ -159,9 +165,31 @@ export default {
       })
     },
 
+    verifyToken(token) {
+        User.verifyToken(token)
+        .then(
+            res => {
+                if(res.data.code == 'VALID_TOKEN') {
+                    this.isValid = true;
+                    this.isLoaded = true;
+                }
+
+                if(res.data.code == 'NOT_VALID_TOKEN') {
+                    this.isValid = false;
+                    this.$router.push('/');
+                }
+            }
+        )
+    }
+
 
   },
   mounted() {
+    if(this.isLoggedIn) {
+        this.$router.push('/');
+    }
+    
+    this.verifyToken(this.token)
   },
 }
 </script>

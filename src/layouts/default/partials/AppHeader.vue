@@ -48,8 +48,10 @@
             </keep-alive>
         </div>
 
-        <div v-if="false">
+        <div >
+          <router-link to="/products">
             <SearchBox />
+          </router-link>
         </div>
     
         <!-- User account menu -->

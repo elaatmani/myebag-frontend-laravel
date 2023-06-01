@@ -38,10 +38,10 @@ class User {
         return Api.post('api/auth/signup', {firstname, lastname, telephone, email, password})
     }
 
-    async getGoogleUrl() {
-        await Csrf.getCookie();
-        return Api.get('api/auth/google')
-    }
+    // async getGoogleUrl() {
+    //     await Csrf.getCookie();
+    //     return Api.get('api/auth/google')
+    // }
 
     async orders() {
         await Csrf.getCookie();
@@ -51,6 +51,11 @@ class User {
     async sendRequestPassword(email) {
         await Csrf.getCookie();
         return Api.post('api/auth/request-reset-password', {email})
+    }
+
+    async verifyToken(token) {
+        await Csrf.getCookie();
+        return Api.post('api/auth/verify-reset-password', {token})
     }
 
 }
