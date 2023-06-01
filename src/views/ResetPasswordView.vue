@@ -97,7 +97,7 @@ export default {
 
   computed: {
     isFormValid() {
-      return this.form.password.valid && this.form.confirmPassword.valid
+      return this.form.password.valid && this.form.passwordConfirm.valid
     },
     token() {
         return this.$route.params.token
@@ -118,7 +118,7 @@ export default {
 
     validateForm() {
       this.form.password = required(this.user.password, 'Password');
-      this.form.ConfirmPassword = {valid: this.user.password == this.user.passwordConfirm, messages: this.user.password == this.user.passwordConfirm ? '' : 'Passwords must be the same'};
+      this.form.passwordConfirm = { valid: this.user.password == this.user.passwordConfirm, message: this.user.password == this.user.passwordConfirm ? '' : 'Passwords must be the same'};
 
     },
 
