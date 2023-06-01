@@ -9,7 +9,7 @@
         <div class="tw-flex tw-items-center tw-gap-2 tw-justify-between tw-col-span-12 tw-max-h-fit" >
             <div class="tw-relative tw-w-full tw-max-w-[550pxd] tw-flex-grow-1">
                 <icon icon="ph:magnifying-glass" class="tw-text-xl tw-text-neutral-400 tw-absolute tw-top-1/2 tw-left-3 -tw-translate-y-1/2" />
-                <input class="tw-outline-none tw-h-[38px] tw-rounded-lg tw-text-sm tw-text-neutral-500 dark:tw-text-neutral-300 tw-bg-white dark:tw-bg-neutral-800 tw-duration-300 focus:tw-border-[rgb(var(--primary))] hover:tw-border-[rgba(var(--primary),.4)] dark:hover:tw-border-purple-500/40 dark:focus:tw-border-purple-500 tw-border-neutral-200 dark:tw-border-neutral-600 tw-border-solid tw-border tw-py-2 tw-px-3 tw-pl-10 tw-w-full" type="text" placeholder="Search for ID, Client, Status..." />
+                <input class="tw-outline-none tw-h-[38px] tw-rounded-lg tw-text-sm tw-text-neutral-500 dark:tw-text-neutral-300 tw-bg-white dark:tw-bg-neutral-800 tw-duration-300 focus:tw-border-[rgb(var(--primary))] hover:tw-border-[rgba(var(--primary),.4)] dark:hover:tw-border-[rgba(var(--primary),.4)] dark:focus:tw-border-[rgba(var(--primary),1)] tw-border-neutral-200 dark:tw-border-neutral-600 tw-border-solid tw-border tw-py-2 tw-px-3 tw-pl-10 tw-w-full" type="text" placeholder="Search for ID, Client, Status..." />
             </div>
             <div class="tw-flex md:tw-justify-end tw-justify-center tw-items-center tw-gap-2">
                 <button @click="filters = !filters" class="tw-p-2 tw-h-[38px] tw-rounded-lg dark:tw-text-neutral-300 tw-bg-white dark:tw-bg-neutral-800 tw-border tw-border-solid tw-border-neutral-200 dark:tw-border-neutral-600 tw-flex tw-items-center tw-justify-center tw-gap-2">
@@ -29,7 +29,7 @@
     </div>
     </div>
     <div class="">
-        <div class="tw-overflow-x-auto tw-relative tw-min-h-fit tw-h-fit dark:tw-border-neutral-700 tw-border !tw-rounded-lg tw-border-neutral-200/80 tw-max-h-[600px] sm:tw-rounded-lg"> <!-- tw-overflow-x-auto -->
+        <div class="tw-overflow-x-auto tw-relative tw-min-h-[400px] tw-h-fit dark:tw-border-neutral-700 tw-border !tw-rounded-lg tw-border-neutral-200/80 tw-max-h-[600px] sm:tw-rounded-lg"> <!-- tw-overflow-x-auto -->
         
         <div v-if="!isLoaded" class="tw-min-h-[150px] tw-flex tw-items-center tw-justify-center">
             <loading-dash class="tw-scale-50"></loading-dash>

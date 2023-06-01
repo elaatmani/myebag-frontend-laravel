@@ -29,7 +29,7 @@
         >
           <icon class="tw-text-lg" icon="ph:package" /> {{ order.user.total_orders }} Orders
         </p>
-        <p class="dark:tw-text-blue-400 tw-text-blue-500 tw-text-xs">View</p>
+        <p v-if="false" class="dark:tw-text-blue-400 tw-text-blue-500 tw-text-xs">View</p>
       </div>
     </div>
   </div>

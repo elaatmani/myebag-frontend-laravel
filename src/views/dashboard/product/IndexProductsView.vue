@@ -37,20 +37,15 @@ export default {
 
   methods: {
     getProducts() {
-      this.fetched = false
       Product.all()
       .then(
         res => {
           if(res.data.code == 'SUCCESS') {
-            this.$store.dispatch('product/setProducts', res.data.data.products)
+            this.$store.dispatch('product/setProducts', res.data.data.products);
+            this.$store.dispatch('product/setFetched', true)
           }
         },
         this.$handleApiError
-      )
-      .finally(
-        () => {
-          this.$store.dispatch('product/setFetched', true)
-        }
       )
     }
   },

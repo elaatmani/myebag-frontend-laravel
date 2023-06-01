@@ -5,7 +5,7 @@
 
     <router-link :to="{ name: 'categories' }">Categories</router-link>
 
-    <router-link :to="{ name: 'categories' }">Products</router-link>
+    <router-link :to="{ name: 'home/products/index' }">Products</router-link>
 
     <!-- <HeaderLink :title="'Categories'" />
 

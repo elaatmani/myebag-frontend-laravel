@@ -2,7 +2,7 @@
   <div>
     <div class="tw-py- tw-my-1">
         <div class="tw-flex tw-justify-between">
-            <div class="tw-text-xl tw-capitalize">
+            <div v-if="!hideTitle" class="tw-text-xl tw-capitalize">
                 {{ title }}
             </div>
             <div v-if="!!showMore">
@@ -14,7 +14,7 @@
                 </v-hover>
             </div>
         </div>
-        <div class="tw-mt-5 tw-grid tw-grid-cols-12 tw-gap-5">
+        <div :class="[hideTitle ? 'tw-mt-2' : 'tw-mt-5']" class="tw-grid tw-grid-cols-12 tw-gap-5">
             <div v-for="product in products" :key="product.id" class="tw-col-span-12 sm:tw-col-span-6 lg:tw-col-span-3">
                 <ProductCard :product="product"  />
             </div>
@@ -31,6 +31,10 @@ export default {
         title: {
             required: false,
             default: 'Featured'
+        },
+        hideTitle: {
+            required: false,
+            default: false
         },
         products: {
             required: false,

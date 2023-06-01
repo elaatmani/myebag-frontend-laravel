@@ -12,7 +12,7 @@
             <!-- <icon class="tw-text-2xl" icon="mdi:home" /> -->
             <span>Categories</span>
           </router-link>
-          <router-link :to="{ name: 'categories' }" class="tw-flex tw-items-center tw-gap-2 tw-w-full dark:tw-bg-white/5 tw-bg-black/5 tw-border-black/10 tw-border dark:tw-border-white/10 tw-py-2 tw-px-4 tw-rounded-md">
+          <router-link :to="{ name: 'home/products/index' }" class="tw-flex tw-items-center tw-gap-2 tw-w-full dark:tw-bg-white/5 tw-bg-black/5 tw-border-black/10 tw-border dark:tw-border-white/10 tw-py-2 tw-px-4 tw-rounded-md">
             <!-- <icon class="tw-text-2xl" icon="mdi:home" /> -->
             <span>Products</span>
           </router-link>

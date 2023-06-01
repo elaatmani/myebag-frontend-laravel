@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import Order from '@/api/Order'
 export default {
     props: ['order'],
 
@@ -54,16 +55,24 @@ export default {
                 }
             }
 
-            setTimeout(
+            Order.confirmPayment(this.order.payment_detail.id)
+            .then(
+                res => {
+                    if(res.data.code == 'SUCCESS') {
+                        this.$alert({
+                            type: 'success',
+                            body: 'Payment confirmed !'
+                        })
+                        this.$store.dispatch('order/updateOrder', order);
+                        this.popup = false;
+                    }
+                },
+                this.$handleApiError
+            )
+            .finally(
                 () => {
-                    this.$store.dispatch('order/updateOrder', order)
-                    this.$alert({
-                        type: 'success',
-                        body: 'Payment confirmed !'
-                    })
                     this.isLoading = false
-                    this.popup = false
-                }, 1500
+                }
             )
         },
 

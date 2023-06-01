@@ -48,6 +48,11 @@ class User {
         return Api.get('api/user/orders')
     }
 
+    async sendRequestPassword(email) {
+        await Csrf.getCookie();
+        return Api.post('api/auth/request-reset-password', {email})
+    }
+
 }
 
 export default new User();

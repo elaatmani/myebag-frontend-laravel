@@ -34,12 +34,12 @@ export default [
                 to: 'products/create',
                 module: 'products'
             },
-            {
-                id: 3,
-                name: 'Featured products',
-                to: 'products/featured',
-                module: 'products'
-            },
+            // {
+            //     id: 3,
+            //     name: 'Featured products',
+            //     to: 'products/featured',
+            //     module: 'products'
+            // },
         ]
     },
     // {

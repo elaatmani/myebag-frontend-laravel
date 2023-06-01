@@ -5,6 +5,7 @@ import DefaultLayout from "@/layouts/default/DefaultLayout";
 import HomeView from "@/views/HomeView.vue";
 import ProfileView from "@/views/ProfileView";
 import ProductView from "@/views/ProductView";
+import ProductsView from '@/views/ProductsView'
 import CategoriesView from '@/views/CategoriesView'
 import CheckoutView from '@/views/CheckoutView'
 import ShoppingCartView from '@/views/ShoppingCartView'
@@ -43,6 +44,15 @@ export default [
                 meta: {
                     requireAuth: false,
                     title: "Categories",
+                },
+            },
+            {
+                path: "/products",
+                name: "home/products/index",
+                component: ProductsView,
+                meta: {
+                    requireAuth: false,
+                    title: "Products",
                 },
             },
             {

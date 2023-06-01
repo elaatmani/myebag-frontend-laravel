@@ -47,6 +47,13 @@
                     <td class="tw-px-6 tw-py-3">
                         {{ item.telephone }}
                     </td>
+                    <td class="tw-px-6 tw-py-3">
+                        <div>
+                            <div class="tw-px-1 tw-mx-auto tw-w-fit tw-rounded tw-bg-[rgba(var(--primary),.1)] tw-text-[rgba(var(--primary),1)]">
+                                {{ item.total_orders }}
+                            </div>
+                        </div>
+                    </td>
                     <td class="tw-px-6 tw-py-3 tw-font-bold">
                         {{ item.is_active ? 'Active' : 'Not Active' }}
                     </td>
@@ -124,7 +131,7 @@ export default {
             paginationLimit: 10,
             filters: false,
 
-            columns: [ 'id', 'name', 'email',  'telephone', 'status',  'role', 'verified', 'actions' ],
+            columns: [ 'id', 'name', 'email',  'telephone', 'orders', 'status',  'role', 'verified', 'actions' ],
 
         }
     },

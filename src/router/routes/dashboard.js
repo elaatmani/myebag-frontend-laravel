@@ -21,6 +21,7 @@ import IndexUsersView from '@/views/dashboard/user/IndexUsersView'
 // Categories
 import IndexCategoriesView from '@/views/dashboard/category/IndexCategoriesView'
 import CreateCategoryView from '@/views/dashboard/category/CreateCategoryView'
+import UpdateCategoryView from '@/views/dashboard/category/UpdateCategoryView'
 
 // Settings
 import GeneralView from '@/views/dashboard/settings/GeneralView'
@@ -158,6 +159,16 @@ export default [
                     module: 'categories',
                     requireAuth: true,
                     title: "Create category",
+                }
+            },
+            {
+                name: 'categories/update',
+                path: 'categories/update/:id',
+                component: UpdateCategoryView,
+                meta: {
+                    module: 'categories',
+                    requireAuth: true,
+                    title: "Update category",
                 }
             },
 

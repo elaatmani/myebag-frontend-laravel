@@ -182,16 +182,46 @@
           </div>
           <div class="tw-grid tw-grid-cols-12 tw-gap-x-4 tw-border tw-border-solid tw-border-neutral-300 dark:tw-border-neutral-700  tw-rounded-lg">
             <div class=" md:tw-col-span-6 tw-col-span-12 tw-border-0 md:tw-border-r tw-border-neutral-300 dark:tw-border-neutral-700 tw-px-3 tw-py-3 tw-border-solid">
-                <div class="tw-flex">
-                  <div class="tw-flex tw-items-center tw-h-5">
-                    <div class="tw-flex tw-items-center tw-mr-4">
-                        <input :disabled="!!variations.length" id="purple-checkbox" type="checkbox" v-model="hasColors" class="!tw-w-4 !tw-h-4 !tw-text-[rgb(var(--primary-dark))] !tw-bg-gray-100 !tw-border-gray-300 !tw-rounded focus:!tw-ring-[rgb(var(--primary))] dark:focus:!tw-ring-[rgb(var(--primary-dark))] dark:!tw-ring-offset-gray-800 focus:!tw-ring-2 dark:!tw-bg-gray-700 dark:!tw-border-gray-600">
+                
+                <div class="tw-col-span-12 tw-flex tw-items-center tw-gap-3 tw-h-fit"
+                >
+                  <div class="tw-inline-flex tw-items-center">
+                  <label
+                    class="tw-relative tw-flex tw-cursor-pointer tw-items-center tw-rounded-full tw-p-2"
+                    for="checkbox"
+                    data-ripple-dark="true"
+                  >
+                    <input
+                      type="checkbox"
+                      :id="'hasColors'"
+                      v-model="hasColors"
+                      :disabled="!!variations.length"
+                      class="before:tw-content[''] tw-peer tw-relative tw-h-5 tw-w-5 tw-cursor-pointer tw-appearance-none tw-rounded-md tw-border tw-border-solid tw-border-blue-gray-200 tw-transition-all before:tw-absolute before:tw-top-2/4 before:tw-left-2/4 before:tw-block before:tw-h-12 before:tw-w-12 before:-tw-translate-y-2/4 before:-tw-translate-x-2/4 before:tw-rounded-full before:tw-bg-blue-gray-500 before:tw-opacity-0 before:tw-transition-opacity checked:tw-border-[rgb(var(--primary))] checked:tw-bg-[rgb(var(--primary))] checked:before:tw-bg-[rgb(var(--primary))] hover:before:tw-opacity-10"
+                    />
+                    <div
+                      class="tw-pointer-events-none tw-absolute tw-top-2/4 tw-left-2/4 -tw-translate-y-2/4 -tw-translate-x-2/4 tw-text-white tw-opacity-0 tw-transition-opacity peer-checked:tw-opacity-100"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="tw-h-3.5 tw-w-3.5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
                     </div>
-                  </div>
-                  <div class="tw-ml-2 tw-text-sm">
-                      <label for="helper-checkbox" class="tw-font-medium tw-text-gray-900 dark:tw-text-gray-300">Has colors</label>
+                  </label>
+                </div>
+                <div>
+                  <label :for="'hasColors'" class="tw-text-sm">Has Colors</label>
                       <p id="helper-checkbox-text" class="tw-text-xs tw-font-normal tw-text-gray-500 dark:tw-text-gray-300">For products that has multiple colors.</p>
-                  </div>
+                </div>
                 </div>
 
                 <div v-if="!hasColors" class="tw-col-span-12 md:tw-col-span-6 tw-flex  tw-flex-col mt-2 tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
@@ -205,20 +235,58 @@
                 
                 </div>
             </div>
-            <div class="md:tw-border-t-0 tw-border-t tw-border-solid tw-border-neutral-300 dark:tw-border-neutral-700 md:tw-col-span-6 tw-col-span-12 tw-px-3 tw-py-3">
-                <div class="tw-flex">
-                  <div class="tw-flex tw-items-center tw-h-5">
-                    <input :disabled="!!variations.length" id="helper-checkbox-1"  type="checkbox" v-model="samePrice" class="!tw-caret-[rgb(var(--primary))] tw-w-4 tw-h-4 tw-text-[rgb(var(--primary-dark))] tw-bg-gray-100 tw-border-gray-300 tw-rounded focus:tw-ring-[rgb(var(--primary))] dark:focus:tw-ring-[rgb(var(--primary-dark))] dark:tw-ring-offset-gray-800 focus:tw-ring-2 dark:tw-bg-gray-700 dark:tw-border-gray-600">
-                  </div>
-                  <div class="tw-ml-2 tw-text-sm">
-                      <label for="helper-checkbox-1" class="tw-font-medium tw-text-gray-900 dark:tw-text-gray-300">Same price</label>
-                      <p id="helper-checkbox-1-text" class="tw-text-xs tw-font-normal tw-text-gray-500 dark:tw-text-gray-300">Apply same price for all variations.</p>
-                  </div>
+            <div class="md:tw-border-t-0 tw-grid tw-grid-cols-12 tw-gap-2 tw-border-t tw-border-solid tw-border-neutral-300 dark:tw-border-neutral-700 md:tw-col-span-6 tw-col-span-12 tw-px-3 tw-py-3">
+                
+                <div class="tw-col-span-12 tw-flex tw-items-center tw-gap-3 tw-h-fit"
+                >
+                  <div class="tw-inline-flex tw-items-center">
+                  <label
+                    class="tw-relative tw-flex tw-cursor-pointer tw-items-center tw-rounded-full tw-p-2"
+                    for="checkbox"
+                    data-ripple-dark="true"
+                  >
+                    <input
+                      type="checkbox"
+                      :id="'samePrice'"
+                      v-model="samePrice"
+                      :disabled="!!variations.length"
+                      class="before:tw-content[''] tw-peer tw-relative tw-h-5 tw-w-5 tw-cursor-pointer tw-appearance-none tw-rounded-md tw-border tw-border-solid tw-border-blue-gray-200 tw-transition-all before:tw-absolute before:tw-top-2/4 before:tw-left-2/4 before:tw-block before:tw-h-12 before:tw-w-12 before:-tw-translate-y-2/4 before:-tw-translate-x-2/4 before:tw-rounded-full before:tw-bg-blue-gray-500 before:tw-opacity-0 before:tw-transition-opacity checked:tw-border-[rgb(var(--primary))] checked:tw-bg-[rgb(var(--primary))] checked:before:tw-bg-[rgb(var(--primary))] hover:before:tw-opacity-10"
+                    />
+                    <div
+                      class="tw-pointer-events-none tw-absolute tw-top-2/4 tw-left-2/4 -tw-translate-y-2/4 -tw-translate-x-2/4 tw-text-white tw-opacity-0 tw-transition-opacity peer-checked:tw-opacity-100"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="tw-h-3.5 tw-w-3.5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </div>
+                  </label>
                 </div>
+                <div>
+                  <label :for="'samePrice'" class="tw-text-sm">Same Price</label>
+                    <p id="helper-checkbox-1-text" class="tw-text-xs tw-font-normal tw-text-gray-500 dark:tw-text-gray-300">Apply same price for all variations.</p>
+                </div>
+                </div>
+                
                 <div v-if="samePrice" class="tw-col-span-12 md:tw-col-span-6 tw-flex tw-flex-col tw-text-neutral-600 tw-mt-2 dark:tw-text-neutral-200 tw-text-md">
-                  <label class="tw-text-sm">Set price</label>
+                  <label class="tw-text-sm">Selling price</label>
 
                   <input :readonly="!!variations.length" v-model="price" :class="{ '!tw-border-red-400': !true }" type="number" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-[rgb(var(--primary))] focus:tw-border-[rgb(var(--primary))]" placeholder="0">
+                </div>
+                <div v-if="samePrice" class="tw-col-span-12 md:tw-col-span-6 tw-flex tw-flex-col tw-text-neutral-600 tw-mt-2 dark:tw-text-neutral-200 tw-text-md">
+                  <label class="tw-text-sm">Buying price</label>
+
+                  <input :readonly="!!variations.length" v-model="buyingPrice" :class="{ '!tw-border-red-400': !true }" type="number" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-[rgb(var(--primary))] focus:tw-border-[rgb(var(--primary))]" placeholder="0">
                 </div>
                 
             </div>
@@ -228,7 +296,7 @@
 
         <div class="tw-col-span-12 md:tw-mt-0 ">
           <div class="tw-text-md tw-mb-2 tw-mt-3">
-            Add Variations
+            Variations
           </div>
 
           <div class="tw-grid tw-grid-cols-5 tw-gap-2">
@@ -269,17 +337,24 @@
 
             <div v-if="!samePrice" class="md:tw-col-span-1 tw-col-span-12">
               <div class="tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
-                <label class="tw-text-sm">Price</label>
+                <label class="tw-text-sm">Selling Price</label>
                 <input v-model="price" :class="{ '!tw-border-red-400': !true }" type="number" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-[rgb(var(--primary))] focus:tw-border-[rgb(var(--primary))]" placeholder="0">
+              </div>
+            </div>
+
+            <div v-if="!samePrice" class="md:tw-col-span-1 tw-col-span-12">
+              <div class="tw-flex tw-flex-col tw-text-neutral-600 dark:tw-text-neutral-200 tw-text-md">
+                <label class="tw-text-sm">Buying Price</label>
+                <input v-model="buyingPrice" :class="{ '!tw-border-red-400': !true }" type="number" class="tw-w-full tw-text-sm tw-py-2 tw-px-3 tw-rounded-md tw-mt-1 tw-outline-none tw-border tw-border-solid tw-duration-300 tw-border-neutral-300 dark:tw-border-neutral-600 dark:hover:tw-border-neutral-500 hover:tw-border-neutral-500 dark:focus:tw-border-[rgb(var(--primary))] focus:tw-border-[rgb(var(--primary))]" placeholder="0">
               </div>
             </div>
             
 
-            <div class="md:tw-col-span-1 tw-col-span-12 tw-flex tw-items-end tw-h-full">
-              <button @click="handleAdd" class="tw-py-2 tw-px-7 tw-w-full tw-h-[38px] tw-whitespace-nowrap tw-rounded dark:tw-text-neutral-300 tw-text-white tw-bg-[rgb(var(--primary))] tw-border tw-border-solid tw-border-tansparent hover:tw-border-[rgb(var(--primary-dark))] dark:tw-border-neutral-900 dark:hover:tw-border-[rgb(var(--primary-light))] hover:tw-bg-[rgb(var(--primary))] dark:hover:tw-bg-[rgb(var(--primary))] tw-duration-200 tw-flex tw-gap-2 tw-items-center tw-justify-center">
-                  <icon class="tw-text-lg" icon="mdi:plus" />
-                  <span class="tw-text-sm">Add</span>
-              </button>
+            <div class="tw-col-span-12 tw-flex tw-justify-end">
+                <button @click="handleAdd" class="tw-py-2 tw-px-7 tw-w-fit tw-h-[38px] tw-whitespace-nowrap tw-rounded dark:tw-text-neutral-300 tw-text-white tw-bg-[rgb(var(--primary))] tw-border tw-border-solid tw-border-tansparent hover:tw-border-[rgb(var(--primary-dark))] dark:tw-border-neutral-900 dark:hover:tw-border-[rgb(var(--primary-light))] hover:tw-bg-[rgb(var(--primary))] dark:hover:tw-bg-[rgb(var(--primary))] tw-duration-200 tw-flex tw-gap-2 tw-items-center tw-justify-center">
+                    <icon class="tw-text-lg" icon="mdi:plus" />
+                    <span class="tw-text-sm">Add</span>
+                </button>
             </div>
 
           </div>
@@ -293,7 +368,7 @@
                   <thead class="tw-text-xs  tw-w-full tw-text-gray-700 dark:tw-text-gray-300 tw-uppercase tw-bg-gray-50 dark:tw-bg-neutral-900">
                       <tr>
                           
-                          <th v-for="column in ['id', 'size', 'color', 'quantity', 'price', 'actions']" :key="column" :class="[column == 'actions' && '!tw-w-[100px]', column == 'name' && 'tw-w-[150px]', column == 'sizes' && 'tw-min-w-[400px]']" scope="col" class="tw-px-6 tw-w-fit tw-py-3 text-truncate">
+                          <th v-for="column in ['id', 'size', 'color', 'quantity', 'selling', 'buying', 'actions']" :key="column" :class="[column == 'actions' && '!tw-w-[100px]', column == 'name' && 'tw-w-[150px]', column == 'sizes' && 'tw-min-w-[400px]']" scope="col" class="tw-px-6 tw-w-fit tw-py-3 text-truncate">
                               <div class="tw-w-fit tw-flex tw-whitespace-nowrap">
                                   {{ column }}
                               </div>
@@ -322,6 +397,9 @@
                           </td>
                           <td class="tw-px-6 tw-py-2 tw-max-w-[120px] tw-truncate">
                               {{ item.price }}
+                          </td>
+                          <td class="tw-px-6 tw-py-2 tw-max-w-[120px] tw-truncate">
+                              {{ item.buying_price }}
                           </td>
                           <td class="tw-flex tw-items-center tw-px-6 tw-py-2 tw-space-x-3">
                               <ProductVariationActions :item="item" @delete="handleDelete" :key="item.id" />
@@ -375,6 +453,7 @@ export default {
       color_id: 1,
       quantity: 0,
       price: 0,
+      buyingPrice: 0,
 
       imageId: 1,
       primaryImage: null || 1,
@@ -446,7 +525,7 @@ export default {
       const selectedSize = this.sizes.find(s => s.id == this.size_id)
       const selectedColor = this.colors.find(c => c.id == this.color_id)
 
-      if(this.samePrice && this.price == 0) {
+      if(this.samePrice && this.price == 0 && this.buyingPrice == 0) {
         this.$alert({
           body: 'Price is not valid',
           type: 'warning'
@@ -471,7 +550,8 @@ export default {
         size: selectedSize,
         color: selectedColor,
         quantity: this.quantity,
-        price: this.price
+        price: this.price,
+        buying_price: this.buyingPrice,
       }
 
       this.variations.push(variation)
@@ -482,6 +562,7 @@ export default {
 
       if(!this.samePrice) {
         this.price = 0
+        this.buyingPrice = 0
       }
 
       this.quantity = 0;

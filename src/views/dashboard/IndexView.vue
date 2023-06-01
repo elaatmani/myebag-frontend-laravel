@@ -30,9 +30,20 @@
         </div>
         <div class="tw-col-span-12 md:tw-col-span-6 lg:tw-col-span-3 tw-overflow-hidden tw-h-[100px] dark:tw-bg-green-600 tw-rounded-md tw-bg-green-400">
           <div class="tw-p-5 tw-relative  tw-text-white">
-            <h1 class="tw-text-sm tw-font-medium">Earnings</h1>
+            <h1 class="tw-text-sm tw-font-medium">Total earnings</h1>
             <div class="tw-text-whit tw-text-xl tw-font-bold">
               $<number :from="0" :to="earnings" :duration="2" easing="Power1.Expo" />
+            </div>
+            <div class="tw-absolute tw-text-white tw-top-1/2 -tw-translate-y-1/2 tw-right-0 tw-text-[80px] tw-opacity-30">
+              <icon icon="ph:currency-circle-dollar" />
+            </div>
+          </div>
+        </div>
+        <div class="tw-col-span-12 md:tw-col-span-6 lg:tw-col-span-3 tw-h-[100px] tw-overflow-hidden dark:tw-bg-red-600 tw-rounded-md tw-bg-red-400">
+          <div class="tw-p-5 tw-relative tw-text-white">
+            <h1 class="tw-text-sm tw-font-medium">Profit</h1>
+            <div class="tw-text-whit tw-text-xl tw-font-bold">
+              $<number :from="0" :to="profit" :duration="2" easing="Power1.Expo" />
             </div>
             <div class="tw-absolute tw-text-white tw-top-1/2 -tw-translate-y-1/2 tw-right-0 tw-text-[80px] tw-opacity-30">
               <icon icon="ph:currency-circle-dollar" />
@@ -47,17 +58,6 @@
             </div>
             <div class="tw-absolute tw-text-white tw-top-1/2 -tw-translate-y-1/2 tw-right-0 tw-text-[80px] tw-opacity-30">
               <icon icon="ph:user" />
-            </div>
-          </div>
-        </div>
-        <div class="tw-col-span-12 md:tw-col-span-6 lg:tw-col-span-3 tw-h-[100px] tw-overflow-hidden dark:tw-bg-red-600 tw-rounded-md tw-bg-red-400">
-          <div class="tw-p-5 tw-relative tw-text-white">
-            <h1 class="tw-text-sm tw-font-medium">Products</h1>
-            <div class="tw-text-whit tw-text-xl tw-font-bold">
-              <number :from="0" :to="products.length" :duration="2" easing="Power1.Expo" />
-            </div>
-            <div class="tw-absolute tw-text-white tw-top-1/2 -tw-translate-y-1/2 tw-right-0 tw-text-[80px] tw-opacity-30">
-              <icon icon="ph:currency-circle-dollar" />
             </div>
           </div>
         </div>
@@ -123,6 +123,19 @@ export default {
         return this.date[1]
       },
 
+      profit() {
+        return this.orders.reduce((s, o) => {
+          o.order_items.forEach(
+            i => {
+              if(o.order_status.mark_as_paid) {
+                s += (i.product_variation.price - i.product_variation.buying_price) * i.quantity
+              }
+            }
+          )
+          return s
+        } ,0);
+      },
+
     orders() {
       return this.$store.getters['order/orders']
       .filter(o => {
@@ -148,9 +161,9 @@ export default {
 
 
         if (!!this.filterEndDate) {
-            const endDay = this.endDate.getDate();
-            const endMonth = this.endDate.getMonth();
-            const endYear = this.endDate.getFullYear();
+            const endDay = this.filterEndDate.getDate();
+            const endMonth = this.filterEndDate.getMonth();
+            const endYear = this.filterEndDate.getFullYear();
 
             if (
                 createdAtYear > endYear ||
@@ -168,9 +181,9 @@ export default {
       return this.$store.getters['user/users']
       .filter(o => {
 
-        // if(o.is_admin != 0) {
-        //   return false;
-        // }
+        if(o.is_admin != 0) {
+          return false;
+        }
 
         const createdAt = new Date(o.created_at);
         /* eslint-disable */

@@ -8,6 +8,11 @@ class Category {
         return ApiForm.post('api/categories', category)
     }
 
+    async update(id, category) {
+        await Csrf.getCookie();
+        return ApiForm.post('api/categories/' + id, category)
+    }
+
     async all() {
         await Csrf.getCookie();
         return Api.get('api/categories')

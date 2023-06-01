@@ -29,6 +29,16 @@ class Order {
         return Api.post('api/orders/statuses', status)
     }
 
+    async updateStatus(id, status, type) {
+        await Csrf.getCookie();
+        return Api.post('api/orders/' + id + '/status', {status, type})
+    }
+
+    async confirmPayment(id) {
+        await Csrf.getCookie();
+        return Api.post('api/orders/' + id + '/confirmPayment')
+    }
+
     async deleteStatus(id) {
         await Csrf.getCookie();
         return Api.delete('api/orders/statuses/' + id)

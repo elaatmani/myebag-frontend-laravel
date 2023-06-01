@@ -14,9 +14,11 @@
 
     <!-- Application main view -->
     <v-container class="xl:tw-max-w-[1200px] sm:tw-px-3 tw-px-3 tw-pt-[70px]">
-      <div v-if="!isReady" class="tw-pt-10">
+      <div v-if="!isReady" >
         <div class="tw-min-h-[600px]">
-          <loading />
+          <div class="tw-scale-75">
+            <loading />
+          </div>
         </div>
       </div>
       <router-view v-else></router-view>

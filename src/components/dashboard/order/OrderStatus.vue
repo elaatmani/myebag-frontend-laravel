@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import Order from '@/api/Order';
   export default {
     props: ['order', 'type'],
 
@@ -96,16 +97,25 @@
           }
         }
 
-        this.$store.dispatch('order/updateOrder', order)
-        setTimeout(
+        Order.updateStatus(this.order.id, option.id, this.type)
+        .then(
+          res => {
+            if(res.data.code == 'SUCCESS') {
+              this.$alert({
+                body: 'Status changed !',
+                type: 'success'
+              });
+              this.$store.dispatch('order/updateOrder', order)
+            }
+          },
+          this.$handleApiError
+        )
+        .finally(
           () => {
             this.isLoading = false
-            this.$alert({
-              body: 'Status changed !',
-              type: 'success'
-            });
-          }, 1500
+          }
         )
+
         this.close()
       }
     },

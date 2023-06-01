@@ -74,6 +74,9 @@
                             {{ item.quantity_total }}
                         </div>
                     </td>
+                    <td>
+                        <ProductActivator :item="item" />
+                    </td>
                     <td class="tw-px-6 tw-py-2 tw-space-x-3">
                         <ProductActions :product="item" />
                     </td>
@@ -123,11 +126,12 @@
 <script>
 // import { tableProducts } from '@/helpers/data'
 import ProductActions from '@/components/dashboard/product/ProductActions'
+import ProductActivator from '@/components/dashboard/product/ProductActivator'
 
 export default {
     props: ['allItems', 'isLoaded'],
 
-    components: { ProductActions },
+    components: { ProductActions, ProductActivator },
 
     data() {
         return {
@@ -136,7 +140,7 @@ export default {
             paginationLimit: 10,
             filters: false,
 
-            columns: [ 'id', 'image','name', 'sku',  'category', 'discount', 'quantity', 'actions' ],
+            columns: [ 'id', 'image','name', 'sku',  'category', 'discount', 'quantity', 'active', 'actions' ],
             // allItems: tableProducts
         }
     },

@@ -357,7 +357,7 @@
     data() {
       return {
         isLoading: false,
-        isImagesClean: true,
+        isImagesDirty: true,
         isLoaded: false,
         popup: false,
         samePrice: false,
@@ -372,6 +372,8 @@
           is_discount_active: false
         },
   
+        deletedVariations: [],
+        newVariations: [],
         variation_id: 1,
         variations: [],
   
@@ -380,6 +382,7 @@
         color_id: 1,
         quantity: 0,
         price: 0,
+        buying_price: 0,
   
         imageId: 1,
         primaryImage: null || 1,
@@ -447,9 +450,6 @@
         }
       },
 
-      images() {
-        this.isImagesClean = false
-      }
     },
   
     methods: {
@@ -468,10 +468,12 @@
           size: selectedSize,
           color: selectedColor,
           quantity: this.quantity,
-          price: this.price
+          price: this.price,
+          buying_price: this.buying_price
         }
   
         this.variations.push(variation)
+        this.newVariations.push(variation)
   
         if(this.sizes.length > 0) {
           this.size_id = this.sizes[0].id
@@ -489,6 +491,7 @@
   
       handleDelete(id) {
         this.variations = this.variations.filter(v => v.id != id)
+        this.deletedVariations.push(id);
         this.popup = false
       },
   
@@ -519,6 +522,7 @@
         )
   
         images.push(primaryImage)
+
   
         const product = {
           name: this.product.name,
@@ -527,10 +531,12 @@
           discount_id: 0,
           size_type_id: this.size_type_id,
           variations: this.variations,
+          deleted_variations: this.deletedVariations,
+          new_variations: this.newVariations,
           stock_alert: 10,
           gender: this.product.gender,
-          // images: images,
-          images: [],
+          images: images,
+          is_images_dirty: this.isImagesDirty,
           same_price: this.samePrice,
           has_colors: this.has_colors,
           is_discount_active: this.product.is_discount_active,
@@ -595,6 +601,7 @@
             reader.readAsDataURL(file);
             this.imageId += 1;
           }
+          this.isImagesDirty = true;
         }
         this.reset('images')
         this.setPrimaryImage()
@@ -602,6 +609,7 @@
       deleteImage(id) {
         this.images = this.images.filter(i => i.id !== id)
         this.setPrimaryImage()
+        this.isImagesDirty = true;
       },
       setPrimaryImage() {
         if(!this.images.some(i => i.id == this.primaryImage) && this.images.length > 0) {
@@ -652,6 +660,8 @@
                 if(!product.has_colors) {
                     this.color_id = product.variations[0]?.color_id;
                 }
+
+                this.imageId = Math.max(product.images.map(i => i.id))
 
                 this.isLoaded = true;
             },
