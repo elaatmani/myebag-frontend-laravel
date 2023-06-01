@@ -117,8 +117,8 @@ export default {
     },
 
     validateForm() {
-      this.form.password = required(this.user.email, 'Password');
-      this.form.ConfirmPassword = required(this.user.password, 'Confirm Password');
+      this.form.password = required(this.user.password, 'Password');
+      this.form.ConfirmPassword = {valid: this.user.password == this.user.passwordConfirm, messages: this.user.password == this.user.passwordConfirm ? '' : 'Passwords must be the same'};
 
     },
 
