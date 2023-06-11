@@ -69,6 +69,9 @@
                             <icon icon="flat-color-icons:google" class="tw-text-xl" />
                         </div>
                     </td>
+                    <td class="tw-px-5 tw-py-3">
+                        <RoleSwitcher :item="item" />
+                    </td>
                     <td class="tw-px-6 tw-py-3 tw-space-x-3">
                         <UserActions :user="item" />
                     </td>
@@ -118,11 +121,12 @@
 <script>
 // import { categories } from '@/helpers/data'
 import UserActions from '@/components/dashboard/user/UserActions'
+import RoleSwitcher from '@/components/dashboard/user/RoleSwitcher'
 
 export default {
     props: ['allItems', 'isLoaded'],
 
-    components: { UserActions },
+    components: { UserActions, RoleSwitcher },
 
     data() {
         return {

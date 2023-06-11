@@ -6,7 +6,7 @@
             <thead class="tw-text-xs  tw-w-full tw-text-gray-700 dark:tw-text-gray-300 tw-uppercase tw-bg-gray-50 dark:tw-bg-neutral-900">
                 <tr>
                     
-                    <th v-for="column in columns" :key="column" :class="[column == 'actions' && '!tw-w-[100px]']" scope="col" class="tw-px-6 tw-py-3 text-truncate">
+                    <th v-for="column in columns" :key="column" :class="[column == 'actions' && '!tw-w-[100px]', column == '' && '!tw-w-[30px]' ]" scope="col" class="tw-px-6 tw-py-3 text-truncate">
                         <div class="tw-w-fit tw-flex tw-whitespace-nowrap">
                             {{ column }}
                         </div>
@@ -36,10 +36,30 @@
                         ${{ item?.variation.price }}
                     </th>
                     <td class="tw-px-6 tw-py-2 tw-max-w-[200px] tw-truncate">
-                        {{ item.quantity }}
+                        <div class="tw-flex tw-items-center tw-gap-3">
+                            <button @click="increment(item)" class="tw-p-1 tw-rounded tw-border tw-border-solid tw-border-[rgb(var(--primary))]">
+                                <icon class="tw-text-[rgb(var(--primary))]" icon="mdi:plus"/>
+                            </button>
+                            <span>
+                            {{ item.quantity }}
+                            </span>
+                            <button @click="decrement(item)" class="tw-p-1 tw-rounded tw-border tw-border-solid tw-border-[rgb(var(--primary))]">
+                                <icon class="tw-text-[rgb(var(--primary))]" icon="mdi:minus"/>
+                            </button>
+                        </div>
                     </td>
                     <td class="tw-px-6 tw-py-2 tw-max-w-[120px] tw-truncate">
                         ${{ item?.variation.price * item.quantity }}
+                    </td>
+                    <td class="tw-px-6 tw-py-2 tw-max-w-[120px] tw-truncate">
+                        <div>
+                            <button
+                                @click="deleteItem(item)"
+                                class="tw-px-2 tw-py-1 tw-w-[25px] tw-h-[25px] tw-border tw-border-solid tw-border-red-500/20 hover:tw-bg-red-500/10 hover:tw-border-red-500/70 tw-duration-300 tw-text-red-500/80 tw-rounded-md tw-flex tw-items-center tw-justify-center"
+                                >
+                                <v-icon size="x-small">mdi-delete-outline</v-icon>
+                            </button>
+                        </div>
                     </td>
                     <!-- <td class="tw-px-6 tw-py-2">
                         {{ item.category?.name }}
@@ -98,7 +118,7 @@ export default {
             paginationLimit: 10,
             filters: false,
 
-            columns: [ 'product', 'price','quantity', 'total'],
+            columns: [ 'product', 'price','quantity', 'total', ''],
             // allItems: tableProducts
         }
     },
@@ -131,6 +151,34 @@ export default {
             });
 
             return total
+        },
+
+        increment(item) {
+            if(item.quantity >= 10 ) {
+                this.$alert({
+                    type: 'warning',
+                    body: 'Max quantity reached'
+                })
+                return false;
+            }
+
+            this.$store.dispatch('cart/updateItem', {...item, quantity: item.quantity + 1});
+        },
+
+        decrement(item) {
+            if(item.quantity <= 1 ) {
+                this.$alert({
+                    type: 'warning',
+                    body: 'Min quantity reached'
+                })
+                return false;
+            }
+
+            this.$store.dispatch('cart/updateItem', {...item, quantity: item.quantity - 1});
+        },
+
+        deleteItem(item) {
+            this.$store.dispatch('cart/removeItem', item.id);
         },
 
         primaryImage(images) {

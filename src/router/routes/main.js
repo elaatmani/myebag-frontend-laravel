@@ -4,8 +4,10 @@ import DefaultLayout from "@/layouts/default/DefaultLayout";
 // pages
 import HomeView from "@/views/HomeView.vue";
 import ProfileView from "@/views/ProfileView";
+import FavoritesView from '@/views/FavoritesView'
 import ProductView from "@/views/ProductView";
 import ProductsView from '@/views/ProductsView'
+import PromotionsView from '@/views/PromotionsView'
 import CategoriesView from '@/views/CategoriesView'
 import CheckoutView from '@/views/CheckoutView'
 import ShoppingCartView from '@/views/ShoppingCartView'
@@ -38,6 +40,15 @@ export default [
                 },
             },
             {
+                path: "/favorites",
+                name: "favorites",
+                component: FavoritesView,
+                meta: {
+                    requireAuth: true,
+                    title: "My Favorites",
+                },
+            },
+            {
                 path: "/categories",
                 name: "categories",
                 component: CategoriesView,
@@ -53,6 +64,15 @@ export default [
                 meta: {
                     requireAuth: false,
                     title: "Products",
+                },
+            },
+            {
+                path: "/products/promotions",
+                name: "home/products/promotions",
+                component: PromotionsView,
+                meta: {
+                    requireAuth: false,
+                    title: "Promotions",
                 },
             },
             {

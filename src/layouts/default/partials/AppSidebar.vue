@@ -2,7 +2,7 @@
   <div>
     <div :class="{'!tw-z-30': isSidebarActive}" class="md:tw-hidden  tw-fixed tw-top-[80px] tw-pb-[130px] tw-px-2 tw-left-1/2 -tw-translate-x-1/2 tw-h-screen tw-overflow-auto tw-w-full -tw-z-10">
       <div class="tw-w-full tw-h-full tw-p-5 tw-backdrop-blur-3xl tw-overflow-y-auto  tw-shadow-lg tw-rounded-lg tw-border tw-border-solid tw-border-neutral-300 dark:tw-border-neutral-700 tw-duration-300 tw-opacity-0" :class="{'!tw-opacity-100': isSidebarActive}">
-        <div class="tw-flex tw-flex-col tw-gap-2">
+        <div class="tw-flex tw-flex-col tw-gap-2" @click="closeSidebar">
           
           <router-link :to="{ name: 'home' }" class="tw-flex tw-items-center tw-gap-2 tw-w-full dark:tw-bg-white/5 tw-bg-black/5 tw-border-black/10 tw-border dark:tw-border-white/10 tw-py-2 tw-px-4 tw-rounded-md">
             <!-- <icon class="tw-text-2xl" icon="mdi:home" /> -->
@@ -15,6 +15,10 @@
           <router-link :to="{ name: 'home/products/index' }" class="tw-flex tw-items-center tw-gap-2 tw-w-full dark:tw-bg-white/5 tw-bg-black/5 tw-border-black/10 tw-border dark:tw-border-white/10 tw-py-2 tw-px-4 tw-rounded-md">
             <!-- <icon class="tw-text-2xl" icon="mdi:home" /> -->
             <span>Products</span>
+          </router-link>
+          <router-link :to="{ name: 'home/products/promotions' }" class="tw-flex tw-items-center tw-gap-2 tw-w-full dark:tw-bg-white/5 tw-bg-black/5 tw-border-black/10 tw-border dark:tw-border-white/10 tw-py-2 tw-px-4 tw-rounded-md">
+            <!-- <icon class="tw-text-2xl" icon="mdi:home" /> -->
+            <span>Promotions</span>
           </router-link>
         </div>
       </div>

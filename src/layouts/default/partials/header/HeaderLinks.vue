@@ -7,6 +7,8 @@
 
     <router-link :to="{ name: 'home/products/index' }">Products</router-link>
 
+    <router-link :to="{ name: 'home/products/promotions' }">Promotions</router-link>
+
     <!-- <HeaderLink :title="'Categories'" />
 
     <HeaderLink :title="'Discover'" />

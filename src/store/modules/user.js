@@ -43,6 +43,17 @@ export default {
             state.users = payload
         },
 
+        UPDATE_USER: (state, payload) => {
+            state.users = state.users.map(
+                o => {
+                    if(o.id == payload.id) {
+                        return payload
+                    }
+                    return o
+                }
+            )
+        },
+
         SET_IS_LOGGED_IN: (state, payload) => {
             localStorage.setItem('isLoggedIn', JSON.stringify(payload))
             state.isLoggedIn = payload
@@ -67,6 +78,10 @@ export default {
 
         setUsers: ({commit}, payload) => {
             commit('SET_USERS', payload)
+        },
+
+        update: ({commit}, payload) => {
+            commit('UPDATE_USER', payload)
         },
 
         setIsLoggedIn: ({commit}, payload) => {

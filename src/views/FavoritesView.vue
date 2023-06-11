@@ -170,7 +170,7 @@ export default {
   methods: {
     getProducts() {
       this.isLoaded = false;
-      Product.all_active().then((res) => {
+      Product.favorites().then((res) => {
         if (res.data.code == "SUCCESS") {
           this.$store.dispatch("product/setProducts", res.data.data.products);
           this.$store.dispatch("product/setFetched", true);

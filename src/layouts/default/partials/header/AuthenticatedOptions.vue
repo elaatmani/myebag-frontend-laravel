@@ -52,12 +52,13 @@ export default {
                 { id: 1, name: "Dashboard", to: "dashboard/index", icon: "ph:squares-four" },
                 // { id: 2, name: "Profile", to: "/profile", icon: "ph:user" },
                 { id: 3, name: "Orders", to: "user/orders/index", icon: "ph:package" },
+              { id: 2, name: "Favorites", to: "favorites", icon: "ph:heart" },
                 { id: 4, name: "Settings", to: "profile", icon: "ph:gear-six" },
             ],
             userLinks: [
                 // { id: 1, name: "Dashboard", to: "/dashboard", icon: "akar-icons:dashboard" },
-                // { id: 2, name: "Profile", to: "/profile", icon: "ph:user" },
                 { id: 3, name: "Orders", to: "user/orders/index", icon: "ph:package" },
+                { id: 2, name: "Favorites", to: "favorites", icon: "ph:heart" },
                 { id: 4, name: "Settings", to: "profile", icon: "ph:gear-six" },
             ]
         }

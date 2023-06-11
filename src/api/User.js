@@ -63,6 +63,11 @@ class User {
         return Api.post('api/auth/update-password', data)
     }
 
+    async switchRole(data) {
+        await Csrf.getCookie();
+        return Api.post('api/users/switch-role/' + data.id, data)
+    }
+
 }
 
 export default new User();

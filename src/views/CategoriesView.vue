@@ -27,8 +27,9 @@
     </div>
 
     <div v-if="isLoading" class="tw-min-h-[500px] tw-flex tw-items-center tw-justify-center">
-      
-      <loader class="tw-scale-50"></loader>
+      <div class="tw-scale-50">
+        <loading />
+      </div>
     </div>
 
     <div v-else class="tw-grid tw-grid-cols-12 tw-gap-5">

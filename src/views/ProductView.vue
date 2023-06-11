@@ -1,7 +1,9 @@
 <template>
   <div class="pt-10">
 
-    <loading v-if="!isLoaded" />
+    <div v-if="!isLoaded" class="tw-scale-50">
+      <loading />
+    </div>
 
     <div v-if="isLoaded" class="tw-grid tw-grid-cols-12">
       

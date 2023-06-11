@@ -42,6 +42,10 @@ export default {
             state.cart.push(payload)
         },
 
+        UPDATE_ITEM: (state, payload) => {
+            state.cart = state.cart.map(i => i.id == payload.id ? payload : i);
+        },
+
         REMOVE_ITEM: (state, payload) => {
             state.cart = state.cart.filter(i => i.id !== payload)
         }
@@ -49,6 +53,10 @@ export default {
     actions: {
         setCart: ({commit}, payload) => {
             commit('SET_CART', payload)
+        },
+
+        updateItem: ({commit}, payload) => {
+            commit('UPDATE_ITEM', payload)
         },
 
         addItem: ({ commit }, payload) => {

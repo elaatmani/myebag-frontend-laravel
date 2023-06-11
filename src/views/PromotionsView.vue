@@ -19,6 +19,7 @@
           </div>
 
           <div
+            v-if="filteredCategories.length > 0"
             class="tw-w-full tw-rounded tw-border tw-border-solid tw-p-3 dark:tw-border-neutral-700 tw-border-neutral-200"
           >
             Category
@@ -71,27 +72,16 @@
           </div>
 
           <div
+            v-if="false"
             class="tw-w-full tw-rounded tw-border tw-border-solid tw-p-3 dark:tw-border-neutral-700 tw-border-neutral-200"
           >
             Price
             <ul class="tw-mt-2">
               <li
-                class="tw-flex tw-justify-center tw-flex-col tw-flex-wrap tw-gap-2"
+                v-for="c in colors"
+                :key="c.id"
+                class="tw-flex tw-items-center tw-flex-wrap tw-gap-2"
               >
-              <div class="tw-flex tw-justify-between tw-items-center">
-                <label for="small-range" class="tw-block tw-mb-2 tw-text-sm tw-font-medium tw-text-neutral-900 dark:tw-text-white">Minimum</label>
-                <label class="tw-text-xs">${{minPrice}}</label>
-              </div>
-                <input v-model="minPrice" id="small-range" type="range" class="tw-accent-[rgb(var(--primary))] tw-w-full tw-h-1 tw-mb-6 tw-bg-neutral-200 tw-rounded-lg tw-appearance-none tw-cursor-pointer tw-range-sm dark:tw-bg-neutral-700">
-              </li>
-              <li
-                class="tw-flex tw-justify-center tw-flex-col tw-flex-wrap tw-gap-2"
-              >
-              <div class="tw-flex tw-justify-between tw-items-center">
-                <label for="small-range" class="tw-block tw-mb-2 tw-text-sm tw-font-medium tw-text-neutral-900 dark:tw-text-white">Maximum</label>
-                <label class="tw-text-xs">${{maxPrice}}</label>
-              </div>
-                <input v-model="maxPrice" id="small-range" min="0" max="1000" type="range" class="tw-accent-[rgb(var(--primary))] tw-w-full tw-h-1 tw-mb-6 tw-bg-neutral-200 tw-rounded-lg tw-appearance-none tw-cursor-pointer tw-range-sm dark:tw-bg-neutral-700">
               </li>
             </ul>
           </div>
@@ -102,7 +92,14 @@
         <div
           class="tw-w-full tw-rounded tw-border tw-border-solid tw-p-3 tw-pt-0 dark:tw-border-neutral-700 tw-border-neutral-200"
         >
-            <ProductsContainer :hide-title="true" :products="filteredProducts" :show-more="false" />
+            <div v-if="filteredProducts.length > 0">
+                <ProductsContainer :hide-title="true" :products="filteredProducts" :show-more="false" />
+            </div>
+            <div v-else class="tw-min-h-[300px] tw-flex tw-items-center tw-flex-col tw-justify-center">
+                <h1>There is no promotions at the current time.</h1>
+                <p>But you can check out latest products <router-link class="tw-font-medium tw-text-[rgb(var(--primary))]" :to="{name: 'home/products/index'}">Here</router-link></p>
+                
+            </div>
         </div>
       </div>
     </div>
@@ -120,8 +117,6 @@ export default {
       isLoading: true,
       isLoaded: false,
       search: '',
-      minPrice: 0,
-      maxPrice: 1000,
 
       filteredCategories: []
     };
@@ -138,7 +133,7 @@ export default {
       return this.$store.getters["app/colors"];
     },
     products() {
-      return this.$store.getters["product/products"];
+      return this.$store.getters["product/products"].filter(p => p.is_discount_active == 'r');
     },
     filteredProducts() {
       return this.products.filter((p) => {
@@ -150,10 +145,6 @@ export default {
 
         if(this.search !== '' && !p.name.toLocaleLowerCase().includes(this.search.toLocaleLowerCase())) {
             return false;
-        }
-
-        if(p.variations.length > 0 && !p.variations.some(v => this.price(p, v).current >= this.minPrice && this.price(p, v).current <= this.maxPrice)) {
-          return false
         }
 
         return true;
@@ -178,20 +169,6 @@ export default {
           this.isLoaded = true;
         }
       }, this.$handleApiError);
-    },
-
-    price(p, v) {
-      let price = v.price;
-      if(p.is_discount_active && p.discount_percentage != 0) {
-        price = price - (price * (p.discount_percentage/100))
-      }
-      let result = {
-        discount: p.is_discount_active,
-        current: price,
-        old: v.price
-      }
-
-      return result;
     },
 
     handleCategoryChange(event) {

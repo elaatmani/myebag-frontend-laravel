@@ -147,6 +147,21 @@ export default {
 
     methods: {
       handleNext() {
+
+        if(
+          this.address.address_line_1 == ''
+          || this.address.city == ''
+          || this.address.country == ''
+          || this.address.zip_code == ''
+          || this.address.firstname == ''
+          || this.address.lastname == ''
+        ) {
+          this.$alert({
+            body: 'Please fill the form',
+            type: 'warning'
+          })
+          return false;
+        }
         
         this.nextStep()
       },

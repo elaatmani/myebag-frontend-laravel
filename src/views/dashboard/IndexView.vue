@@ -1,22 +1,19 @@
 <template>
   <div>
     <h2 class="tw-mb-3 tw-text-lg">Dashboard</h2>
-    <div class="tw-w-full dark:tw-bg-neutral-800 tw-rounded-lg tw-bg-white">
-      
-      <div class="tw-grid tw-grid-cols-12 tw-p-3 tw-gap-2">
-        <div class="tw-col-span-12 tw-grid tw-grid-cols-12 tw-max-h-0 tw-overflow-hidden tw-duration-500" :class="[filters && '!tw-max-h-[500px] !tw-overflow-visible']">
-            <div class="tw-w-full tw-h-fit tw-flex tw-items-center tw-pt-2 tw-col-span-12 md:tw-col-span-6 tw-gap-2">
-                <!-- Date filter -->
-                <vue-date-picker :dark="dark" v-model="date" @cleared="cleared" @update:model-value="onDateRangePicked" :format="dateFilterFormat" range :preset-ranges="presetRanges">
-                    <template #yearly="{ label, range, presetDateRange }">
-                        <span @click="presetDateRange(range)">{{ label }}</span>
-                    </template>
-                </vue-date-picker>
-                <!-- <vue-date-picker class="tw-flex-1" :dark="dark" v-model="fromDate"></vue-date-picker>
-                <p class="tw-text-xs">To</p>
-                <vue-date-picker class="tw-flex-1" :dark="dark" v-model="toDate"></vue-date-picker> -->
-            </div>
+    <div class="tw-mt-4 tw-mb-2 tw-w-1/2 tw-grid tw-grid-cols-12 tw-max-h-0 tw-overflow-hidden tw-duration-500" :class="[filters && '!tw-max-h-[500px] !tw-overflow-visible']">
+        <div class="tw-w-full tw-h-fit tw-flex tw-items-center tw-pt-2 tw-col-span-12 md:tw-col-span-6 tw-gap-2">
+            <!-- Date filter -->
+            <vue-date-picker :dark="dark" v-model="date" @cleared="cleared" @update:model-value="onDateRangePicked" :format="dateFilterFormat" range :preset-ranges="presetRanges">
+                <template #yearly="{ label, range, presetDateRange }">
+                    <span @click="presetDateRange(range)">{{ label }}</span>
+                </template>
+            </vue-date-picker>
         </div>
+    </div>
+
+    <div class="tw-w-full dark:tw-bg-neutral-800 tw-rounded-lg tw-bg-white">
+      <div class="tw-grid tw-grid-cols-12 tw-p-3 tw-gap-2">
         <div class="tw-col-span-12 md:tw-col-span-6 lg:tw-col-span-3 tw-h-[100px] tw-overflow-hidden dark:tw-bg-blue-600 tw-rounded-md tw-bg-blue-400">
           <div class="tw-p-5 tw-relative tw-text-white">
             <h1 class="tw-text-sm tw-font-medium">Orders</h1>
