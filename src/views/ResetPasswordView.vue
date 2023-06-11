@@ -161,6 +161,10 @@ export default {
                 if(res.data.code == 'NOT_VALID_TOKEN') {
                     this.isValid = false;
                     this.$router.push('/');
+                    this.$alert({
+                        body: 'Invalid Token',
+                        type: 'warning'
+                    })
                 }
             }
         )

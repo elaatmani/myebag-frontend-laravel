@@ -169,7 +169,7 @@ import AppLogo from "@/components/AppLogo";
 import RequestResetPassword from "@/components/auth/RequestResetPassword";
 import Alert from '@/components/AlertVue'
 import User from "@/api/User";
-import { required, isStringBetween } from "@/helpers/validators";
+import { required } from "@/helpers/validators";
 import { googleClientId } from "@/config/app";
 import { parseJwt } from "@/helpers/methods";
 
@@ -219,9 +219,8 @@ export default {
 
     validateForm() {
       this.form.email = required(this.user.email, "Email");
-      this.form.password = isStringBetween(
+      this.form.password = required(
         this.user.password,
-        { min: 6, max: 16 },
         "Password"
       );
 

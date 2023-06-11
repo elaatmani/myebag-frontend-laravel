@@ -77,6 +77,16 @@ class Product {
         return Api.post('api/products/' + id + '/active', {active: value})
     }
 
+    async favorite(id, value) {
+        await Csrf.getCookie();
+        return Api.post('api/favorites/' + id, {value: value})
+    }
+
+    async favorites() {
+        await Csrf.getCookie();
+        return Api.get('api/favorites/')
+    }
+
     async storeImages(images) {
         
         await Csrf.getCookie();

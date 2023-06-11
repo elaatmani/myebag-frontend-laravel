@@ -182,6 +182,7 @@
                 <div class="tw-col-span-7">
                     <button
                     @click="addToCart"
+
                     class="
                     tw-bg-[rgb(var(--primary))]
                     tw-w-full
@@ -202,27 +203,8 @@
                         </span>
                     </button>
                 </div>
-                <div v-if="false" class="tw-col-span-5">
-                    <div 
-                    class="
-                    tw-py-2 tw-px-5
-                    tw-rounded-lg
-                    tw-border-solid
-                    tw-border
-                    tw-border-neutral-200
-                    dark:tw-border-neutral-600
-                    tw-flex tw-items-center tw-justify-center
-                    tw-font-bold
-                    tw-text-lg
-                    tw-text-neutral-700
-                    dark:tw-text-neutral-200
-                    tw-h-[45px]
-
-                    "
-                    >
-                        <p :class="{'tw-text-emerald-500 tw-bg-emerald-500/10 tw-rounded tw-rounded-bl-none tw-px-1': price.discount, '': !price.discount}">${{ price.current }}</p>
-                    
-                    </div>
+                <div class="tw-col-span-5">
+                    <AddFavorite :product="product" />
                 </div>
             </div>
         </div>
@@ -236,7 +218,10 @@
 // import { sizes } from '@/helpers/data'
 import { getAvailableColors, getAvailableSizes } from '@/helpers/methods'
 import Cart from '@/api/Cart'
+import AddFavorite from '@/components/product/AddFavorite'
+
 export default {
+    components: {AddFavorite},
     props: {
         product: {
             required: true,
@@ -301,6 +286,14 @@ export default {
         },
 
         addToCart() {
+
+            if(this.selectedVariation?.quantity == 0) {
+                this.$alert({
+                    type: 'warning',
+                    body: 'Out of stock'
+                })
+                return false;
+            }
 
             if(this.size == 0) {
                 this.$alert({
