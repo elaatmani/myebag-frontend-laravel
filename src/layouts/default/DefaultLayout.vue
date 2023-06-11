@@ -41,6 +41,7 @@ import Sidebar from "@/layouts/default/partials/AppSidebar.vue";
 import Footer from "@/layouts/default/partials/AppFooter.vue";
 import Alert from "@/components/AlertVue";
 import App from "@/api/App";
+import Cart from "@/api/Cart";
 
 export default {
   components: { Header, Sidebar, Footer, Alert },
@@ -64,6 +65,9 @@ export default {
     options() {
       return this.$store.getters['app/options']
     },
+    isLoggedIn() {
+          return this.$store.getters['user/isLoggedIn']
+    },
   },
 
   methods: {
@@ -74,7 +78,7 @@ export default {
           const orderStatuses = res.data.data.order_statuses || [];
           const sizes = res.data.data.sizes || [];
           const colors = res.data.data.colors || [];
-
+          
           this.$store.dispatch("app/setFeatured", featured);
           this.$store.dispatch("app/setOrderStatuses", orderStatuses);
           this.$store.dispatch("app/setSizes", sizes);
@@ -88,6 +92,15 @@ export default {
 
         return res;
       }, this.$handleApiError);
+    },
+    getCart(){
+      return Cart.getCart().then((res)=>{
+        if(res.data.code == 'SUCCESS'){
+
+          this.$store.dispatch('cart/setCart', res.data.data.cart)
+          return res
+        }
+      }, this.$handleApiError)
     },
     getColors() {
       const primary = {
@@ -128,6 +141,13 @@ export default {
     console.log(this.isReady);
     if (!this.isReady) {
       this.getState();
+    }
+    if (this.isLoggedIn) {
+      if(this.getCart()){
+        console.log('card saved');
+      }else {
+        console.log('not saved');
+      }
     }
   },
 };

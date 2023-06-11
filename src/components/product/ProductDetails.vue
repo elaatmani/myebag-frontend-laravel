@@ -235,7 +235,7 @@
 <script>
 // import { sizes } from '@/helpers/data'
 import { getAvailableColors, getAvailableSizes } from '@/helpers/methods'
-
+import Cart from '@/api/Cart'
 export default {
     props: {
         product: {
@@ -321,9 +321,22 @@ export default {
                 size: this.availableSizes.find(i => i.id == this.size),
                 variation: this.selectedVariation
             }
-
+            
             this.$store.dispatch('cart/addItem', item);
+            Cart.create(item)
+            .then(
+                res => {
+                    if(res.data.code == 'SUCCESS') {
+                        this.quantity = 1;
+                        this.$alert({
+                            type: 'success',
+                            body: 'Item added to cart'
+                    })
 
+                    
+                }
+            }
+            )
             this.quantity = 1;
             this.$alert({
                 type: 'success',

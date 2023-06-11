@@ -11,12 +11,20 @@ class Cart {
 
   }
 
-  async create(product) {
+  async create(p) {
 
-    const p = {};
+    const product = {
+      product_id: p.product_id,
+      quantity: p.quantity
+    };
     await Csrf.getCookie();
-    return Api.post("api/products", p);
+    return Api.post("api/carts", product);
 
+  }
+  async getCart(){
+    
+    await Csrf.getCookie();
+    return Api.get("api/carts");
   }
 }
 
