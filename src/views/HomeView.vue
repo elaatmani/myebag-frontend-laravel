@@ -8,12 +8,14 @@
         <HeroSection />
 
         <div class="tw-py-5"></div>
+        <WhyChooseSection />
+        
+        <div class="tw-py-5"></div>
         
         <FeaturedProducts :featured="featured" />
 
         <div class="tw-py-5"></div>
 
-        <WhyChooseSection />
       </div>
     </div>
 </template>

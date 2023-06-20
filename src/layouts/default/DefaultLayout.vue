@@ -142,13 +142,13 @@ export default {
     if (!this.isReady) {
       this.getState();
     }
-    if (this.isLoggedIn) {
-      if(this.getCart()){
-        console.log('card saved');
-      }else {
-        console.log('not saved');
-      }
-    }
+    // if (this.isLoggedIn) {
+    //   if(this.getCart()){
+    //     console.log('card saved');
+    //   }else {
+    //     console.log('not saved');
+    //   }
+    // }
   },
 };
 </script>

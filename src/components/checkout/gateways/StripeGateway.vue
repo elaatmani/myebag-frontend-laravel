@@ -34,7 +34,7 @@
 </template>
 
 <script>
-// import { stripeClientSecret } from "@/config/app";
+import { stripeClientSecret } from "@/config/app";
 // import { StripeElementsService } from 'stripe-elements'
 // import { Stripe } from 'stripe'
 import Payment from "@/api/Payment";
@@ -44,6 +44,7 @@ export default {
   emits: ['orderCompleted'],
   data() {
     return {
+      stripeClientSecret,
       isReady: false,
       isLoading: false,
       isComplete: false,
@@ -58,9 +59,9 @@ export default {
   },
 
   computed: {
-    stripeClientSecret() {
-      return this.$store.getters['app/options'].find(o => o.option_name == 'stripe_test_public_key').option_value
-    },
+    // stripeClientSecret() {
+    //   return this.$store.getters['app/options'].find(o => o.option_name == 'stripe_test_public_key').option_value
+    // },
     primary() {
       return this.$store.getters['app/primaryRaw'];
     },
